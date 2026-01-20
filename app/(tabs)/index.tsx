@@ -1,98 +1,196 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from "react";
+import { StyleSheet, View, Pressable, Dimensions, ScrollView } from "react-native";
+import { Image } from "expo-image";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
 
-export default function HomeScreen() {
+const { width } = Dimensions.get("window");
+
+
+const CATEGORIES = [
+  { label: "Food", image: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg") },
+  { label: "Groceries", image: require("@/assets/images/basket-with-healthy-food.jpg") },
+  { label: "Shops", image: require("@/assets/images/partial-react-logo.png") },
+  { label: "Pharmacy", image: require("@/assets/images/partial-react-logo.png") },
+  { label: "Courier", image: require("@/assets/images/partial-react-logo.png") },
+];
+
+
+const FORYOU = [
+  {
+    label: "Dominos",
+    image: require("@/assets/images/dominos.png")
+  },
+  {
+    label: "KFC",
+    image: require("@/assets/images/kfc-logo.png")
+  },
+  {
+    label: "Wendy's",
+    image: require("@/assets/images/wendys-logo.png")
+  },
+  {
+    label: "Burger King",
+    image: require("@/assets/images/burger-king-logo.png")
+  },
+  {
+    label: "Pizza hut",
+    image: require("@/assets/images/pizza-hut-logo.png")
+  }
+];
+
+
+export default function HomeScreen () {
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
+    <ScrollView
+      style={{
+        backgroundColor: "#E8F4F8",
+        padding: 14
+      }}
+    >
+
+      <View
+        style={{
+          gap: 20
+        }}
+      >
+
+        <View
+          style={styles.categoriesView}
+        >
+
+          {CATEGORIES.map((item, itemIndex) => (
+
+            <Pressable
+              key={itemIndex}
+              style={({ pressed }) => [styles.categoryTile, pressed && styles.tilePressed]}
+            >
+
+              <Image
+                source={item.image}
+                style={styles.categoryTileImage}
+                contentFit="cover"
+              />
+
+              <ThemedText
+                type="defaultSemiBold"
+                style={styles.categoryTileLabel}
+              >
+                {item.label}
+              </ThemedText>
+
+            </Pressable>
+
+          ))}
+
+        </View>
+
+        <ThemedText
+          type="title"
+        >
+          For You
         </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+
+        <View
+          style={styles.forYouView}
+        >
+
+          {FORYOU.map((item, itemIndex) => (
+
+            <Pressable
+              key={itemIndex}
+              style={({ pressed }) => [styles.forYouTile, pressed && styles.tilePressed]}
+            >
+
+              <Image
+                source={item.image}
+                style={styles.forYouTileImage}
+                contentFit="cover"
+              />
+
+              <ThemedText
+                type="defaultSemiBold"
+                style={styles.forYouTileLabel}
+              >
+                {item.label}
+              </ThemedText>
+
+            </Pressable>
+
+          ))}
+
+        </View>
+
+      </View>
+
+    </ScrollView>
+
   );
+
 }
 
+
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  categoriesView: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 20,
+    rowGap: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#A30000",
+    padding: 20,
+    paddingBottom: 40,
+    borderRadius: 20
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  categoryTile: {
+    width: 100,
+    height: 100,
+    gap: 10
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  tilePressed: {
+    transform: [{ scale: 0.98 }],
+    opacity: 0.9,
   },
+  categoryTileImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 100
+  },
+  categoryTileLabel: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "white"
+  },
+  forYouView: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  forYouTile: {
+    width: 50,
+    height: 50,
+    gap: 14
+  },
+  forYouTilePressed: {
+    transform: [{ scale: 0.98 }],
+    opacity: 0.9,
+  },
+  forYouTileImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 20
+  },
+  forYouTileLabel: {
+    textAlign: "center",
+    fontSize: 12,
+    color: "black"
+  }
 });
+
