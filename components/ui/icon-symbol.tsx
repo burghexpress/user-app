@@ -17,6 +17,8 @@ const MAPPING = {
   "person": "person",
   "magnifyingglass.circle": "search",
   "cart": "shopping-bag",
+  "bookmark": "bookmark"
+  
 } as IconMapping;
 
 
