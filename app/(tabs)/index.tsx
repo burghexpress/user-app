@@ -41,13 +41,36 @@ const FORYOU = [
 ];
 
 
+const TOPPICKS = [
+  {
+    label: "Burger",
+    image: require("@/assets/images/burger-1.jpg")
+  },
+  {
+    label: "Pizza",
+    image: require("@/assets/images/pizza-1.jpg")
+  },
+  {
+    label: "Beyti Kebab Served with Ayran Pickles",
+    image: require("@/assets/images/beyti-kebab-served-with-ayran-pickles.jpg")
+  },
+  {
+    label: "Burger Black Bread Bun with Fried Egg",
+    image: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg")
+  },
+  {
+    label: "Fried Prawn Rice With Teriyaki Sauce",
+    image: require("@/assets/images/fried-prawn-rice-with-teriyaki-sauce.jpg")
+  }
+];
+
+
 export default function HomeScreen () {
 
   return (
 
     <ScrollView
       style={{
-        backgroundColor: "#E8F4F8",
         padding: 14
       }}
     >
@@ -90,6 +113,9 @@ export default function HomeScreen () {
 
         <ThemedText
           type="title"
+          style={{
+            fontSize: 16
+          }}
         >
           For You
         </ThemedText>
@@ -124,6 +150,45 @@ export default function HomeScreen () {
 
         </View>
 
+        <ThemedText
+          type="title"
+          style={{
+            fontSize: 16
+          }}
+        >
+          Top Picks
+        </ThemedText>
+
+        <View
+          style={styles.topPicksView}
+        >
+
+          {TOPPICKS.map((item, itemIndex) => (
+
+            <Pressable
+              key={itemIndex}
+              style={({ pressed }) => [styles.topPicksTile, pressed && styles.tilePressed]}
+            >
+
+              <Image
+                source={item.image}
+                style={styles.topPicksTileImage}
+                contentFit="cover"
+              />
+
+              <ThemedText
+                type="defaultSemiBold"
+                style={styles.topPicksTileLabel}
+              >
+                {item.label}
+              </ThemedText>
+
+            </Pressable>
+
+          ))}
+
+        </View>
+
       </View>
 
     </ScrollView>
@@ -143,7 +208,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#A30000",
-    padding: 20,
+    height: "auto",
+    paddingTop: 20,
     paddingBottom: 40,
     borderRadius: 20
   },
@@ -163,15 +229,18 @@ const styles = StyleSheet.create({
   },
   categoryTileLabel: {
     textAlign: "center",
-    fontSize: 16,
-    color: "white"
+    fontSize: 16
   },
   forYouView: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 20,
+    rowGap: 60,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    height: "auto",
+    paddingBottom: 60,
+    paddingTop: 20
   },
   forYouTile: {
     width: 50,
@@ -189,8 +258,34 @@ const styles = StyleSheet.create({
   },
   forYouTileLabel: {
     textAlign: "center",
-    fontSize: 12,
-    color: "black"
+    fontSize: 12
+  },
+  topPicksView: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 20,
+    rowGap: 80,
+    height: "auto",
+    paddingBottom: 60,
+    paddingTop: 20
+  },
+  topPicksTile: {
+    width: 200,
+    height: 200,
+    gap: 14
+  },
+  topPicksTilePressed: {
+    transform: [{ scale: 0.98 }],
+    opacity: 0.9,
+  },
+  topPicksTileImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 20
+  },
+  topPicksTileLabel: {
+    textAlign: "center",
+    fontSize: 12
   }
 });
 

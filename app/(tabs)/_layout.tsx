@@ -30,10 +30,18 @@ export default function TabLayout () {
       />
 
       <Tabs.Screen
+        name="discover"
+        options={{
+          title: "Discover",
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass.circle" color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
         name="orders"
         options={{
           title: "Orders",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="cart" color={color} />,
         }}
       />
 
