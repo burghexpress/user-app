@@ -43,6 +43,36 @@ const TOPPERFORMERS = [
 
 
 
+const STORESNEARYOU = [
+  {
+    label: "Walmart",
+    logo: require("@/assets/images/walmart-logo.png"),
+    time: "46 min"
+  },
+  {
+    label: "Costco",
+    logo: require("@/assets/images/costco-logo.png"),
+    time: "20 min"
+  },
+  {
+    label: "Kroger",
+    logo: require("@/assets/images/kroger-logo.png"),
+    time: "33 min"
+  },
+  {
+    label: "Best Buy",
+    logo: require("@/assets/images/best-buy-logo.png"),
+    time: "16 min"
+  },
+  {
+    label: "ALDI",
+    logo: require("@/assets/images/aldi-logo.png"),
+    time: "9 min"
+  }
+];
+
+
+
 export default function DiscoverScreen () {
 
   const backgroundColor = useThemeColor({}, "text");
@@ -83,7 +113,7 @@ export default function DiscoverScreen () {
         >
 
           <IconSymbol
-            size={28}
+            size={32}
             color={textColor}
             name="magnifyingglass.circle"
             style={styles.searchIcon}
@@ -103,7 +133,7 @@ export default function DiscoverScreen () {
           <ThemedText
             type="title"
             style={{
-              fontSize: 16
+              fontSize: 22
             }}
           >
             Top Performers
@@ -164,7 +194,7 @@ export default function DiscoverScreen () {
                       <ThemedText
                         type="title"
                         style={{
-                          fontSize: 14
+                          fontSize: 16
                         }}
                       >
                         USD{" "}
@@ -201,6 +231,75 @@ export default function DiscoverScreen () {
 
         </ThemedView>
 
+        <ThemedView
+          style={styles.section}
+        >
+
+          <ThemedText
+            type="title"
+            style={{
+              fontSize: 22
+            }}
+          >
+            Stores Near You
+          </ThemedText>
+
+          <FlatList
+            horizontal
+            pagingEnabled
+            data={STORESNEARYOU}
+            renderItem={({ item }) => (
+              
+              <Pressable
+                style={
+                  ({ pressed }) => [
+                    styles.storesNearYouTile,
+                    pressed && styles.tilePressed
+                  ]
+                }
+              >
+
+                <Image
+                  source={item.logo}
+                  style={styles.storesNearYouTileImage}
+                  contentFit="contain"
+                />
+
+                <ThemedView
+                  style={{
+                    flex: 1,
+                    flexDirection: "column"
+                  }}
+                >
+
+                  <ThemedText
+                    type="defaultSemiBold"
+                    style={styles.storesNearYouTileLabel}
+                  >
+                    {item.label}
+                  </ThemedText>
+
+                  <ThemedText
+                    type="default"
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center"
+                    }}
+                  >
+                    {item.time}
+                  </ThemedText>
+
+                </ThemedView>
+
+              </Pressable>
+
+            )}
+            ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
+            showsHorizontalScrollIndicator={false}
+          />
+
+        </ThemedView>
+
       </ThemedView>
 
     </ScrollView>
@@ -219,7 +318,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 14,
     bottom: 60,
-    zIndex: 10
+    zIndex: 10,
+    fontSize: 40
   },
   headerImage: {
     width: "100%",
@@ -249,13 +349,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     marginVertical: "auto",
-    marginTop: 4,
-    marginLeft: 8
+    marginTop: 7,
+    marginLeft: 10
   },
   searchInput: {
     width: "100%",
     padding: 10,
-    borderRadius: 20,
+    fontSize: 22,
+    borderRadius: 100,
     paddingLeft: 50
   },
   tilePressed: {
@@ -281,7 +382,24 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   topPerformersTileLabel: {
-    fontSize: 14,
+    fontSize: 20,
     flex: 1
-  }
+  },
+  storesNearYouTileContainer: {
+    gap: 20
+  },
+  storesNearYouTile: {
+    width: 150,
+    height: 200,
+    gap: 14
+  },
+  storesNearYouTileImage: {
+    width: "100%",
+    height: "70%",
+    borderRadius: 20
+  },
+  storesNearYouTileLabel: {
+    textAlign: "center",
+    fontSize: 12
+  },
 });
