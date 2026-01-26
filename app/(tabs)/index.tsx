@@ -1,8 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Pressable, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, Pressable, Dimensions, ScrollView, FlatList, useColorScheme } from "react-native";
 import { Image } from "expo-image";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+import { Colors } from "@/constants/theme";
+import { useRouter } from "expo-router";
 
 
 const { width } = Dimensions.get("window");
@@ -44,45 +47,88 @@ const FORYOU = [
 const TOPPICKS = [
   {
     label: "Burger",
-    image: require("@/assets/images/burger-1.jpg")
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.4,
+    rating: 4,
+    estimated_time: 21
   },
   {
     label: "Pizza",
-    image: require("@/assets/images/pizza-1.jpg")
+    poster: require("@/assets/images/pizza-1.jpg"),
+    delivery_fee: 1.6,
+    rating: 4.8,
+    estimated_time: 13
   },
   {
     label: "Beyti Kebab Served with Ayran Pickles",
-    image: require("@/assets/images/beyti-kebab-served-with-ayran-pickles.jpg")
+    poster: require("@/assets/images/beyti-kebab-served-with-ayran-pickles.jpg"),
+    delivery_fee: 0.99,
+    rating: 4.7,
+    estimated_time: 19
   },
   {
     label: "Burger Black Bread Bun with Fried Egg",
-    image: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg")
+    poster: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg"),
+    delivery_fee: 2,
+    rating: 4.4,
+    estimated_time: 11
   },
   {
     label: "Fried Prawn Rice With Teriyaki Sauce",
-    image: require("@/assets/images/fried-prawn-rice-with-teriyaki-sauce.jpg")
+    poster: require("@/assets/images/fried-prawn-rice-with-teriyaki-sauce.jpg"),
+    delivery_fee: 0,
+    rating: 4.8,
+    estimated_time: 15
   }
 ];
 
 
 export default function HomeScreen () {
 
+  const colorScheme = useColorScheme();
+
+  const router = useRouter();
+
   return (
 
-    <ScrollView
-      style={{
-        padding: 14
-      }}
-    >
+    <ScrollView>
 
-      <View
-        style={{
-          gap: 20
-        }}
+      <ThemedView
+        style={styles.headerContainer}
       >
 
-        <View
-          style={styles.categoriesView}
+        <ThemedView
+          style={[
+            styles.locationContainer
+          ]}
+        >
+
+          <IconSymbol
+            size={20}
+            color={Colors[colorScheme ?? "light"].icon}
+            name="location"
+          />
+
+          <ThemedText
+            type="defaultSemiBold"
+            style={{
+              fontSize: 12,
+              color: Colors[colorScheme ?? "light"].text
+            }}
+          >
+            Current Location
+          </ThemedText>
+
+          <IconSymbol
+            size={20}
+            color={Colors[colorScheme ?? "light"].icon}
+            name="chevron.down"
+          />
+
+        </ThemedView>
+
+        <ThemedView
+          style={styles.categoriesContainer}
         >
 
           {CATEGORIES.map((item, itemIndex) => (
@@ -99,8 +145,14 @@ export default function HomeScreen () {
               />
 
               <ThemedText
-                type="defaultSemiBold"
-                style={styles.categoryTileLabel}
+                type="default"
+                style={[
+                  styles.categoryTileLabel,
+                  {
+                    color: Colors[colorScheme ?? "light"].text,
+                    fontSize: 14
+                  }
+                ]}
               >
                 {item.label}
               </ThemedText>
@@ -109,87 +161,194 @@ export default function HomeScreen () {
 
           ))}
 
-        </View>
+        </ThemedView>
 
-        <ThemedText
-          type="title"
-          style={{
-            fontSize: 16
-          }}
-        >
-          For You
-        </ThemedText>
+      </ThemedView>
 
-        <View
-          style={styles.forYouView}
+      <ThemedView
+        style={styles.content}
+      >
+
+        <ThemedView
+          style={styles.section}
         >
 
-          {FORYOU.map((item, itemIndex) => (
+          <ThemedText
+            type="title"
+            style={{
+              fontSize: 22,
+              paddingLeft: 14
+            }}
+          >
+            For You
+          </ThemedText>
 
-            <Pressable
-              key={itemIndex}
-              style={({ pressed }) => [styles.forYouTile, pressed && styles.tilePressed]}
-            >
+          <FlatList
+            horizontal
+            pagingEnabled
+            data={FORYOU}
+            style={{
+              paddingLeft: 14
+            }}
+            renderItem={({ item }) => (
 
-              <Image
-                source={item.image}
-                style={styles.forYouTileImage}
-                contentFit="cover"
-              />
-
-              <ThemedText
-                type="defaultSemiBold"
-                style={styles.forYouTileLabel}
+              <Pressable
+                style={({ pressed }) => [styles.forYouTile, pressed && styles.tilePressed]}
               >
-                {item.label}
-              </ThemedText>
 
-            </Pressable>
+                <Image
+                  source={item.image}
+                  style={styles.forYouTileImage}
+                  contentFit="cover"
+                />
 
-          ))}
+                <ThemedText
+                  type="defaultSemiBold"
+                  style={styles.forYouTileLabel}
+                >
+                  {item.label}
+                </ThemedText>
 
-        </View>
+              </Pressable>
 
-        <ThemedText
-          type="title"
-          style={{
-            fontSize: 16
-          }}
+            )}
+            ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
+            showsHorizontalScrollIndicator={false}
+          />
+
+        </ThemedView>
+
+        <ThemedView
+          style={styles.section}
         >
-          Top Picks
-        </ThemedText>
 
-        <View
-          style={styles.topPicksView}
-        >
+          <ThemedText
+            type="title"
+            style={{
+              fontSize: 22,
+              paddingLeft: 14
+            }}
+          >
+            Top Picks
+          </ThemedText>
 
-          {TOPPICKS.map((item, itemIndex) => (
+          <FlatList
+            horizontal
+            pagingEnabled
+            data={TOPPICKS}
+            style={{
+              paddingLeft: 14
+            }}
+            renderItem={({ item }) => (
 
-            <Pressable
-              key={itemIndex}
-              style={({ pressed }) => [styles.topPicksTile, pressed && styles.tilePressed]}
-            >
-
-              <Image
-                source={item.image}
-                style={styles.topPicksTileImage}
-                contentFit="cover"
-              />
-
-              <ThemedText
-                type="defaultSemiBold"
-                style={styles.topPicksTileLabel}
+              <ThemedView
+                style={styles.topPicksTile}
               >
-                {item.label}
-              </ThemedText>
 
-            </Pressable>
+                <Pressable
+                  onPress={() => router.navigate("/resturant")}
+                >
 
-          ))}
+                  <Image
+                    source={item.poster}
+                    style={styles.topPicksTileImage}
+                    contentFit="cover"
+                  />
 
-        </View>
+                </Pressable>
 
-      </View>
+                <ThemedView
+                  style={{
+                    flexDirection: "column",
+                    gap: 0
+                  }}
+                >
+
+                  <ThemedView
+                    style={{
+                      flexDirection: "row",
+                      gap: 8
+                    }}
+                  >
+
+                    <Pressable
+                      onPress={() => router.navigate("/resturant")}
+                    >
+
+                      <ThemedText
+                        type="defaultSemiBold"
+                        style={{
+                          flex: 1,
+                          fontSize: 18
+                        }}
+                      >
+                        {item.label}
+                      </ThemedText>
+
+                      <IconSymbol
+                        size={20}
+                        color={Colors[colorScheme ?? "light"].icon}
+                        name="heart"
+                      />
+
+                    </Pressable>
+
+                  </ThemedView>
+
+                  <ThemedText
+                    type="default"
+                    style={{
+                      fontSize: 14
+                    }}
+                  >
+                    {item.delivery_fee === 0 ?
+                      "Free"
+                    :
+                      `${item.delivery_fee} CAD`
+                    }
+                    {" "}
+                    Delivery Fee
+                    {" "}
+                    ( {item.estimated_time} mins )
+                  </ThemedText>
+
+                  <ThemedView
+                    style={{
+                      flexDirection: "row",
+                      gap: 2,
+                      alignItems: "center"
+                    }}
+                  >
+
+                    <IconSymbol
+                      size={14}
+                      color={Colors[colorScheme ?? "light"].icon}
+                      name="star.fill"
+                    />
+
+                    <ThemedText
+                      type="defaultSemiBold"
+                      style={{
+                        fontSize: 12
+                      }}
+                    >
+                      {item.rating}
+                    </ThemedText>
+
+                  </ThemedView>
+
+                </ThemedView>
+
+              </ThemedView>
+
+            )}
+            ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
+            showsHorizontalScrollIndicator={false}
+          />
+
+        </ThemedView>
+
+      </ThemedView>
 
     </ScrollView>
 
@@ -200,79 +359,90 @@ export default function HomeScreen () {
 
 
 const styles = StyleSheet.create({
-  categoriesView: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 20,
-    rowGap: 60,
+  headerContainer: {
+    gap: 30,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#A30000",
+    backgroundColor: "#FF6347",
     height: "auto",
-    paddingTop: 20,
-    paddingBottom: 40,
-    borderRadius: 20
+    paddingTop: 40,
+    padding: 14,
+  },
+  locationContainer: {
+    flexDirection: "row",
+    padding: 4,
+    paddingHorizontal: 14,
+    alignItems: "center",
+    backgroundColor: "#F08080",
+    borderRadius: 20,
+    gap: 4
+  },
+  categoriesContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    rowGap: 40,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    height: "auto",
+    backgroundColor: "transparent"
   },
   categoryTile: {
-    width: 100,
-    height: 100,
-    gap: 10
-  },
-  tilePressed: {
-    transform: [{ scale: 0.98 }],
-    opacity: 0.9,
+    width: 80,
+    height: 80,
+    gap: 4,
+    alignItems: "center",
+    alignContent: "center",
+    backgroundColor: "#F08080",
+    padding: 4,
+    borderRadius: 10
   },
   categoryTileImage: {
     width: "100%",
-    height: "100%",
-    borderRadius: 100
+    height: "70%",
+    borderRadius: 10
   },
   categoryTileLabel: {
     textAlign: "center",
     fontSize: 16
   },
-  forYouView: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 20,
-    rowGap: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    height: "auto",
-    paddingBottom: 60,
-    paddingTop: 20
-  },
-  forYouTile: {
-    width: 50,
-    height: 50,
-    gap: 14
-  },
-  forYouTilePressed: {
+  tilePressed: {
     transform: [{ scale: 0.98 }],
     opacity: 0.9,
   },
+  content: {
+    paddingTop: 14,
+    gap: 30,
+    height: "100%"
+  },
+  section: {
+    gap: 10,
+    width: "100%"
+  },
+  forYouTile: {
+    width: 100,
+    height: 100,
+    gap: 14,
+    alignContent: "center",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "#E8E8E8",
+    borderRadius: 10
+  },
   forYouTileImage: {
-    width: "100%",
-    height: "100%",
+    width: "70%",
+    height: "70%",
     borderRadius: 20
   },
   forYouTileLabel: {
     textAlign: "center",
-    fontSize: 12
-  },
-  topPicksView: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 20,
-    rowGap: 80,
-    height: "auto",
-    paddingBottom: 60,
-    paddingTop: 20
+    fontSize: 12,
+    fontWeight: 700
   },
   topPicksTile: {
     width: 200,
     height: 200,
-    gap: 14
+    gap: 4
   },
   topPicksTilePressed: {
     transform: [{ scale: 0.98 }],
@@ -280,12 +450,8 @@ const styles = StyleSheet.create({
   },
   topPicksTileImage: {
     width: "100%",
-    height: "100%",
+    height: "70%",
     borderRadius: 20
-  },
-  topPicksTileLabel: {
-    textAlign: "center",
-    fontSize: 12
   }
 });
 

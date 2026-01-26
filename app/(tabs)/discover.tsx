@@ -217,7 +217,7 @@ export default function DiscoverScreen () {
                   <IconSymbol
                     size={24}
                     color={textColor}
-                    name="bookmark"
+                    name="heart"
                   />
 
                 </ThemedView>
