@@ -1,66 +1,22 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Image } from "expo-image";
-import { FlatList, Pressable, ScrollView, StyleSheet } from "react-native";
-import { ThemedInput } from "@/components/themed-input";
+import { FlatList, Pressable, ScrollView, StyleSheet, useColorScheme } from "react-native";
 import { ThemedView } from "@/components/themed-view";
-import { useThemeColor } from "@/hooks/use-theme-color";
 import { ThemedText } from "@/components/themed-text";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
+import { Colors } from "@/constants/theme";
+import { DishTile } from "./components/DishTile";
+import { dishes, menu_sections, resturant } from "./inteface";
+import { DishTileHorizontal } from "./components/DishTileHorizontal";
 
-
-
-const RESTURANT = {
-  name: "Burger King",
-  poster: require("@/assets/images/burger-1.jpg"),
-  logo: require("@/assets/images/burger-king-logo.png"),
-  like_percentage: 99,
-  like_count: 497,
-  review_count: 19,
-  estimated_time: "15-35'",
-  sections: [
-    "Promotions",
-    "Reviews",
-    "Top Salers",
-    "Cocktails",
-    "Fish Menu",
-    "Extras",
-    "Drinks"
-  ],
-  promotions: [
-    {
-      label: "Burger",
-      image: require("@/assets/images/burger-1.jpg"),
-      price: 5.0
-    },
-    {
-      label: "Pizza",
-      image: require("@/assets/images/pizza-1.jpg"),
-      price: 7.0
-    },
-    {
-      label: "Beyti Kebab Served with Ayran Pickles",
-      image: require("@/assets/images/beyti-kebab-served-with-ayran-pickles.jpg"),
-      price: 3.99
-    },
-    {
-      label: "Burger Black Bread Bun with Fried Egg",
-      image: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg"),
-      price: 4.99
-    },
-    {
-      label: "Fried Prawn Rice With Teriyaki Sauce",
-      image: require("@/assets/images/fried-prawn-rice-with-teriyaki-sauce.jpg"),
-      price: 6.99
-    }
-  ]
-};
 
 
 
 export default function ResturantScreen () {
 
-  const backgroundColor = useThemeColor({}, "text");
-  const textColor = useThemeColor({}, "text");
+  const colorScheme = useColorScheme();
+
+  const router = useRouter();
 
   return (
 
@@ -73,18 +29,16 @@ export default function ResturantScreen () {
       >
 
         <Pressable
-          style={{
-            borderRadius: 20,
-            backgroundColor: "white"
-          }}
+          style={styles.headerIconButton}
+          onPress={() => router.back()}
         >
 
           <IconSymbol
-            size={40}
-            color="black"
+            size={30}
+            color={Colors[colorScheme ?? "light"].icon}
             name="chevron.left"
             style={{
-
+              marginRight: 3
             }}
           />
 
@@ -92,16 +46,47 @@ export default function ResturantScreen () {
 
         <ThemedView
           style={{
-            flexDirection: "row"
+            flexDirection: "row",
+            backgroundColor: "transparent",
+            gap: 10
           }}
         >
 
           <Pressable
-            style={{
-              borderRadius: 20,
-              backgroundColor: "white"
-            }}
+            style={styles.headerIconButton}
           >
+
+            <IconSymbol
+              size={30}
+              color={Colors[colorScheme ?? "light"].icon}
+              name="magnifyingglass.circle"
+              style={{
+              }}
+            />
+
+          </Pressable>
+
+          <Pressable
+            style={styles.headerIconButton}
+          >
+
+            <IconSymbol
+              size={30}
+              color={Colors[colorScheme ?? "light"].icon}
+              name="heart"
+            />
+
+          </Pressable>
+
+          <Pressable
+            style={styles.headerIconButton}
+          >
+
+            <IconSymbol
+              size={30}
+              color={Colors[colorScheme ?? "light"].icon}
+              name="line.horizontal.3"
+            />
 
           </Pressable>
 
@@ -110,7 +95,7 @@ export default function ResturantScreen () {
       </ThemedView>
 
       <Image
-        source={RESTURANT.poster}
+        source={resturant.poster}
         style={styles.headerImage}
         contentFit="cover"
       />
@@ -120,7 +105,7 @@ export default function ResturantScreen () {
       >
 
         <Image
-          source={RESTURANT.logo}
+          source={resturant.logo}
           style={styles.resturantLogo}
           contentFit="cover"
         />
@@ -129,20 +114,22 @@ export default function ResturantScreen () {
           style={styles.title}
           type="title"
         >
-          {RESTURANT.name}
+          {resturant.name}
         </ThemedText>
 
         <ThemedView
           style={{
             flexDirection: "row",
             gap: 10,
-            justifyContent: "space-evenly"
+            justifyContent: "space-evenly",
+            padding: 14
           }}
         >
 
           <ThemedView
             style={{
-              alignItems: "center"
+              alignContent: "center",
+              justifyContent: "center"
             }}
           >
 
@@ -154,9 +141,9 @@ export default function ResturantScreen () {
             >
 
               <IconSymbol
-                size={28}
-                color={textColor}
-                name="hand.thumbsup"
+                size={24}
+                color={Colors[colorScheme ?? "light"].icon}
+                name="star"
                 style={{
 
                 }}
@@ -167,12 +154,12 @@ export default function ResturantScreen () {
             <ThemedText
               type="defaultSemiBold"
               style={{
-                textAlign: "center",
-                fontSize: 12
+                fontSize: 12,
+                alignSelf: "center"
               }}
             >
-              {RESTURANT.like_percentage}{"% "}
-              ( {RESTURANT.like_count} )
+              {resturant.rating}{" "}
+              ( {resturant.like_count} )
             </ThemedText>
 
             <ThemedText
@@ -182,7 +169,7 @@ export default function ResturantScreen () {
                 fontSize: 12
               }}
             >
-              {RESTURANT.review_count}{" "}
+              {resturant.review_count}{" "}
               reviews
             </ThemedText>
 
@@ -190,7 +177,39 @@ export default function ResturantScreen () {
 
           <ThemedView
             style={{
-              alignItems: "center"
+              alignContent: "center",
+              justifyContent: "center"
+            }}
+          >
+
+            <ThemedText
+              type="defaultSemiBold"
+              style={{
+                fontSize: 12,
+                alignSelf: "center"
+              }}
+            >
+              ${resturant.delivery_fee}
+              {" "}
+              CAD
+            </ThemedText>
+
+            <ThemedText
+              type="defaultSemiBold"
+              style={{
+                fontSize: 12,
+                alignSelf: "center"
+              }}
+            >
+              Delivery fee
+            </ThemedText>
+
+          </ThemedView>
+
+          <ThemedView
+            style={{
+              alignContent: "center",
+              justifyContent: "center"
             }}
           >
 
@@ -203,11 +222,8 @@ export default function ResturantScreen () {
 
               <IconSymbol
                 size={28}
-                color={textColor}
-                name="clock"
-                style={{
-
-                }}
+                color={Colors[colorScheme ?? "light"].icon}
+                name="clock.fill"
               />
 
             </Pressable>
@@ -219,7 +235,7 @@ export default function ResturantScreen () {
                 fontSize: 12
               }}
             >
-              {RESTURANT.estimated_time}
+              {resturant.estimated_time}
             </ThemedText>
 
           </ThemedView>
@@ -227,13 +243,18 @@ export default function ResturantScreen () {
         </ThemedView>
 
         <ThemedView
-          style={styles.section}
+          style={[
+            styles.section,
+          ]}
         >
 
           <FlatList
             horizontal
             pagingEnabled
-            data={RESTURANT.sections}
+            contentContainerStyle={{
+              paddingHorizontal: 14
+            }}
+            data={menu_sections}
             renderItem={({ item }) => (
               
               <Pressable
@@ -270,79 +291,25 @@ export default function ResturantScreen () {
           <ThemedText
             type="title"
             style={{
-              fontSize: 22
+              fontSize: 22,
+              paddingLeft: 14
             }}
           >
-            Promotions
+            Offers
           </ThemedText>
 
           <FlatList
             horizontal
             pagingEnabled
-            data={RESTURANT.promotions}
+            contentContainerStyle={{
+              paddingHorizontal: 14
+            }}
+            data={dishes.filter(item => item.discount)}
             renderItem={({ item }) => (
-              
-              <Pressable
-                style={
-                  ({ pressed }) => [
-                    styles.promotionsTile
-                  ]
-                }
-              >
 
-                <Image
-                  source={item.image}
-                  style={styles.promotionsTileImage}
-                  contentFit="cover"
-                />
-
-                <ThemedView
-                  style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    gap: 8,
-                  }}
-                >
-
-                  <ThemedView
-                    style={{
-                      flex: 1,
-                      flexDirection: "column",
-                    }}
-                  >
-
-                    <ThemedText
-                      type="defaultSemiBold"
-                      style={styles.promotionsTileLabel}
-                    >
-                      {item.label}
-                    </ThemedText>
-
-                    <ThemedView
-                      style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        gap: 8,
-                        alignItems: "center"
-                      }}
-                    >
-
-                      <ThemedText
-                        style={{
-                          fontSize: 14
-                        }}
-                      >
-                        USD{" "}
-                        {item.price}
-                      </ThemedText>
-
-                    </ThemedView>
-
-                  </ThemedView>
-
-                </ThemedView>
-
-              </Pressable>
+              <DishTile
+                dish={item}
+              />
 
             )}
             ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
@@ -351,7 +318,37 @@ export default function ResturantScreen () {
 
         </ThemedView>
 
+        <ThemedView
+          style={[
+            styles.section,
+            {
+              paddingHorizontal: 14
+            }
+          ]}
+        >
 
+          <ThemedText
+            type="title"
+            style={{
+              fontSize: 22
+            }}
+          >
+            Picked for you
+          </ThemedText>
+
+          <FlatList
+            data={dishes.filter(item => item.discount)}
+            renderItem={({ item }) => (
+
+              <DishTileHorizontal
+                dish={item}
+              />
+
+            )}
+            ItemSeparatorComponent={() => <ThemedView style={{ height: 12 }} />}
+          />
+
+        </ThemedView>
 
       </ThemedView>
 
@@ -367,14 +364,26 @@ const styles = StyleSheet.create({
   navigationContainer: {
     flex: 1,
     flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
     position: "absolute",
     zIndex: 10,
     padding: 14,
+    paddingTop: 34,
     width: "100%",
     backgroundColor: "transparent"
   },
+  headerIconButton: {
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   title: {
-    fontSize: 30
+    marginLeft: 14,
+    fontSize: 24
   },
   headerImage: {
     width: "100%",
@@ -385,12 +394,12 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 10,
     backgroundColor: "white",
-    marginTop: -80
+    marginTop: -80,
+    marginLeft: 14
   },
   content: {
     width: "100%",
     height: "100%",
-    padding: 14,
     gap: 20
   },
   section: {
@@ -398,26 +407,13 @@ const styles = StyleSheet.create({
   },
   tabButton: {
   },
-  promotionsContainer: {
+  offersContainer: {
+    paddingLeft: 14,
     gap: 20
   },
-  promotionsTile: {
-    width: 200,
-    height: 200,
-    gap: 14
-  },
-  promotionsTileImage: {
-    width: "100%",
-    height: "70%",
-    borderRadius: 20
-  },
-  promotionsTileLabelContainer: {
+  offersTileLabelContainer: {
     flex: 1,
     flexDirection: "row",
     gap: 20,
-  },
-  promotionsTileLabel: {
-    fontSize: 20,
-    flex: 1
-  },
+  }
 });

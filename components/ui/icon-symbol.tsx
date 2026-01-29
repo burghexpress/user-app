@@ -20,10 +20,12 @@ const MAPPING = {
   "cart": "shopping-bag",
   "heart": "favorite-outline",
   "star.fill": "star",
+  "star": "star-outline",
   "hand.thumbsup": "thumb-up",
-  "clock": "timer",
-  "location": "location-on"
-  
+  "clock.fill": "timer",
+  "location": "location-on",
+  "line.horizontal.3": "more-horiz",
+  "plus": "add"
 } as IconMapping;
 
 

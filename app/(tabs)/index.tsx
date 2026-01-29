@@ -138,10 +138,10 @@ export default function HomeScreen () {
               style={({ pressed }) => [styles.categoryTile, pressed && styles.tilePressed]}
             >
 
-              <Image
-                source={item.image}
-                style={styles.categoryTileImage}
-                contentFit="cover"
+              <IconSymbol
+                size={34}
+                color={Colors[colorScheme ?? "light"].icon}
+                name="table"
               />
 
               <ThemedText
