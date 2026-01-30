@@ -5,6 +5,7 @@ import { Pressable, useColorScheme } from "react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { ThemedText } from "@/components/themed-text";
+import { useRouter } from "expo-router";
 
 
 
@@ -16,6 +17,8 @@ export const DishTile = ({
 }) => {
 
   const colorScheme = useColorScheme();
+
+  const router = useRouter();
 
   return (
 
@@ -45,12 +48,16 @@ export const DishTile = ({
           }}
           contentFit="cover"
         />
-      
+
         <Pressable
+          onPress={() => router.push(`/resturant/order/create`)}
           style={{
-            position: "absolute",
+            borderRadius: 20,
+            padding: 4,
+            backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+            bottom: 14,
             right: 14,
-            bottom: 14
+            position: "absolute"
           }}
         >
 

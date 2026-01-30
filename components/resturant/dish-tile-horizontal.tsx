@@ -5,6 +5,7 @@ import { Pressable, useColorScheme } from "react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { ThemedText } from "@/components/themed-text";
+import { useRouter } from "expo-router";
 
 
 
@@ -16,6 +17,8 @@ export const DishTileHorizontal = ({
 }) => {
 
   const colorScheme = useColorScheme();
+
+  const router = useRouter();
 
   return (
 
@@ -113,6 +116,7 @@ export const DishTileHorizontal = ({
         </ThemedView>
 
         <Pressable
+          onPress={() => router.push(`/resturant/order/create`)}
           style={{
             borderRadius: 20,
             padding: 4,

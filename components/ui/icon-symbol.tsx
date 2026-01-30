@@ -25,7 +25,9 @@ const MAPPING = {
   "clock.fill": "timer",
   "location": "location-on",
   "line.horizontal.3": "more-horiz",
-  "plus": "add"
+  "plus": "add",
+  "circle": "circle",
+  "circle.fill": "circle"
 } as IconMapping;
 
 

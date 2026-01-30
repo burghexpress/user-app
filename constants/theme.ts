@@ -10,8 +10,16 @@ export const Colors = {
     text: "#11181C",
     background: "#fff",
     tint: tintColorLight,
+
     buttonBackground: "#11181C",
+    buttonText: "#fff",
+
+    surface: "#F2F3F5",
+    surfaceBorder: "#E1E4E8",
+
+    placeholder: "#8A9197",
     icon: "#687076",
+
     tabIconDefault: "#687076",
     tabIconSelected: tintColorLight,
   },
@@ -19,8 +27,16 @@ export const Colors = {
     text: "#ECEDEE",
     background: "#151718",
     tint: tintColorDark,
+
     buttonBackground: "#ECEDEE",
+    buttonText: "#151718",
+
+    surface: "#1F2225",
+    surfaceBorder: "#2A2E32",
+
+    placeholder: "#9BA1A6",
     icon: '#9BA1A6',
+
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },

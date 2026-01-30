@@ -5,9 +5,9 @@ import { ThemedView } from "@/components/themed-view";
 import { ThemedText } from "@/components/themed-text";
 import { Stack, useRouter } from "expo-router";
 import { Colors } from "@/constants/theme";
-import { DishTile } from "./components/DishTile";
-import { dishes, menu_sections, resturant } from "./inteface";
-import { DishTileHorizontal } from "./components/DishTileHorizontal";
+import { dishes, menu_sections, resturant } from "./_inteface";
+import { DishTileHorizontal } from "@/components/resturant/dish-tile-horizontal";
+import { DishTile } from "@/components/resturant/dish-tile";
 
 
 
@@ -336,17 +336,14 @@ export default function ResturantScreen () {
             Picked for you
           </ThemedText>
 
-          <FlatList
-            data={dishes.filter(item => item.discount)}
-            renderItem={({ item }) => (
+          {dishes.filter(item => item.discount).map((item, index) => (
 
-              <DishTileHorizontal
-                dish={item}
-              />
+            <DishTileHorizontal
+              key={index}
+              dish={item}
+            />
 
-            )}
-            ItemSeparatorComponent={() => <ThemedView style={{ height: 12 }} />}
-          />
+          ))}
 
         </ThemedView>
 
