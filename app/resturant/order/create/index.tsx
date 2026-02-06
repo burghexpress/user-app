@@ -4,15 +4,22 @@ import { KeyboardAvoidingView, Pressable, ScrollView, useColorScheme } from "rea
 import { ThemedView } from "@/components/themed-view";
 import { Stack, useRouter } from "expo-router";
 import { Colors } from "@/constants/theme";
-import { choices, dishes } from "../../_inteface";
+import { choices, dishes } from "../../data";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedInput } from "@/components/themed-input";
+import { useState } from "react";
+import { paths } from "@/constants/api";
 
+
+
+type CreateOrderBody = paths["/resturants/{id}/orders/"]["post"]["requestBody"]["content"]["application/json"];
 
 
 
 export default function OrderCreateScreen() {
 
+  const [order, setOrder] = useState<any>({});
+  
   const colorScheme = useColorScheme();
 
   const router = useRouter();
@@ -96,7 +103,7 @@ export default function OrderCreateScreen() {
           <ThemedText
             type="defaultSemiBold"
             style={{
-              fontSize: 20
+              fontSize: 16
             }}
           >
             ${dishes[0].price}
@@ -140,59 +147,58 @@ export default function OrderCreateScreen() {
 
         </ThemedView>
 
-        {choices[0].fields.map((item, itemIndex) => (
+        <ThemedView
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            gap: 8,
+            padding: 14
+          }}
+        >
 
-          <ThemedView
+          <ThemedText
+            type="title"
             style={{
-              flex: 1,
-              flexDirection: "column",
-              gap: 8,
-              padding: 14
+              fontSize: 22
+            }}
+          >
+            {choices[0].label}
+          </ThemedText>
+
+          <Pressable
+            onPress={() => setOrder({
+              ...(order || {}),
+              [choices[0].field]: order && order.[choices[0].field] === true ? false : false
+            })}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
             }}
           >
 
             <ThemedText
-              type="title"
+              type="defaultSemiBold"
               style={{
-                fontSize: 22
+                fontSize: 18
               }}
             >
               {item.label}
             </ThemedText>
 
-            <Pressable
-              key={itemIndex}
+            <IconSymbol
+              name={"circle"}
+              size={24}
+              color={Colors[colorScheme ?? "light"].icon}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 12,
+                visibility: "none"
               }}
-            >
+            />
 
-              <ThemedText
-                type="defaultSemiBold"
-                style={{
-                  fontSize: 18
-                }}
-              >
-                {item.label}
-              </ThemedText>
+          </Pressable>
 
-              <IconSymbol
-                name={"circle"}
-                size={24}
-                color={Colors[colorScheme ?? "light"].icon}
-                style={{
-                  visibility: "none"
-                }}
-              />
-
-            </Pressable>
-
-          </ThemedView>
-
-        ))}
+        </ThemedView>
 
       </ScrollView>
 

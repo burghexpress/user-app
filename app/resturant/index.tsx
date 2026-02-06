@@ -22,7 +22,9 @@ export default function ResturantScreen () {
 
     <ScrollView>
 
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen
+        options={{ headerShown: false }}
+      />
 
       <ThemedView
         style={styles.navigationContainer}
