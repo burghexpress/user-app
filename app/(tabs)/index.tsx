@@ -1,23 +1,13 @@
-import React from "react";
-import { StyleSheet, Pressable, Dimensions, ScrollView, FlatList, useColorScheme } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Pressable, ScrollView, FlatList, useColorScheme } from "react-native";
 import { Image } from "expo-image";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
+import { Category, SAMPLE_CATEGORIES } from "../categories/interface";
 
-
-const { width } = Dimensions.get("window");
-
-
-const CATEGORIES = [
-  { label: "Food", image: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg") },
-  { label: "Groceries", image: require("@/assets/images/basket-with-healthy-food.jpg") },
-  { label: "Shops", image: require("@/assets/images/partial-react-logo.png") },
-  { label: "Pharmacy", image: require("@/assets/images/partial-react-logo.png") },
-  { label: "Courier", image: require("@/assets/images/partial-react-logo.png") },
-];
 
 
 const FORYOU = [
@@ -83,7 +73,18 @@ const TOPPICKS = [
 ];
 
 
+
 export default function HomeScreen () {
+
+  const [categories, setCategories] = useState<{
+    count: number;
+    results: Category[];
+    next?: string;
+    previous?: string;
+  }>({
+    count: SAMPLE_CATEGORIES.length,
+    results: SAMPLE_CATEGORIES
+  });
 
   const colorScheme = useColorScheme();
 
@@ -131,17 +132,20 @@ export default function HomeScreen () {
           style={styles.categoriesContainer}
         >
 
-          {CATEGORIES.map((item, itemIndex) => (
+          {categories.results.map((category, categoryIndex) => (
 
             <Pressable
-              key={itemIndex}
+              key={categoryIndex}
               style={({ pressed }) => [styles.categoryTile, pressed && styles.tilePressed]}
+              onPress={() => router.push(`/categories/${category.id}`)}
             >
 
-              <IconSymbol
-                size={34}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="table"
+              <Image
+                source={category.icon}
+                style={{
+                  width: 50,
+                  height: 50
+                }}
               />
 
               <ThemedText
@@ -154,7 +158,7 @@ export default function HomeScreen () {
                   }
                 ]}
               >
-                {item.label}
+                {category.name}
               </ThemedText>
 
             </Pressable>
