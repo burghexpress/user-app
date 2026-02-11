@@ -14,11 +14,15 @@ export const Colors = {
     buttonBackground: "#11181C",
     buttonText: "#fff",
 
+    surfaceMuted: "#F6F7F9",
+
     surface: "#F2F3F5",
     surfaceBorder: "#E1E4E8",
 
     placeholder: "#8A9197",
+
     icon: "#687076",
+    iconMuted: "#A1A6AB",
 
     tabIconDefault: "#687076",
     tabIconSelected: tintColorLight,
@@ -31,11 +35,15 @@ export const Colors = {
     buttonBackground: "#ECEDEE",
     buttonText: "#151718",
 
+    surfaceMuted: "#1C1F22",
+
     surface: "#1F2225",
     surfaceBorder: "#2A2E32",
 
     placeholder: "#9BA1A6",
+
     icon: '#9BA1A6',
+    iconMuted: "#8E959B",
 
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,

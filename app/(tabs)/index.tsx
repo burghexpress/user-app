@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Pressable, ScrollView, FlatList, useColorScheme } from "react-native";
+import { StyleSheet, Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
@@ -7,31 +7,8 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { Category, SAMPLE_CATEGORIES } from "../categories/interface";
+import { Resturant, SAMPLE_RESTURANTS } from "../resturants/interface";
 
-
-
-const FORYOU = [
-  {
-    label: "Dominos",
-    image: require("@/assets/images/dominos.png")
-  },
-  {
-    label: "KFC",
-    image: require("@/assets/images/kfc-logo.png")
-  },
-  {
-    label: "Wendy's",
-    image: require("@/assets/images/wendys-logo.png")
-  },
-  {
-    label: "Burger King",
-    image: require("@/assets/images/burger-king-logo.png")
-  },
-  {
-    label: "Pizza hut",
-    image: require("@/assets/images/pizza-hut-logo.png")
-  }
-];
 
 
 const TOPPICKS = [
@@ -86,6 +63,16 @@ export default function HomeScreen () {
     results: SAMPLE_CATEGORIES
   });
 
+  const [resturants, setResturants] = useState<{
+    count: number;
+    results: Resturant[];
+    next?: string;
+    previous?: string;
+  }>({
+    count: SAMPLE_RESTURANTS.length,
+    results: SAMPLE_RESTURANTS
+  });
+
   const colorScheme = useColorScheme();
 
   const router = useRouter();
@@ -95,18 +82,32 @@ export default function HomeScreen () {
     <ScrollView>
 
       <ThemedView
-        style={styles.headerContainer}
+        style={{
+          gap: 30,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#FF6347",
+          height: "auto",
+          paddingTop: 40,
+          padding: 14,
+        }}
       >
 
         <ThemedView
-          style={[
-            styles.locationContainer
-          ]}
+          style={{
+            flexDirection: "row",
+            padding: 4,
+            paddingHorizontal: 14,
+            alignItems: "center",
+            backgroundColor: "#F08080",
+            borderRadius: 20,
+            gap: 4
+          }}
         >
 
           <IconSymbol
             size={20}
-            color={Colors[colorScheme ?? "light"].icon}
+            color={Colors[colorScheme ?? "light"].iconMuted}
             name="location"
           />
 
@@ -114,7 +115,8 @@ export default function HomeScreen () {
             type="defaultSemiBold"
             style={{
               fontSize: 12,
-              color: Colors[colorScheme ?? "light"].text
+              color: Colors["light"].text,
+              opacity: 0.7
             }}
           >
             Current Location
@@ -129,15 +131,25 @@ export default function HomeScreen () {
         </ThemedView>
 
         <ThemedView
-          style={styles.categoriesContainer}
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: 10,
+            rowGap: 40,
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            height: "auto",
+            backgroundColor: "transparent"
+          }}
         >
 
           {categories.results.map((category, categoryIndex) => (
 
-            <Pressable
+            <TouchableOpacity
               key={categoryIndex}
-              style={({ pressed }) => [styles.categoryTile, pressed && styles.tilePressed]}
+              style={styles.categoryTile}
               onPress={() => router.push(`/categories/${category.id}`)}
+              activeOpacity={0.8}
             >
 
               <Image
@@ -150,18 +162,17 @@ export default function HomeScreen () {
 
               <ThemedText
                 type="default"
-                style={[
-                  styles.categoryTileLabel,
-                  {
-                    color: Colors[colorScheme ?? "light"].text,
-                    fontSize: 14
-                  }
-                ]}
+                style={{
+                  textAlign: "center",
+                  color: Colors["light"].text,
+                  fontSize: 14,
+                  opacity: 0.7
+                }}
               >
                 {category.name}
               </ThemedText>
 
-            </Pressable>
+            </TouchableOpacity>
 
           ))}
 
@@ -190,18 +201,28 @@ export default function HomeScreen () {
           <FlatList
             horizontal
             pagingEnabled
-            data={FORYOU}
+            data={resturants.results}
             style={{
               paddingLeft: 14
             }}
             renderItem={({ item }) => (
 
-              <Pressable
-                style={({ pressed }) => [styles.forYouTile, pressed && styles.tilePressed]}
+              <TouchableOpacity
+                style={{
+                  width: 100,
+                  height: 100,
+                  gap: 8,
+                  alignContent: "center",
+                  alignItems: "center",
+                  padding: 10,
+                  backgroundColor: Colors[colorScheme ?? "light"].surfaceMuted,
+                  borderRadius: 10
+                }}
+                activeOpacity={0.8}
               >
 
                 <Image
-                  source={item.image}
+                  source={item.logo}
                   style={styles.forYouTileImage}
                   contentFit="cover"
                 />
@@ -210,10 +231,10 @@ export default function HomeScreen () {
                   type="defaultSemiBold"
                   style={styles.forYouTileLabel}
                 >
-                  {item.label}
+                  {item.name}
                 </ThemedText>
 
-              </Pressable>
+              </TouchableOpacity>
 
             )}
             ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
@@ -246,20 +267,29 @@ export default function HomeScreen () {
             renderItem={({ item }) => (
 
               <ThemedView
-                style={styles.topPicksTile}
+                style={{
+                  width: 200,
+                  height: 200,
+                  gap: 4
+                }}
               >
 
-                <Pressable
-                  onPress={() => router.navigate("/resturant")}
+                <TouchableOpacity
+                  onPress={() => router.push(`/resturants/${item.label}`)}
+                  activeOpacity={0.8}
                 >
 
                   <Image
                     source={item.poster}
-                    style={styles.topPicksTileImage}
+                    style={{
+                      width: 200,
+                      height: 140,
+                      borderRadius: 20
+                    }}
                     contentFit="cover"
                   />
 
-                </Pressable>
+                </TouchableOpacity>
 
                 <ThemedView
                   style={{
@@ -275,14 +305,20 @@ export default function HomeScreen () {
                     }}
                   >
 
-                    <Pressable
-                      onPress={() => router.navigate("/resturant")}
+                    <TouchableOpacity
+                      onPress={() => router.push(`/resturants`)}
+                      activeOpacity={0.8}
+                      style={{
+                        flex: 1,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        gap: 10
+                      }}
                     >
 
                       <ThemedText
                         type="defaultSemiBold"
                         style={{
-                          flex: 1,
                           fontSize: 18
                         }}
                       >
@@ -295,7 +331,7 @@ export default function HomeScreen () {
                         name="heart"
                       />
 
-                    </Pressable>
+                    </TouchableOpacity>
 
                   </ThemedView>
 
@@ -363,34 +399,6 @@ export default function HomeScreen () {
 
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    gap: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FF6347",
-    height: "auto",
-    paddingTop: 40,
-    padding: 14,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    padding: 4,
-    paddingHorizontal: 14,
-    alignItems: "center",
-    backgroundColor: "#F08080",
-    borderRadius: 20,
-    gap: 4
-  },
-  categoriesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    rowGap: 40,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    height: "auto",
-    backgroundColor: "transparent"
-  },
   categoryTile: {
     width: 80,
     height: 80,
@@ -406,10 +414,6 @@ const styles = StyleSheet.create({
     height: "70%",
     borderRadius: 10
   },
-  categoryTileLabel: {
-    textAlign: "center",
-    fontSize: 16
-  },
   tilePressed: {
     transform: [{ scale: 0.98 }],
     opacity: 0.9,
@@ -423,16 +427,6 @@ const styles = StyleSheet.create({
     gap: 10,
     width: "100%"
   },
-  forYouTile: {
-    width: 100,
-    height: 100,
-    gap: 14,
-    alignContent: "center",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#E8E8E8",
-    borderRadius: 10
-  },
   forYouTileImage: {
     width: "70%",
     height: "70%",
@@ -442,20 +436,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     fontWeight: 700
-  },
-  topPicksTile: {
-    width: 200,
-    height: 200,
-    gap: 4
-  },
-  topPicksTilePressed: {
-    transform: [{ scale: 0.98 }],
-    opacity: 0.9,
-  },
-  topPicksTileImage: {
-    width: "100%",
-    height: "70%",
-    borderRadius: 20
   }
 });
 
