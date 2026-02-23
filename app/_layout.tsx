@@ -22,11 +22,11 @@ export const unstable_settings = {
 export default function RootLayout () {
 
   const [loaded, error] = useFonts({
-    "Atelia": require("./assets/fonts/atelia/Atelia.otf"),
-    "Metropolis-Thin": require("./assets/fonts/metropolis/Metropolis-Thin.otf"),
-    "Metropolis-Regular": require("./assets/fonts/metropolis/Metropolis-Regular.otf"),
-    "Metropolis-SemiBold": require("./assets/fonts/metropolis/Metropolis-SemiBold.otf"),
-    "Metropolis-Bold": require("./assets/fonts/metropolis/Metropolis-Bold.otf")
+    "Atelia": require("../assets/fonts/atelia/Atelia.otf"),
+    "Metropolis-Thin": require("../assets/fonts/metropolis/Metropolis-Thin.otf"),
+    "Metropolis-Regular": require("../assets/fonts/metropolis/Metropolis-Regular.otf"),
+    "Metropolis-SemiBold": require("../assets/fonts/metropolis/Metropolis-SemiBold.otf"),
+    "Metropolis-Bold": require("../assets/fonts/metropolis/Metropolis-Bold.otf")
   });
 
 
