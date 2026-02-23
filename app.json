@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "burghexpress",
+    "name": "BurghExpress",
     "slug": "burghexpress",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -30,15 +30,35 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "backgroundColor": "#ffffff",
+          "image": "./assets/images/splash-icon-1.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
           "dark": {
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-font",
+      {
+        "fonts": [
+          "./assets/fonts/atelia/Atelia.otf",
+          "./assets/fonts/metropolis/Metropolis-Thin.otf",
+          "./assets/fonts/metropolis/Metropolis-ThinItalic.otf",
+          "./assets/fonts/metropolis/Metropolis-ExtraLight.otf",
+          "./assets/fonts/metropolis/Metropolis-ExtraLightItalic.otf",
+          "./assets/fonts/metropolis/Metropolis-Light.otf",
+          "./assets/fonts/metropolis/Metropolis-Black.otf",
+          "./assets/fonts/metropolis/Metropolis-Medium.otf",
+          "./assets/fonts/metropolis/Metropolis-Regular.otf",
+          "./assets/fonts/metropolis/Metropolis-SemiBold.otf",
+          "./assets/fonts/metropolis/Metropolis-SemiBoldItalic.otf",
+          "./assets/fonts/metropolis/Metropolis-Bold.otf",
+          "./assets/fonts/metropolis/Metropolis-BoldItalic.otf",
+          "./assets/fonts/metropolis/Metropolis-ExtraBold.otf",
+          "./assets/fonts/metropolis/Metropolis-ExtraBoldItalic.otf"
+        ]
+      }
     ],
     "experiments": {
       "typedRoutes": true,
