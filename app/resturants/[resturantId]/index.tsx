@@ -1,21 +1,54 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Image } from "expo-image";
-import { FlatList, Pressable, ScrollView, StyleSheet, useColorScheme } from "react-native";
+import { FlatList, Pressable, ScrollView, StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 import { ThemedView } from "@/components/themed-view";
 import { ThemedText } from "@/components/themed-text";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Colors } from "@/constants/theme";
 import { DishTileHorizontal } from "@/components/resturant/dish-tile-horizontal";
 import { DishTile } from "@/components/resturant/dish-tile";
+import { dishes, menu_sections, Resturant, SAMPLE_RESTURANTS } from "../interface";
+import { useState } from "react";
 
 
 
 
 export default function ResturantScreen () {
 
+  const { resturantId } = useLocalSearchParams<{ resturantId: string; }>(); 
+
+  const [resturant, setResturant] = useState<Resturant | undefined>(SAMPLE_RESTURANTS.find(r => r.id === parseInt(resturantId)));
+
   const colorScheme = useColorScheme();
 
   const router = useRouter();
+
+
+  if (!resturant) {
+
+    return (
+
+      <ThemedView
+        style={{
+          gap: 10
+        }}
+      >
+
+        <ThemedText
+          type="title"
+          style={{
+            fontSize: 22,
+            paddingLeft: 14
+          }}
+        >
+          Not Found
+        </ThemedText>
+
+      </ThemedView>
+
+    );
+
+  }
 
   return (
 
@@ -26,12 +59,24 @@ export default function ResturantScreen () {
       />
 
       <ThemedView
-        style={styles.navigationContainer}
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gap: 10,
+          position: "absolute",
+          zIndex: 10,
+          padding: 14,
+          paddingTop: 34,
+          width: "100%",
+          backgroundColor: "transparent"
+        }}
       >
 
-        <Pressable
+        <TouchableOpacity
           style={styles.headerIconButton}
           onPress={() => router.back()}
+          activeOpacity={0.7}
         >
 
           <IconSymbol
@@ -43,7 +88,7 @@ export default function ResturantScreen () {
             }}
           />
 
-        </Pressable>
+        </TouchableOpacity>
 
         <ThemedView
           style={{
@@ -359,18 +404,6 @@ export default function ResturantScreen () {
 
 
 const styles = StyleSheet.create({
-  navigationContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 10,
-    position: "absolute",
-    zIndex: 10,
-    padding: 14,
-    paddingTop: 34,
-    width: "100%",
-    backgroundColor: "transparent"
-  },
   headerIconButton: {
     borderRadius: 20,
     width: 40,

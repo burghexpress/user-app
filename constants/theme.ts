@@ -8,11 +8,19 @@ const tintColorDark = "#f08080";
 export const Colors = {
   light: {
     text: "#11181C",
-    background: "#fff",
+    background: "#FFF9E5",
     tint: tintColorLight,
 
-    buttonBackground: "#11181C",
-    buttonText: "#fff",
+    searchBarBackground: "#1E1E1E",
+    searchBarForeground: "#687076",
+
+    buttonBackground: "#EA0000",
+    buttonForeground: "#FFF9E5",
+
+    cardForeground: "#000000",
+    cardSecondaryText: "#1E1E1E",
+    cardIcon: "#000000",
+    cardPrice: "#EA0000",
 
     surfaceMuted: "#F6F7F9",
 
@@ -32,8 +40,15 @@ export const Colors = {
     background: "#151718",
     tint: tintColorDark,
 
-    buttonBackground: "#ECEDEE",
-    buttonText: "#151718",
+    searchBarBackground: "#1E1E1E",
+    searchBarForeground: "#687076",
+
+    buttonBackground: "#EA0000",
+    buttonForeground: "#FFF9E5",
+
+    cardSecondaryText: "#1E1E1E",
+    cardIcon: "#ffffff",
+    cardPrice: "#EA0000",
 
     surfaceMuted: "#1C1F22",
 
@@ -42,7 +57,7 @@ export const Colors = {
 
     placeholder: "#9BA1A6",
 
-    icon: '#9BA1A6',
+    icon: '#fff9e5',
     iconMuted: "#8E959B",
 
     tabIconDefault: '#9BA1A6',

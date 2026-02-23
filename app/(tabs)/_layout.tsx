@@ -1,4 +1,5 @@
 import { HapticTab } from "@/components/haptic-tab";
+import { MagnifierIcon } from "@/components/icons/magnifier";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -33,7 +34,7 @@ export default function TabLayout () {
         name="discover"
         options={{
           title: "Discover",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass.circle" color={color} />
+          tabBarIcon: ({ color }) => <MagnifierIcon size={28} color={color} />
         }}
       />
 

@@ -25,6 +25,7 @@ export default function RootLayout () {
     "Atelia": require("../assets/fonts/atelia/Atelia.otf"),
     "Metropolis-Thin": require("../assets/fonts/metropolis/Metropolis-Thin.otf"),
     "Metropolis-Regular": require("../assets/fonts/metropolis/Metropolis-Regular.otf"),
+    "Metropolis-Medium": require("../assets/fonts/metropolis/Metropolis-Medium.otf"),
     "Metropolis-SemiBold": require("../assets/fonts/metropolis/Metropolis-SemiBold.otf"),
     "Metropolis-Bold": require("../assets/fonts/metropolis/Metropolis-Bold.otf")
   });

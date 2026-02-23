@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity } from "react-native";
+import { StyleSheet, Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
 import { Image } from "expo-image";
-import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
-import { Category, SAMPLE_CATEGORIES } from "../categories/interface";
 import { Resturant, SAMPLE_RESTURANTS } from "../resturants/interface";
+import { MagnifierIcon } from "@/components/icons/magnifier";
+import { StarIcon } from "@/components/icons/star";
+import { WatchIcon } from "@/components/icons/watch";
 
 
 
@@ -17,51 +17,51 @@ const TOPPICKS = [
     poster: require("@/assets/images/burger-1.jpg"),
     delivery_fee: 1.4,
     rating: 4,
-    estimated_time: 21
+    review_count: "520+",
+    estimated_time: "17-21 min",
+    price: 15.49
   },
   {
     label: "Pizza",
     poster: require("@/assets/images/pizza-1.jpg"),
     delivery_fee: 1.6,
     rating: 4.8,
-    estimated_time: 13
+    review_count: "500+",
+    estimated_time: "13 min",
+    price: 17.0
   },
   {
     label: "Beyti Kebab Served with Ayran Pickles",
     poster: require("@/assets/images/beyti-kebab-served-with-ayran-pickles.jpg"),
     delivery_fee: 0.99,
     rating: 4.7,
-    estimated_time: 19
+    review_count: "500+",
+    estimated_time: "20-30 min",
+    price: 13.0
   },
   {
     label: "Burger Black Bread Bun with Fried Egg",
     poster: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg"),
     delivery_fee: 2,
     rating: 4.4,
-    estimated_time: 11
+    review_count: "13",
+    estimated_time: "29 min",
+    price: 9.0
   },
   {
     label: "Fried Prawn Rice With Teriyaki Sauce",
     poster: require("@/assets/images/fried-prawn-rice-with-teriyaki-sauce.jpg"),
     delivery_fee: 0,
     rating: 4.8,
-    estimated_time: 15
+    review_count: "112",
+    estimated_time: "20-40 min",
+    price: 7.2
   }
 ];
 
 
 
 export default function HomeScreen () {
-
-  const [categories, setCategories] = useState<{
-    count: number;
-    results: Category[];
-    next?: string;
-    previous?: string;
-  }>({
-    count: SAMPLE_CATEGORIES.length,
-    results: SAMPLE_CATEGORIES
-  });
 
   const [resturants, setResturants] = useState<{
     count: number;
@@ -77,365 +77,448 @@ export default function HomeScreen () {
 
   const router = useRouter();
 
+
+
   return (
 
-    <ScrollView>
+    <ScrollView
+      style={{
+        backgroundColor: Colors[colorScheme ?? "light"].background
+      }}
+      contentContainerStyle={{
+        paddingBottom: 20
+      }}
+    >
 
-      <ThemedView
+      <View
         style={{
-          gap: 30,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#FF6347",
           height: "auto",
-          paddingTop: 40,
-          padding: 14,
+          paddingTop: 70,
+          padding: 20
         }}
       >
 
-        <ThemedView
+        <Pressable
           style={{
             flexDirection: "row",
-            padding: 4,
-            paddingHorizontal: 14,
+            padding: 13,
+            paddingHorizontal: 20,
             alignItems: "center",
-            backgroundColor: "#F08080",
-            borderRadius: 20,
-            gap: 4
+            justifyContent: "flex-start",
+            backgroundColor: Colors[colorScheme ?? "light"].searchBarBackground,
+            borderRadius: 60,
+            gap: 10
           }}
         >
 
-          <IconSymbol
-            size={20}
-            color={Colors[colorScheme ?? "light"].iconMuted}
-            name="location"
+          <MagnifierIcon
+            color={Colors[colorScheme === "light" ? "dark" : "light"].searchBarForeground}
           />
 
-          <ThemedText
-            type="defaultSemiBold"
+          <Text
             style={{
-              fontSize: 12,
-              color: Colors["light"].text,
-              opacity: 0.7
+              fontSize: 18,
+              color: Colors["light"].searchBarForeground,
+              fontFamily: "Metropolis-Regular"
             }}
           >
-            Current Location
-          </ThemedText>
+            Search
+          </Text>
 
-          <IconSymbol
-            size={20}
-            color={Colors[colorScheme ?? "light"].icon}
-            name="chevron.down"
-          />
+        </Pressable>
 
-        </ThemedView>
+      </View>
 
-        <ThemedView
+      <View
+        style={{
+          marginTop: 20,
+          flexDirection: "row",
+          gap: 10,
+          justifyContent: "space-between",
+          paddingHorizontal: 20
+        }}
+      >
+
+        <Text
           style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            gap: 10,
-            rowGap: 40,
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            height: "auto",
-            backgroundColor: "transparent"
+            fontSize: 32,
+            lineHeight: 48,
+            fontFamily: "Atelia"
           }}
         >
+          FEATURED ITEMS
+        </Text>
 
-          {categories.results.map((category, categoryIndex) => (
+        <Pressable
+          style={{
+            paddingHorizontal: 5,
+            paddingVertical: 4,
+            gap: 10,
+            backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+            minHeight: 30,
+            minWidth: 63,
+            borderRadius: 30,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row"
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Metropolis-Medium",
+              fontSize: 10,
+              color: Colors[colorScheme ?? "light"].buttonForeground
+            }}
+          >
+            See all
+          </Text>
+        </Pressable>
+
+      </View>
+
+      <FlatList
+        horizontal
+        pagingEnabled
+        data={TOPPICKS}
+        style={{
+          marginTop: 10,
+          paddingLeft: 14
+        }}
+        renderItem={({ item }) => (
+
+          <View
+            style={{
+              width: 150,
+              height: "auto",
+              gap: 10
+            }}
+          >
 
             <TouchableOpacity
-              key={categoryIndex}
-              style={styles.categoryTile}
-              onPress={() => router.push(`/categories/${category.id}`)}
+              onPress={() => router.push(`/resturants/${item.label}`)}
               activeOpacity={0.8}
             >
 
               <Image
-                source={category.icon}
+                source={item.poster}
                 style={{
-                  width: 50,
-                  height: 50
+                  width: 150,
+                  height: 200,
+                  borderRadius: 20
                 }}
+                contentFit="cover"
               />
-
-              <ThemedText
-                type="default"
-                style={{
-                  textAlign: "center",
-                  color: Colors["light"].text,
-                  fontSize: 14,
-                  opacity: 0.7
-                }}
-              >
-                {category.name}
-              </ThemedText>
 
             </TouchableOpacity>
 
-          ))}
+            <View
+              style={{
+                flexDirection: "column",
+                gap: 5
+              }}
+            >
 
-        </ThemedView>
-
-      </ThemedView>
-
-      <ThemedView
-        style={styles.content}
-      >
-
-        <ThemedView
-          style={styles.section}
-        >
-
-          <ThemedText
-            type="title"
-            style={{
-              fontSize: 22,
-              paddingLeft: 14
-            }}
-          >
-            For You
-          </ThemedText>
-
-          <FlatList
-            horizontal
-            pagingEnabled
-            data={resturants.results}
-            style={{
-              paddingLeft: 14
-            }}
-            renderItem={({ item }) => (
-
-              <TouchableOpacity
+              <View
                 style={{
-                  width: 100,
-                  height: 100,
-                  gap: 8,
-                  alignContent: "center",
+                  flexDirection: "row",
                   alignItems: "center",
-                  padding: 10,
-                  backgroundColor: Colors[colorScheme ?? "light"].surfaceMuted,
-                  borderRadius: 10
-                }}
-                activeOpacity={0.8}
-              >
-
-                <Image
-                  source={item.logo}
-                  style={styles.forYouTileImage}
-                  contentFit="cover"
-                />
-
-                <ThemedText
-                  type="defaultSemiBold"
-                  style={styles.forYouTileLabel}
-                >
-                  {item.name}
-                </ThemedText>
-
-              </TouchableOpacity>
-
-            )}
-            ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
-            showsHorizontalScrollIndicator={false}
-          />
-
-        </ThemedView>
-
-        <ThemedView
-          style={styles.section}
-        >
-
-          <ThemedText
-            type="title"
-            style={{
-              fontSize: 22,
-              paddingLeft: 14
-            }}
-          >
-            Top Picks
-          </ThemedText>
-
-          <FlatList
-            horizontal
-            pagingEnabled
-            data={TOPPICKS}
-            style={{
-              paddingLeft: 14
-            }}
-            renderItem={({ item }) => (
-
-              <ThemedView
-                style={{
-                  width: 200,
-                  height: 200,
-                  gap: 4
+                  gap: 10
                 }}
               >
 
                 <TouchableOpacity
-                  onPress={() => router.push(`/resturants/${item.label}`)}
+                  onPress={() => router.push(`/resturants`)}
                   activeOpacity={0.8}
                 >
 
-                  <Image
-                    source={item.poster}
+                  <Text
                     style={{
-                      width: 200,
-                      height: 140,
-                      borderRadius: 20
+                      fontSize: 18,
+                      fontFamily: "Atelia"
                     }}
-                    contentFit="cover"
-                  />
+                  >
+                    {item.label}
+                  </Text>
 
                 </TouchableOpacity>
 
-                <ThemedView
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 10
+                }}
+              >
+
+                <View
                   style={{
-                    flexDirection: "column",
-                    gap: 0
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5
                   }}
                 >
 
-                  <ThemedView
+                  <StarIcon
+                    color={Colors[colorScheme ?? "light"].cardIcon}
+                    size={10}
+                  />
+
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      gap: 8
+                      fontFamily: "Metropolis-Regular",
+                      fontSize: 8,
+                      color: Colors[colorScheme ?? "light"].cardSecondaryText
                     }}
                   >
+                    {item.rating}({item.review_count})
+                  </Text>
 
-                    <TouchableOpacity
-                      onPress={() => router.push(`/resturants`)}
-                      activeOpacity={0.8}
-                      style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        gap: 10
-                      }}
-                    >
+                </View>
 
-                      <ThemedText
-                        type="defaultSemiBold"
-                        style={{
-                          fontSize: 18
-                        }}
-                      >
-                        {item.label}
-                      </ThemedText>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5
+                  }}
+                >
 
-                      <IconSymbol
-                        size={20}
-                        color={Colors[colorScheme ?? "light"].icon}
-                        name="heart"
-                      />
+                  <WatchIcon
+                    color={Colors[colorScheme ?? "light"].cardIcon}
+                    size={10}
+                  />
 
-                    </TouchableOpacity>
-
-                  </ThemedView>
-
-                  <ThemedText
-                    type="default"
+                  <Text
                     style={{
-                      fontSize: 14
+                      fontFamily: "Metropolis-Regular",
+                      fontSize: 8,
+                      color: Colors[colorScheme ?? "light"].cardSecondaryText
                     }}
                   >
-                    {item.delivery_fee === 0 ?
-                      "Free"
-                    :
-                      `${item.delivery_fee} CAD`
-                    }
-                    {" "}
-                    Delivery Fee
-                    {" "}
-                    ( {item.estimated_time} mins )
-                  </ThemedText>
+                    {item.estimated_time}
+                  </Text>
 
-                  <ThemedView
+                </View>
+
+              </View>
+
+              <Text
+                style={{
+                  fontSize: 28,
+                  fontFamily: "Atelia",
+                  color: Colors[colorScheme ?? "light"].cardPrice
+                }}
+              >
+                {item.price}$
+              </Text>
+
+            </View>
+
+          </View>
+
+        )}
+        ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
+        showsHorizontalScrollIndicator={false}
+      />
+
+      <View
+        style={{
+          marginTop: 30,
+          flexDirection: "row",
+          gap: 10,
+          justifyContent: "space-between",
+          paddingHorizontal: 20
+        }}
+      >
+
+        <Text
+          style={{
+            fontSize: 32,
+            lineHeight: 48,
+            fontFamily: "Atelia"
+          }}
+        >
+          QUICK DELIVERY
+        </Text>
+
+        <Pressable
+          style={{
+            paddingHorizontal: 5,
+            paddingVertical: 4,
+            gap: 10,
+            backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+            minHeight: 30,
+            minWidth: 63,
+            borderRadius: 30,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row"
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Metropolis-Medium",
+              fontSize: 10,
+              color: Colors[colorScheme ?? "light"].buttonForeground
+            }}
+          >
+            See all
+          </Text>
+        </Pressable>
+
+      </View>
+
+      <FlatList
+        horizontal
+        pagingEnabled
+        data={TOPPICKS}
+        style={{
+          marginTop: 10,
+          paddingLeft: 14
+        }}
+        renderItem={({ item }) => (
+
+          <View
+            style={{
+              width: 150,
+              height: "auto",
+              gap: 10
+            }}
+          >
+
+            <TouchableOpacity
+              onPress={() => router.push(`/resturants/${item.label}`)}
+              activeOpacity={0.8}
+            >
+
+              <Image
+                source={item.poster}
+                style={{
+                  width: 150,
+                  height: 200,
+                  borderRadius: 20
+                }}
+                contentFit="cover"
+              />
+
+            </TouchableOpacity>
+
+            <View
+              style={{
+                flexDirection: "column",
+                gap: 5
+              }}
+            >
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 10
+                }}
+              >
+
+                <TouchableOpacity
+                  onPress={() => router.push(`/resturants`)}
+                  activeOpacity={0.8}
+                >
+
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      gap: 2,
-                      alignItems: "center"
+                      fontSize: 18,
+                      fontFamily: "Atelia"
                     }}
                   >
+                    {item.label}
+                  </Text>
 
-                    <IconSymbol
-                      size={14}
-                      color={Colors[colorScheme ?? "light"].icon}
-                      name="star.fill"
-                    />
+                </TouchableOpacity>
 
-                    <ThemedText
-                      type="defaultSemiBold"
-                      style={{
-                        fontSize: 12
-                      }}
-                    >
-                      {item.rating}
-                    </ThemedText>
+              </View>
 
-                  </ThemedView>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 10
+                }}
+              >
 
-                </ThemedView>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5
+                  }}
+                >
 
-              </ThemedView>
+                  <StarIcon
+                    color={Colors[colorScheme ?? "light"].cardIcon}
+                    size={10}
+                  />
 
-            )}
-            ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
-            showsHorizontalScrollIndicator={false}
-          />
+                  <Text
+                    style={{
+                      fontFamily: "Metropolis-Regular",
+                      fontSize: 8,
+                      color: Colors[colorScheme ?? "light"].cardSecondaryText
+                    }}
+                  >
+                    {item.rating}({item.review_count})
+                  </Text>
 
-        </ThemedView>
+                </View>
 
-      </ThemedView>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5
+                  }}
+                >
+
+                  <WatchIcon
+                    color={Colors[colorScheme ?? "light"].cardIcon}
+                    size={10}
+                  />
+
+                  <Text
+                    style={{
+                      fontFamily: "Metropolis-Regular",
+                      fontSize: 8,
+                      color: Colors[colorScheme ?? "light"].cardSecondaryText
+                    }}
+                  >
+                    {item.estimated_time}
+                  </Text>
+
+                </View>
+
+              </View>
+
+              <Text
+                style={{
+                  fontSize: 28,
+                  fontFamily: "Atelia",
+                  color: Colors[colorScheme ?? "light"].cardPrice
+                }}
+              >
+                {item.price}$
+              </Text>
+
+            </View>
+
+          </View>
+
+        )}
+        ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
+        showsHorizontalScrollIndicator={false}
+      />
 
     </ScrollView>
 
   );
 
 }
-
-
-
-const styles = StyleSheet.create({
-  categoryTile: {
-    width: 80,
-    height: 80,
-    gap: 4,
-    alignItems: "center",
-    alignContent: "center",
-    backgroundColor: "#F08080",
-    padding: 4,
-    borderRadius: 10
-  },
-  categoryTileImage: {
-    width: "100%",
-    height: "70%",
-    borderRadius: 10
-  },
-  tilePressed: {
-    transform: [{ scale: 0.98 }],
-    opacity: 0.9,
-  },
-  content: {
-    paddingTop: 14,
-    gap: 30,
-    height: "100%"
-  },
-  section: {
-    gap: 10,
-    width: "100%"
-  },
-  forYouTileImage: {
-    width: "70%",
-    height: "70%",
-    borderRadius: 20
-  },
-  forYouTileLabel: {
-    textAlign: "center",
-    fontSize: 12,
-    fontWeight: 700
-  }
-});
-
