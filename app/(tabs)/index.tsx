@@ -1,61 +1,224 @@
 import React, { useState } from "react";
-import { StyleSheet, Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
+import { Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
 import { Image } from "expo-image";
 import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
-import { Resturant, SAMPLE_RESTURANTS } from "../resturants/interface";
-import { MagnifierIcon } from "@/components/icons/magnifier";
 import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
+import { SearchBar } from "@/components/search-bar";
+import { Restaurant } from "@db-types";
 
 
 
 const TOPPICKS = [
   {
-    label: "Burger",
+    id: 101,
+    label: "Chicken Shawarma Wrap",
     poster: require("@/assets/images/burger-1.jpg"),
-    delivery_fee: 1.4,
-    rating: 4,
-    review_count: "520+",
-    estimated_time: "17-21 min",
-    price: 15.49
-  },
-  {
-    label: "Pizza",
-    poster: require("@/assets/images/pizza-1.jpg"),
-    delivery_fee: 1.6,
+    delivery_fee: 1.99,
     rating: 4.8,
-    review_count: "500+",
-    estimated_time: "13 min",
-    price: 17.0
+    review_count: "1.2k+",
+    estimated_time: "12-15 min",
+    price: 7.50,
+    restaurantId: 1,
+    restaurantBranchId: 1,
+    menuItemId: 4,
+    menuSectionId: 3,
+    cuisineIds: [1, 3],
+    categoryIds: [2, 5],
+    halal: true
   },
   {
-    label: "Beyti Kebab Served with Ayran Pickles",
-    poster: require("@/assets/images/beyti-kebab-served-with-ayran-pickles.jpg"),
+    id: 102,
+    label: "Butter Chicken",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 2.49,
+    rating: 4.9,
+    review_count: "2.5k+",
+    estimated_time: "20-25 min",
+    price: 18.99,
+    restaurantId: 2,
+    restaurantBranchId: 3,
+    menuItemId: 12,
+    menuSectionId: 13,
+    cuisineIds: [2],
+    categoryIds: [1, 5],
+    halal: true
+  },
+  {
+    id: 103,
+    label: "Dragon Roll",
+    poster: require("@/assets/images/burger-1.jpg"),
     delivery_fee: 0.99,
     rating: 4.7,
-    review_count: "500+",
-    estimated_time: "20-30 min",
-    price: 13.0
+    review_count: "850+",
+    estimated_time: "18-22 min",
+    price: 16.99,
+    restaurantId: 3,
+    restaurantBranchId: 5,
+    menuItemId: 14,
+    menuSectionId: 17,
+    cuisineIds: [4],
+    categoryIds: [1, 4],
+    halal: false
   },
   {
-    label: "Burger Black Bread Bun with Fried Egg",
-    poster: require("@/assets/images/burger-black-bread-bun-with-fried-egg.jpg"),
-    delivery_fee: 2,
-    rating: 4.4,
-    review_count: "13",
-    estimated_time: "29 min",
-    price: 9.0
+    id: 104,
+    label: "Falafel Plate",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.49,
+    rating: 4.6,
+    review_count: "630+",
+    estimated_time: "15-20 min",
+    price: 14.00,
+    restaurantId: 1,
+    restaurantBranchId: 1,
+    menuItemId: 3,
+    menuSectionId: 1,
+    cuisineIds: [1, 3],
+    categoryIds: [2, 5],
+    halal: true,
+    vegetarian: true
   },
   {
-    label: "Fried Prawn Rice With Teriyaki Sauce",
-    poster: require("@/assets/images/fried-prawn-rice-with-teriyaki-sauce.jpg"),
-    delivery_fee: 0,
+    id: 105,
+    label: "Lamb Rogan Josh",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 2.99,
     rating: 4.8,
-    review_count: "112",
-    estimated_time: "20-40 min",
-    price: 7.2
+    review_count: "1.1k+",
+    estimated_time: "25-30 min",
+    price: 20.99,
+    restaurantId: 2,
+    restaurantBranchId: 4,
+    menuItemId: 13,
+    menuSectionId: 13,
+    cuisineIds: [2],
+    categoryIds: [1, 5],
+    isSpicy: true
+  },
+  {
+    id: 106,
+    label: "Rainbow Roll",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.89,
+    rating: 4.8,
+    review_count: "720+",
+    estimated_time: "20-25 min",
+    price: 18.99,
+    restaurantId: 3,
+    restaurantBranchId: 6,
+    menuItemId: 15,
+    menuSectionId: 17,
+    cuisineIds: [4],
+    categoryIds: [1, 4],
+    halal: false
+  },
+  {
+    id: 107,
+    label: "Tenderloin Kabob",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.99,
+    rating: 4.9,
+    review_count: "950+",
+    estimated_time: "25-30 min",
+    price: 27.00,
+    restaurantId: 1,
+    restaurantBranchId: 2,
+    menuItemId: 6,
+    menuSectionId: 5,
+    cuisineIds: [1, 3],
+    categoryIds: [1, 5],
+    halal: true,
+    chef_special: true
+  },
+  {
+    id: 108,
+    label: "Samosas (2 pcs)",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 0.99,
+    rating: 4.5,
+    review_count: "890+",
+    estimated_time: "12-15 min",
+    price: 6.99,
+    restaurantId: 2,
+    restaurantBranchId: 3,
+    menuItemId: 10,
+    menuSectionId: 11,
+    cuisineIds: [2],
+    categoryIds: [1, 5],
+    vegetarian: true
+  },
+  {
+    id: 109,
+    label: "Spicy Tuna Roll",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.29,
+    rating: 4.7,
+    review_count: "680+",
+    estimated_time: "15-18 min",
+    price: 14.99,
+    restaurantId: 3,
+    restaurantBranchId: 5,
+    menuItemId: 16,
+    menuSectionId: 17,
+    cuisineIds: [4],
+    categoryIds: [1, 4],
+    isSpicy: true
+  },
+  {
+    id: 110,
+    label: "Feast for 2",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 3.99,
+    rating: 4.9,
+    review_count: "430+",
+    estimated_time: "30-35 min",
+    price: 66.00,
+    restaurantId: 1,
+    restaurantBranchId: 2,
+    menuItemId: 7,
+    menuSectionId: 5,
+    cuisineIds: [1, 3],
+    categoryIds: [1, 2, 5],
+    halal: true,
+    chef_special: true,
+    serves: 2
+  },
+  {
+    id: 111,
+    label: "Chicken Bowl",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.79,
+    rating: 4.7,
+    review_count: "520+",
+    estimated_time: "15-20 min",
+    price: 19.00,
+    restaurantId: 1,
+    restaurantBranchId: 1,
+    menuItemId: 8,
+    menuSectionId: 6,
+    cuisineIds: [1, 3],
+    categoryIds: [2, 5],
+    halal: true
+  },
+  {
+    id: 112,
+    label: "Chicken Pakora",
+    poster: require("@/assets/images/burger-1.jpg"),
+    delivery_fee: 1.49,
+    rating: 4.6,
+    review_count: "410+",
+    estimated_time: "15-18 min",
+    price: 8.99,
+    restaurantId: 2,
+    restaurantBranchId: 4,
+    menuItemId: 11,
+    menuSectionId: 11,
+    cuisineIds: [2],
+    categoryIds: [1, 5],
+    isSpicy: true
   }
 ];
 
@@ -63,15 +226,7 @@ const TOPPICKS = [
 
 export default function HomeScreen () {
 
-  const [resturants, setResturants] = useState<{
-    count: number;
-    results: Resturant[];
-    next?: string;
-    previous?: string;
-  }>({
-    count: SAMPLE_RESTURANTS.length,
-    results: SAMPLE_RESTURANTS
-  });
+  const [resturants, setResturants] = useState<Restaurant[]>();
 
   const colorScheme = useColorScheme();
 
@@ -93,39 +248,13 @@ export default function HomeScreen () {
       <View
         style={{
           height: "auto",
-          paddingTop: 70,
+          marginTop: 70,
           padding: 20
         }}
       >
 
-        <Pressable
-          style={{
-            flexDirection: "row",
-            padding: 13,
-            paddingHorizontal: 20,
-            alignItems: "center",
-            justifyContent: "flex-start",
-            backgroundColor: Colors[colorScheme ?? "light"].searchBarBackground,
-            borderRadius: 60,
-            gap: 10
-          }}
-        >
-
-          <MagnifierIcon
-            color={Colors[colorScheme === "light" ? "dark" : "light"].searchBarForeground}
-          />
-
-          <Text
-            style={{
-              fontSize: 18,
-              color: Colors["light"].searchBarForeground,
-              fontFamily: "Metropolis-Regular"
-            }}
-          >
-            Search
-          </Text>
-
-        </Pressable>
+        <SearchBar
+        />
 
       </View>
 
@@ -186,7 +315,9 @@ export default function HomeScreen () {
         }}
         renderItem={({ item }) => (
 
-          <View
+          <TouchableOpacity
+            onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
+            activeOpacity={0.8}
             style={{
               width: 150,
               height: "auto",
@@ -194,22 +325,15 @@ export default function HomeScreen () {
             }}
           >
 
-            <TouchableOpacity
-              onPress={() => router.push(`/resturants/${item.label}`)}
-              activeOpacity={0.8}
-            >
-
-              <Image
-                source={item.poster}
-                style={{
-                  width: 150,
-                  height: 200,
-                  borderRadius: 20
-                }}
-                contentFit="cover"
-              />
-
-            </TouchableOpacity>
+            <Image
+              source={item.poster}
+              style={{
+                width: 150,
+                height: 200,
+                borderRadius: 20
+              }}
+              contentFit="cover"
+            />
 
             <View
               style={{
@@ -226,21 +350,14 @@ export default function HomeScreen () {
                 }}
               >
 
-                <TouchableOpacity
-                  onPress={() => router.push(`/resturants`)}
-                  activeOpacity={0.8}
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: "Atelia"
+                  }}
                 >
-
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontFamily: "Atelia"
-                    }}
-                  >
-                    {item.label}
-                  </Text>
-
-                </TouchableOpacity>
+                  {item.label}
+                </Text>
 
               </View>
 
@@ -316,7 +433,7 @@ export default function HomeScreen () {
 
             </View>
 
-          </View>
+          </TouchableOpacity>
 
         )}
         ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
@@ -389,7 +506,7 @@ export default function HomeScreen () {
           >
 
             <TouchableOpacity
-              onPress={() => router.push(`/resturants/${item.label}`)}
+              onPress={() => router.push(`/restaurants/${item.id}`)}
               activeOpacity={0.8}
             >
 
@@ -421,7 +538,7 @@ export default function HomeScreen () {
               >
 
                 <TouchableOpacity
-                  onPress={() => router.push(`/resturants`)}
+                  onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
                   activeOpacity={0.8}
                 >
 

@@ -5,11 +5,11 @@ import Svg, { Path } from "react-native-svg";
 
 
 export const MagnifierIcon = ({
-  color = "#fff9e5",
-  size = 24
+  color,
+  size
 }: {
-  color?: ColorValue;
-  size?: number;
+  color: ColorValue;
+  size: number;
 }) => (
 
   <Svg

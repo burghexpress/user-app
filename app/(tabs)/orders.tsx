@@ -1,43 +1,47 @@
-import ParallaxScrollView from "@/components/parallax-scroll-view";
-import { IconSymbol } from "@/components/ui/icon-symbol";
-import { StyleSheet } from "react-native";
+import { SearchBar } from "@/components/search-bar";
+import { Colors } from "@/constants/theme";
+import { useRef, useState } from "react";
+import { ScrollView, TextInput, useColorScheme, View } from "react-native";
 
 
 
-export default function AccountScreen () {
+export default function OrdersScreen () {
+
+  const [search, setSearch] = useState("");
+
+  const colorScheme = useColorScheme();
+
+  const inputRef = useRef<TextInput>(null);
 
   return (
 
-    <ParallaxScrollView
-      headerBackgroundColor={{
-        light: "#D0D0D0",
-        dark: "#353636",
+    <ScrollView
+      style={{
+        backgroundColor: Colors[colorScheme ?? "light"].background
       }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
+      contentContainerStyle={{
+        paddingBottom: 20
+      }}
+    >
+
+      <View
+        style={{
+          height: "auto",
+          marginTop: 70,
+          padding: 20
+        }}
+      >
+
+        <SearchBar
+          onPress={() => inputRef.current?.focus()}
+          value={search}
+          onChangeText={setSearch}
         />
-      }
-    ></ParallaxScrollView>
+
+      </View>
+
+    </ScrollView>
 
   );
 
 }
-
-
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-});

@@ -11,8 +11,15 @@ export const Colors = {
     background: "#FFF9E5",
     tint: tintColorLight,
 
+    logoBackground: "#1E1E1E",
+
+    headerButtonBackground: "#1E1E1E",
+    headerButtonForeground: "#687076",
+
     searchBarBackground: "#1E1E1E",
-    searchBarForeground: "#687076",
+    searchBarIcon: "#687076",
+    searchBarText: "#FFF9E5",
+    searchBarPlaceholder: "#687076",
 
     buttonBackground: "#EA0000",
     buttonForeground: "#FFF9E5",
@@ -40,8 +47,15 @@ export const Colors = {
     background: "#151718",
     tint: tintColorDark,
 
+    logoBackground: "#1E1E1E",
+
+    headerButtonBackground: "#1E1E1E",
+    headerButtonForeground: "#687076",
+
     searchBarBackground: "#1E1E1E",
-    searchBarForeground: "#687076",
+    searchBarIcon: "#687076",
+    searchBarText: "#FFF9E5",
+    searchBarPlaceholder: "#687076",
 
     buttonBackground: "#EA0000",
     buttonForeground: "#FFF9E5",

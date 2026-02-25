@@ -1,0 +1,1272 @@
+import { Address, Category, Cuisine, Menu, MenuItem, MenuSection, ModifierGroup, ModifierOption, Restaurant, RestaurantBranch } from "@db-types";
+
+
+
+export const restaurants: Restaurant[] = [
+  {
+    id: 1,
+    name: "Firdous Lebanese Grill",
+    description: "Authentic Lebanese cuisine since 1995",
+    website: "firdousgrill.com",
+    logoUrl: require("@/assets/images/dominos.png"),
+    posterUrl: require("@/assets/images/burger-1.jpg"),
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    name: "Dominos",
+    description: "Authentic Lebanese cuisine since 1995",
+    logoUrl: require("@/assets/images/dominos.png"),
+    posterUrl: require("@/assets/images/burger-1.jpg"),
+    website: "dominos.com",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    name: "KFC",
+    description: "Authentic Lebanese cuisine since 1995",
+    logoUrl: require("@/assets/images/kfc-logo.png"),
+    posterUrl: require("@/assets/images/burger-1.jpg"),
+    website: "kfc.com",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    name: "Wendy's",
+    description: "Authentic Lebanese cuisine since 1995",
+    logoUrl: require("@/assets/images/wendys-logo.png"),
+    posterUrl: require("@/assets/images/kfc-logo.png"),
+    website: "wendys.com",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    name: "Pizza hut",
+    description: "Authentic Lebanese cuisine since 1995",
+    logoUrl: require("@/assets/images/pizza-hut-logo.png"),
+    posterUrl: require("@/assets/images/pizza-hut-logo.png"),
+    website: "pizza-hut.com",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 6,
+    name: "Burger King",
+    description: "Authentic Lebanese cuisine since 1995",
+    logoUrl: require("@/assets/images/burger-king-logo.png"),
+    posterUrl: require("@/assets/images/burger-1.jpg"),
+    website: "burger-king.com",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+export const restaurantBranches: RestaurantBranch[] = [
+  {
+    id: 1,
+    restaurantId: 1,
+    name: "Firdous Leamington",
+    posterUrl: null,
+    phoneNumber: "+15193249899",
+    email: "leamington@firdousgrill.com",
+    addressId: 1,
+    openingHours: {
+      monday: "11:00-22:00",
+      tuesday: "11:00-22:00",
+      wednesday: "11:00-22:00",
+      thursday: "11:00-23:00",
+      friday: "11:00-23:00",
+      saturday: "12:00-23:00",
+      sunday: "12:00-21:00"
+    },
+    isOpen: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    restaurantId: 1,
+    name: "Firdous Toronto",
+    posterUrl: null,
+    phoneNumber: "+14165551234",
+    email: "toronto@firdousgrill.com",
+    addressId: 2,
+    openingHours: {
+      monday: "11:30-22:30",
+      tuesday: "11:30-22:30",
+      wednesday: "11:30-22:30",
+      thursday: "11:30-23:30",
+      friday: "11:30-00:00",
+      saturday: "12:00-00:00",
+      sunday: "12:00-22:00"
+    },
+    isOpen: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    restaurantId: 2,
+    name: "Tandoori Flame Brampton",
+    posterUrl: "https://example.com/branches/tandoori-brampton.jpg",
+    phoneNumber: "+19055551234",
+    email: "brampton@tandooriflame.ca",
+    addressId: 3,
+    openingHours: {
+      monday: "11:30-22:00",
+      tuesday: "11:30-22:00",
+      wednesday: "11:30-22:00",
+      thursday: "11:30-22:30",
+      friday: "11:30-23:00",
+      saturday: "12:00-23:00",
+      sunday: "12:00-22:00"
+    },
+    isOpen: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    restaurantId: 2,
+    name: "Tandoori Flame Calgary",
+    posterUrl: "https://example.com/branches/tandoori-calgary.jpg",
+    phoneNumber: "+14035551234",
+    email: "calgary@tandooriflame.ca",
+    addressId: 5,
+    openingHours: {
+      monday: "11:30-21:30",
+      tuesday: "11:30-21:30",
+      wednesday: "11:30-21:30",
+      thursday: "11:30-22:00",
+      friday: "11:30-22:30",
+      saturday: "12:00-22:30",
+      sunday: "12:00-21:30"
+    },
+    isOpen: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    restaurantId: 3,
+    name: "Sushi Master Vancouver",
+    posterUrl: "https://example.com/branches/sushi-vancouver.jpg",
+    phoneNumber: "+16045551234",
+    email: "vancouver@sushimaster.com",
+    addressId: 4,
+    openingHours: {
+      monday: "11:30-21:00",
+      tuesday: "11:30-21:00",
+      wednesday: "11:30-21:00",
+      thursday: "11:30-21:30",
+      friday: "11:30-22:00",
+      saturday: "12:00-22:00",
+      sunday: "12:00-21:00"
+    },
+    isOpen: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 6,
+    restaurantId: 3,
+    name: "Sushi Master Montreal",
+    posterUrl: "https://example.com/branches/sushi-montreal.jpg",
+    phoneNumber: "+15145551234",
+    email: "montreal@sushimaster.com",
+    addressId: 6,
+    openingHours: {
+      monday: "11:30-21:00",
+      tuesday: "11:30-21:00",
+      wednesday: "11:30-21:00",
+      thursday: "11:30-21:30",
+      friday: "11:30-22:00",
+      saturday: "12:00-22:00",
+      sunday: "12:00-21:00"
+    },
+    isOpen: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+const cuisines: Cuisine[] = [
+  {
+    id: 1,
+    name: "Lebanese",
+    description: "Traditional Lebanese and Middle Eastern cuisine",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    name: "Indian",
+    description: "North Indian and Mughlai cuisine",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    name: "Mediterranean",
+    description: "Mediterranean and Greek inspired dishes",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    name: "Japanese",
+    description: "Sushi, sashimi and Japanese classics",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    name: "Fast Food",
+    description: "Quick service and fast food options",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+const categories: Category[] = [
+  {
+    id: 1,
+    name: "Fine Dining",
+    description: "Upscale dining experience",
+    iconUrl: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    name: "Family Style",
+    description: "Perfect for family gatherings",
+    iconUrl: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    name: "Quick Bites",
+    description: "Fast and casual dining",
+    iconUrl: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    name: "Takeout Specialists",
+    description: "Specialized in takeout and delivery",
+    iconUrl: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    name: "Halal Certified",
+    description: "100% Halal certified restaurants",
+    iconUrl: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+const addresses: Address[] = [
+  {
+    id: 1,
+    street: "4 Wellington Street",
+    city: "Leamington",
+    state: "ON",
+    postcode: "N8H 1A5",
+    country: "Canada",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    street: "123 Queen Street West",
+    city: "Toronto",
+    state: "ON",
+    postcode: "M5V 2A4",
+    country: "Canada",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    street: "456 Robson Street",
+    city: "Vancouver",
+    state: "BC",
+    postcode: "V6B 2A5",
+    country: "Canada",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    street: "789 Bank Street",
+    city: "Ottawa",
+    state: "ON",
+    postcode: "K1S 3W1",
+    country: "Canada",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    street: "321 17th Avenue SW",
+    city: "Calgary",
+    state: "AB",
+    postcode: "T2S 0A1",
+    country: "Canada",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 6,
+    street: "654 Ste-Catherine Street West",
+    city: "Montreal",
+    state: "QC",
+    postcode: "H3B 1B1",
+    country: "Canada",
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+export const menus: Menu[] = [
+  {
+    id: 1,
+    restaurantBranchId: 1,
+    name: "Main Menu",
+    description: "Our complete menu available all day",
+    availableFrom: new Date("2024-01-01T00:00:00Z"),
+    availableTo: new Date("2024-12-31T23:59:59Z"),
+    daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    restaurantBranchId: 1,
+    name: "Lunch Specials",
+    description: "Weekday lunch specials 11am-3pm",
+    availableFrom: new Date("2024-01-01T11:00:00Z"),
+    availableTo: new Date("2024-12-31T15:00:00Z"),
+    daysOfWeek: [1, 2, 3, 4, 5],
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    restaurantBranchId: 3,
+    name: "Main Menu",
+    description: "Authentic Indian cuisine",
+    availableFrom: new Date("2024-01-01T00:00:00Z"),
+    availableTo: new Date("2024-12-31T23:59:59Z"),
+    daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    restaurantBranchId: 5,
+    name: "Menu",
+    description: "Fresh Japanese cuisine",
+    availableFrom: new Date("2024-01-01T00:00:00Z"),
+    availableTo: new Date("2024-12-31T23:59:59Z"),
+    daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+export const menuSections: MenuSection[] = [
+  {
+    id: 1,
+    menuId: 1,
+    name: "Starters",
+    description: "Begin your meal with our authentic Lebanese appetizers",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    menuId: 1,
+    name: "Soups & Salads",
+    description: "Fresh and healthy options",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    menuId: 1,
+    name: "Wraps",
+    description: "Our famous wraps served with garlic sauce",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    menuId: 1,
+    name: "Entrees",
+    description: "Main courses served with rice and salad",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    menuId: 1,
+    name: "From The Grill",
+    description: "Premium grilled selections",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 6,
+    menuId: 1,
+    name: "Bowls",
+    description: "Healthy grain bowls with your choice of protein",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 7,
+    menuId: 1,
+    name: "Desserts",
+    description: "Sweet endings",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 8,
+    menuId: 1,
+    name: "Beverages",
+    description: "Drinks and refreshments",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 9,
+    menuId: 2,
+    name: "Lunch Specials - Wraps",
+    description: "Wrap combos with fries and drink",
+    minSelections: 1,
+    maxSelections: 1,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 10,
+    menuId: 2,
+    name: "Lunch Specials - Plates",
+    description: "Plate combos with rice, salad and drink",
+    minSelections: 1,
+    maxSelections: 1,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 11,
+    menuId: 3,
+    name: "Appetizers",
+    description: "Starters and street food",
+    maxSelections: null,
+    minSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 12,
+    menuId: 3,
+    name: "Tandoori Specialties",
+    description: "Clay oven grilled dishes",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 13,
+    menuId: 3,
+    name: "Curries",
+    description: "Rich and flavorful curries",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 14,
+    menuId: 3,
+    name: "Breads",
+    description: "Freshly baked Indian breads",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 15,
+    menuId: 4,
+    name: "Appetizers",
+    description: "Start your meal",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 16,
+    menuId: 4,
+    name: "Sushi & Sashimi",
+    description: "Fresh cuts and rolls",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 17,
+    menuId: 4,
+    name: "Special Rolls",
+    description: "Chef's signature creations",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 18,
+    menuId: 4,
+    name: "Hot Dishes",
+    description: "Kitchen entrees",
+    minSelections: null,
+    maxSelections: null,
+    isActive: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+export const menuItems: MenuItem[] = [
+  {
+    id: 1,
+    menuSectionId: 1,
+    name: "Hummus",
+    description: "Creamy chickpea dip with tahini, lemon juice, and garlic",
+    price: 8.50,
+    imageUrl: require("@/assets/images/chickpea-hummus-rustic-wooden-table.jpg"),
+    isVegan: true,
+    isVegetarian: true,
+    isGlutenFree: true,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 320,
+    allergens: ["Sesame"],
+    preparationTimeInMinutes: 10,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    menuSectionId: 1,
+    name: "Garlic Sauce",
+    description: "Creamy Lebanese garlic sauce (toum)",
+    price: 9.00,
+    imageUrl: "https://example.com/images/toum.jpg",
+    isVegan: true,
+    isVegetarian: true,
+    isGlutenFree: true,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 450,
+    allergens: [],
+    preparationTimeInMinutes: 5,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    menuSectionId: 1,
+    name: "Falafel (4 pcs)",
+    description: "Crispy chickpea patties served with tahini sauce",
+    price: 10.00,
+    imageUrl: "https://example.com/images/falafel.jpg",
+    isVegan: true,
+    isVegetarian: true,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 280,
+    allergens: ["Gluten"],
+    preparationTimeInMinutes: 15,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    menuSectionId: 3,
+    name: "Chicken Shawarma Wrap",
+    description: "Marinated chicken with garlic sauce, pickles, and fries wrapped in pita",
+    price: 7.50,
+    imageUrl: null,
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    maxPerOrder: 10,
+    calories: 650,
+    allergens: ["Gluten", "Dairy"],
+    isChefSpecial: false,
+    preparationTimeInMinutes: 12,
+    availableFrom: null,
+    availableTo: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    menuSectionId: 3,
+    name: "Beef Shawarma Wrap",
+    description: "Marinated beef with garlic sauce, pickles, and fries wrapped in pita",
+    price: 8.00,
+    imageUrl: null,
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 680,
+    allergens: ["Gluten", "Dairy"],
+    preparationTimeInMinutes: 12,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 6,
+    menuSectionId: 5,
+    name: "Tenderloin Kabab",
+    description: "Prime beef tenderloin chunks grilled to perfection",
+    price: 27.00,
+    imageUrl: "https://example.com/images/tenderloin.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: true,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 520,
+    allergens: [],
+    isChefSpecial: true,
+    preparationTimeInMinutes: 25,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 7,
+    menuSectionId: 5,
+    name: "Feast for 2",
+    description: "Assorted grilled meats, rice, salads, and dips for two",
+    price: 66.00,
+    imageUrl: null,
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 1200,
+    allergens: ["Gluten", "Dairy", "Sesame"],
+    isChefSpecial: true,
+    preparationTimeInMinutes: 30,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 8,
+    menuSectionId: 6,
+    name: "Chicken Bowl",
+    description: "Grilled chicken with rice, salad, hummus and garlic sauce",
+    price: 19.00,
+    imageUrl: null,
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: true,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 720,
+    allergens: ["Sesame"],
+    preparationTimeInMinutes: 15,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 9,
+    menuSectionId: 6,
+    name: "Falafel Bowl",
+    description: "Crispy falafel with rice, salad, hummus and garlic sauce",
+    price: 18.00,
+    imageUrl: "https://example.com/images/falafel-bowl.jpg",
+    isVegan: true,
+    isVegetarian: true,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: false,
+    calories: 650,
+    allergens: ["Gluten", "Sesame"],
+    preparationTimeInMinutes: 12,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 10,
+    menuSectionId: 11,
+    name: "Samosas (2 pcs)",
+    description: "Crispy pastry filled with spiced potatoes and peas",
+    price: 6.99,
+    imageUrl: "https://example.com/images/samosas.jpg",
+    isVegan: true,
+    isVegetarian: true,
+    isGlutenFree: false,
+    isSpicy: true,
+    isAvailable: true,
+    isPopular: true,
+    calories: 310,
+    allergens: ["Gluten"],
+    preparationTimeInMinutes: 12,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 11,
+    menuSectionId: 11,
+    name: "Chicken Pakora",
+    description: "Boneless chicken battered in spiced chickpea flour and fried",
+    price: 8.99,
+    imageUrl: "https://example.com/images/pakora.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: true,
+    isSpicy: true,
+    isAvailable: true,
+    isPopular: true,
+    calories: 420,
+    allergens: [],
+    preparationTimeInMinutes: 15,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 12,
+    menuSectionId: 13,
+    name: "Butter Chicken",
+    description: "Tandoori chicken in creamy tomato curry",
+    price: 18.99,
+    imageUrl: "https://example.com/images/butter-chicken.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: true,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 580,
+    allergens: ["Dairy", "Nuts"],
+    isChefSpecial: false,
+    preparationTimeInMinutes: 20,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 13,
+    menuSectionId: 13,
+    name: "Lamb Rogan Josh",
+    description: "Tender lamb cooked with Kashmiri spices",
+    price: 20.99,
+    imageUrl: "https://example.com/images/rogan-josh.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: true,
+    isSpicy: true,
+    isAvailable: true,
+    isPopular: true,
+    calories: 620,
+    allergens: ["Dairy"],
+    isChefSpecial: true,
+    preparationTimeInMinutes: 25,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 14,
+    menuSectionId: 17,
+    name: "Dragon Roll",
+    description: "Eel and cucumber topped with avocado",
+    price: 16.99,
+    imageUrl: "https://example.com/images/dragon-roll.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 410,
+    allergens: ["Fish", "Soy", "Gluten"],
+    isChefSpecial: true,
+    preparationTimeInMinutes: 18,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 15,
+    menuSectionId: 17,
+    name: "Rainbow Roll",
+    description: "California roll topped with assorted sashimi",
+    price: 18.99,
+    imageUrl: "https://example.com/images/rainbow-roll.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isSpicy: false,
+    isAvailable: true,
+    isPopular: true,
+    calories: 450,
+    allergens: ["Fish", "Soy", "Gluten", "Egg"],
+    isNew: true,
+    preparationTimeInMinutes: 20,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 16,
+    menuSectionId: 17,
+    name: "Spicy Tuna Roll",
+    description: "Fresh tuna mixed with spicy mayo",
+    price: 14.99,
+    imageUrl: "https://example.com/images/spicy-tuna.jpg",
+    isVegan: false,
+    isVegetarian: false,
+    isGlutenFree: false,
+    isSpicy: true,
+    isAvailable: true,
+    isPopular: true,
+    calories: 380,
+    allergens: ["Fish", "Soy", "Gluten", "Egg"],
+    preparationTimeInMinutes: 15,
+    availableFrom: null,
+    availableTo: null,
+    maxPerOrder: null,
+    isChefSpecial: null,
+    isNew: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+const modifierGroups: ModifierGroup[] = [
+  {
+    id: 1,
+    name: "Protein Add-Ons",
+    description: "Add extra protein to your bowl or wrap",
+    minSelections: 0,
+    maxSelections: 3,
+    isRequired: false,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    name: "Spice Level",
+    description: "Choose your preferred spice level",
+    minSelections: 1,
+    maxSelections: 1,
+    isRequired: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    name: "Sauce Selection",
+    description: "Choose your sauces",
+    minSelections: 1,
+    maxSelections: 3,
+    isRequired: false,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    name: "Extra Toppings",
+    description: "Add extra toppings to your dish",
+    minSelections: 0,
+    maxSelections: 4,
+    isRequired: false,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    name: "Bread Choice",
+    description: "Choose your bread",
+    minSelections: 1,
+    maxSelections: 1,
+    isRequired: true,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
+
+
+
+export const modifierOptions: ModifierOption[] = [
+  {
+    id: 1,
+    modifierGroupId: 1,
+    name: "Extra Chicken",
+    additionalCost: 4.00,
+    isAvailable: true,
+    maxPerOrder: 2,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 2,
+    modifierGroupId: 1,
+    name: "Extra Beef",
+    additionalCost: 4.50,
+    isAvailable: true,
+    maxPerOrder: 2,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 3,
+    modifierGroupId: 1,
+    name: "Extra Falafel (4 pcs)",
+    additionalCost: 3.50,
+    isAvailable: true,
+    maxPerOrder: 2,
+    stock: 50,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 4,
+    modifierGroupId: 2,
+    name: "Mild",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 5,
+    modifierGroupId: 2,
+    name: "Medium",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 6,
+    modifierGroupId: 2,
+    name: "Hot",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 7,
+    modifierGroupId: 2,
+    name: "Extra Hot",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 8,
+    modifierGroupId: 3,
+    name: "Garlic Sauce",
+    additionalCost: 0.50,
+    isAvailable: true,
+    maxPerOrder: 2,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 9,
+    modifierGroupId: 3,
+    name: "Tahini Sauce",
+    additionalCost: 0.50,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 10,
+    modifierGroupId: 3,
+    name: "Hot Sauce",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 11,
+    modifierGroupId: 3,
+    name: "Soy Sauce",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 12,
+    modifierGroupId: 3,
+    name: "Wasabi",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: 2,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 13,
+    modifierGroupId: 4,
+    name: "Feta Cheese",
+    additionalCost: 2.50,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 14,
+    modifierGroupId: 4,
+    name: "Extra Pickles",
+    additionalCost: 0.75,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 15,
+    modifierGroupId: 4,
+    name: "Extra Onions",
+    additionalCost: 0.50,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 16,
+    modifierGroupId: 4,
+    name: "Avocado",
+    additionalCost: 2.00,
+    isAvailable: true,
+    stock: 30,
+    maxPerOrder: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 17,
+    modifierGroupId: 5,
+    name: "White Pita",
+    additionalCost: 0,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 18,
+    modifierGroupId: 5,
+    name: "Whole Wheat Pita",
+    additionalCost: 0.50,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 19,
+    modifierGroupId: 5,
+    name: "Naan Bread",
+    additionalCost: 1.50,
+    isAvailable: true,
+    maxPerOrder: null,
+    stock: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  },
+  {
+    id: 20,
+    modifierGroupId: 5,
+    name: "Gluten-Free Wrap",
+    additionalCost: 2.00,
+    isAvailable: true,
+    stock: 20,
+    maxPerOrder: null,
+    createdAt: new Date("2023-05-15T10:30:00Z"),
+    updatedAt: new Date("2025-02-20T14:45:00Z")
+  }
+]
