@@ -307,12 +307,15 @@ export default function HomeScreen () {
 
       <FlatList
         horizontal
-        pagingEnabled
         data={TOPPICKS}
         style={{
-          marginTop: 10,
-          paddingLeft: 14
+          marginTop: 10
         }}
+        contentContainerStyle={{
+          paddingHorizontal: 14,
+          gap: 10
+        }}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
 
           <TouchableOpacity
@@ -436,8 +439,6 @@ export default function HomeScreen () {
           </TouchableOpacity>
 
         )}
-        ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
-        showsHorizontalScrollIndicator={false}
       />
 
       <View
@@ -489,12 +490,15 @@ export default function HomeScreen () {
 
       <FlatList
         horizontal
-        pagingEnabled
         data={TOPPICKS}
         style={{
-          marginTop: 10,
-          paddingLeft: 14
+          marginTop: 10
         }}
+        contentContainerStyle={{
+          paddingHorizontal: 14,
+          gap: 10
+        }}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
 
           <View
@@ -630,8 +634,6 @@ export default function HomeScreen () {
           </View>
 
         )}
-        ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
-        showsHorizontalScrollIndicator={false}
       />
 
     </ScrollView>
