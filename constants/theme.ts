@@ -1,15 +1,13 @@
 import { Platform } from 'react-native';
 
 
-const tintColorLight = "#f08080";
-const tintColorDark = "#f08080";
-
 
 export const Colors = {
   light: {
     text: "#11181C",
+    foreground: "#11181C",
     background: "#FFF9E5",
-    tint: tintColorLight,
+    tint: "#f08080",
 
     logoBackground: "#1E1E1E",
 
@@ -23,8 +21,11 @@ export const Colors = {
 
     buttonBackground: "#EA0000",
     buttonForeground: "#FFF9E5",
+    inactiveButtonBackground: "#1E1E1E",
+    inactiveBUttonForeground: "#FFF9E5",
 
-    cardForeground: "#000000",
+    cardBackground: "#FFF9E5",
+    cardForeground: "#1E1E1E",
     cardSecondaryText: "#1E1E1E",
     cardIcon: "#000000",
     cardPrice: "#EA0000",
@@ -40,12 +41,13 @@ export const Colors = {
     iconMuted: "#A1A6AB",
 
     tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
+    tabIconSelected: "#f08080",
   },
   dark: {
-    text: "#ECEDEE",
+    text: "#FFF9E5",
+    foreground: "#FFF9E5",
     background: "#151718",
-    tint: tintColorDark,
+    tint: "#f08080",
 
     logoBackground: "#1E1E1E",
 
@@ -59,9 +61,13 @@ export const Colors = {
 
     buttonBackground: "#EA0000",
     buttonForeground: "#FFF9E5",
+    inactiveButtonBackground: "#FFFFFF",
+    inactiveBUttonForeground: "#1E1E1E",
 
-    cardSecondaryText: "#1E1E1E",
-    cardIcon: "#ffffff",
+    cardBackground: "#1E1E1E",
+    cardForeground: "#FFF9E5",
+    cardSecondaryText: "#FFF9E5",
+    cardIcon: "#FFF9E5",
     cardPrice: "#EA0000",
 
     surfaceMuted: "#1C1F22",
@@ -71,11 +77,11 @@ export const Colors = {
 
     placeholder: "#9BA1A6",
 
-    icon: '#fff9e5',
+    icon: "#fff9e5",
     iconMuted: "#8E959B",
 
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    tabIconDefault: "#9BA1A6",
+    tabIconSelected: "#f08080",
   },
 };
 

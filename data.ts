@@ -198,7 +198,7 @@ export const restaurantBranches: RestaurantBranch[] = [
 
 
 
-const cuisines: Cuisine[] = [
+export const cuisines: Cuisine[] = [
   {
     id: 1,
     name: "Lebanese",
@@ -238,7 +238,7 @@ const cuisines: Cuisine[] = [
 
 
 
-const categories: Category[] = [
+export const categories: Category[] = [
   {
     id: 1,
     name: "Fine Dining",
@@ -283,7 +283,7 @@ const categories: Category[] = [
 
 
 
-const addresses: Address[] = [
+export const addresses: Address[] = [
   {
     id: 1,
     street: "4 Wellington Street",
