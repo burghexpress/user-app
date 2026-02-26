@@ -44,7 +44,7 @@ export default function RestaurantListScreen () {
             gap: 10,
             zIndex: 10,
             padding: 14,
-            marginTop: 40,
+            marginTop: 30,
             width: "100%",
             backgroundColor: "transparent"
           }}
@@ -139,7 +139,8 @@ export default function RestaurantListScreen () {
             <Text
               style={{
                 fontFamily: "Atelia",
-                fontSize: 20
+                fontSize: 20,
+                color: Colors[colorScheme ?? "light"].foreground
               }}
             >
               Resturants
@@ -173,7 +174,8 @@ export default function RestaurantListScreen () {
               <Text
                 style={{
                   fontSize: 20,
-                  fontFamily: "Metropolis-SemiBold"
+                  fontFamily: "Metropolis-SemiBold",
+                  color: Colors[colorScheme ?? "light"].cardForeground
                 }}
               >
                 {restaurant.name}
