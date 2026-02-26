@@ -9,6 +9,7 @@ import { menuItems, menus, menuSections, restaurantBranches, restaurants } from 
 import { MagnifierIcon } from "@/components/icons/magnifier";
 import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -76,12 +77,10 @@ export default function RestaurantBranchScreen () {
     return (
 
       <ScrollView
-        style={{
-          backgroundColor: Colors[colorScheme ?? "light"].background
-        }}
         contentContainerStyle={{
           paddingBottom: 20
         }}
+        showsVerticalScrollIndicator={false}
       >
 
         <Stack.Screen
@@ -152,60 +151,36 @@ export default function RestaurantBranchScreen () {
 
   return (
 
-    <ScrollView>
+    <SafeAreaView
+      style={{
+        backgroundColor: Colors[colorScheme ?? "light"].background
+      }}
+    >
 
-      <Stack.Screen
-        options={{ headerShown: false }}
-      />
-
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          gap: 10,
-          position: "absolute",
-          zIndex: 10,
-          padding: 14,
-          marginTop: 40,
-          width: "100%",
-          backgroundColor: "transparent"
-        }}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
       >
 
-        <TouchableOpacity
-          style={{
-            borderRadius: 20,
-            width: 40,
-            height: 40,
-            backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-          onPress={() => router.back()}
-          activeOpacity={0.7}
-        >
-
-          <IconSymbol
-            size={30}
-            color={Colors[colorScheme ?? "light"].headerButtonForeground}
-            name="chevron.left"
-            style={{
-              marginRight: 3
-            }}
-          />
-
-        </TouchableOpacity>
+        <Stack.Screen
+          options={{ headerShown: false }}
+        />
 
         <View
           style={{
+            flex: 1,
             flexDirection: "row",
-            backgroundColor: "transparent",
-            gap: 10
+            justifyContent: "space-between",
+            gap: 10,
+            position: "absolute",
+            zIndex: 10,
+            padding: 14,
+            marginTop: 20,
+            width: "100%",
+            backgroundColor: "transparent"
           }}
         >
 
-          <Pressable
+          <TouchableOpacity
             style={{
               borderRadius: 20,
               width: 40,
@@ -214,241 +189,313 @@ export default function RestaurantBranchScreen () {
               justifyContent: "center",
               alignItems: "center"
             }}
-          >
-
-            <MagnifierIcon
-              size={24}
-              color={Colors[colorScheme ?? "light"].headerButtonForeground}
-            />
-
-          </Pressable>
-
-          <Pressable
-            style={{
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-
-            <IconSymbol
-              size={24}
-              color={Colors[colorScheme ?? "light"].headerButtonForeground}
-              name="heart"
-            />
-
-          </Pressable>
-
-          <Pressable
-            style={{
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
+            onPress={() => router.back()}
+            activeOpacity={0.7}
           >
 
             <IconSymbol
               size={30}
               color={Colors[colorScheme ?? "light"].headerButtonForeground}
-              name="line.horizontal.3"
+              name="chevron.left"
+              style={{
+                marginRight: 3
+              }}
             />
 
-          </Pressable>
-
-        </View>
-
-      </View>
-
-      <Image
-        source={resturantBranch.posterUrl}
-        style={{
-          width: "100%",
-          height: 200
-        }}
-        contentFit="cover"
-      />
-
-      <View
-        style={{
-          flexDirection: "column",
-          gap: 10
-        }}
-      >
-
-        <Image
-          source={resturantBranch.posterUrl}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 10,
-            padding: 10,
-            backgroundColor: Colors[colorScheme ?? "light"].logoBackground,
-            marginTop: -80,
-            marginLeft: 14
-          }}
-          contentFit="cover"
-        />
-
-        <Text
-          style={{
-            fontFamily: "Atelia",
-            fontSize: 22,
-            marginLeft: 14
-          }}
-        >
-          {resturantBranch.name}
-        </Text>
-
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 10,
-            justifyContent: "space-evenly",
-            padding: 14
-          }}
-        >
+          </TouchableOpacity>
 
           <View
             style={{
-              alignContent: "center",
-              justifyContent: "center"
+              flexDirection: "row",
+              backgroundColor: "transparent",
+              gap: 10
             }}
           >
 
             <Pressable
               style={{
                 borderRadius: 20,
-                alignSelf: "center"
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+
+              <MagnifierIcon
+                size={24}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+              />
+
+            </Pressable>
+
+            <Pressable
+              style={{
+                borderRadius: 20,
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
 
               <IconSymbol
                 size={24}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="star"
-                style={{
-
-                }}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+                name="heart"
               />
 
             </Pressable>
-
-            <Text
-              style={{
-                fontFamily: "Metropolis-Light",
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              {"rating"}{" "}
-              ( {"like count"} )
-            </Text>
-
-            <Text
-              style={{
-                fontFamily: "Metropolis-Light",
-                textAlign: "center",
-                fontSize: 12
-              }}
-            >
-              {"review count"}{" "}
-              reviews
-            </Text>
-
-          </View>
-
-          <View
-            style={{
-              alignContent: "center",
-              justifyContent: "center"
-            }}
-          >
-
-            <Text
-              style={{
-                fontFamily: "Metropolis-Light",
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              {"Delivery fee"}$
-            </Text>
-
-            <Text
-              style={{
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              Delivery fee
-            </Text>
-
-          </View>
-
-          <View
-            style={{
-              alignContent: "center",
-              justifyContent: "center"
-            }}
-          >
 
             <Pressable
               style={{
                 borderRadius: 20,
-                alignSelf: "center"
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
 
               <IconSymbol
-                size={28}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="clock.fill"
+                size={30}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+                name="line.horizontal.3"
               />
 
             </Pressable>
-
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 12
-              }}
-            >
-              {"estimated time"}
-            </Text>
 
           </View>
 
         </View>
 
+        <Image
+          source={resturantBranch.posterUrl}
+          style={{
+            width: "100%",
+            height: 200
+          }}
+          contentFit="cover"
+        />
+
         <View
           style={{
             flexDirection: "column",
-            gap: 20
+            gap: 10
           }}
         >
+
+          <Image
+            source={resturantBranch.posterUrl}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 10,
+              padding: 10,
+              backgroundColor: Colors[colorScheme ?? "light"].logoBackground,
+              marginTop: -80,
+              marginLeft: 14
+            }}
+            contentFit="cover"
+          />
 
           <Text
             style={{
               fontFamily: "Atelia",
-              fontSize: 20,
-              paddingLeft: 14
+              fontSize: 22,
+              marginLeft: 14,
+              color: Colors[colorScheme ?? "light"].foreground
             }}
           >
-            Menus
+            {resturantBranch.name}
           </Text>
+
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 10,
+              justifyContent: "space-evenly",
+              padding: 14
+            }}
+          >
+
+            <View
+              style={{
+                alignContent: "center",
+                justifyContent: "center"
+              }}
+            >
+
+              <Pressable
+                style={{
+                  borderRadius: 20,
+                  alignSelf: "center"
+                }}
+              >
+
+                <IconSymbol
+                  size={24}
+                  color={Colors[colorScheme ?? "light"].icon}
+                  name="star"
+                  style={{
+
+                  }}
+                />
+
+              </Pressable>
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Light",
+                  fontSize: 12,
+                  alignSelf: "center",
+                  color: Colors[colorScheme ?? "light"].foreground
+                }}
+              >
+                {"rating"}{" "}
+                ( {"like count"} )
+              </Text>
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Light",
+                  textAlign: "center",
+                  fontSize: 12,
+                  color: Colors[colorScheme ?? "light"].foreground
+                }}
+              >
+                {"review count"}{" "}
+                reviews
+              </Text>
+
+            </View>
+
+            <View
+              style={{
+                alignContent: "center",
+                justifyContent: "center"
+              }}
+            >
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Light",
+                  fontSize: 12,
+                  alignSelf: "center",
+                  color: Colors[colorScheme ?? "light"].foreground
+                }}
+              >
+                {"Delivery fee"}$
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 12,
+                  alignSelf: "center",
+                  color: Colors[colorScheme ?? "light"].foreground
+                }}
+              >
+                Delivery fee
+              </Text>
+
+            </View>
+
+            <View
+              style={{
+                alignContent: "center",
+                justifyContent: "center"
+              }}
+            >
+
+              <Pressable
+                style={{
+                  borderRadius: 20,
+                  alignSelf: "center"
+                }}
+              >
+
+                <IconSymbol
+                  size={28}
+                  color={Colors[colorScheme ?? "light"].icon}
+                  name="clock.fill"
+                />
+
+              </Pressable>
+
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 12,
+                  color: Colors[colorScheme ?? "light"].foreground
+                }}
+              >
+                {"estimated time"}
+              </Text>
+
+            </View>
+
+          </View>
+
+          <View
+            style={{
+              marginTop: 20,
+              paddingHorizontal: 14,
+              flexDirection: "row",
+              gap: 10,
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+
+            <Text
+              style={{
+                fontFamily: "Atelia",
+                fontSize: 28,
+                  color: Colors[colorScheme ?? "light"].cardForeground
+              }}
+            >
+              Menus
+            </Text>
+
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 5,
+                paddingVertical: 4,
+                gap: 10,
+                backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+                minHeight: 30,
+                minWidth: 63,
+                borderRadius: 30,
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row"
+              }}
+              activeOpacity={0.8}
+              onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus`)}
+            >
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Medium",
+                  fontSize: 10,
+                  color: Colors[colorScheme ?? "light"].buttonForeground
+                }}
+              >
+                See all
+              </Text>
+            </TouchableOpacity>
+
+          </View>
 
           <FlatList
             horizontal
             pagingEnabled
             contentContainerStyle={{
               paddingHorizontal: 14,
-              gap: 10
+              gap: 10,
+              marginTop: 10
             }}
             showsHorizontalScrollIndicator={false}
             data={restaurantMenus}
@@ -474,7 +521,7 @@ export default function RestaurantBranchScreen () {
                   style={{
                     fontSize: 18,
                     fontFamily: "Metropolis-SemiBold",
-                    color: selectedMenu === item.id ? Colors[colorScheme ?? "light"].buttonForeground : undefined
+                    color: selectedMenu === item.id ? Colors[colorScheme ?? "light"].buttonForeground : Colors[colorScheme ?? "light"].foreground
                   }}
                 >
                   {item.name}
@@ -485,170 +532,173 @@ export default function RestaurantBranchScreen () {
             )}
           />
 
-        </View>
+          {menuSections.filter(ms => ms.menuId === selectedMenu).map((menuSection) => (
 
-        {menuSections.filter(ms => ms.menuId === selectedMenu).map((menuSection) => (
-
-          <View
-            key={menuSection.id}
-            style={{
-              flexDirection: "column",
-              gap: 20
-            }}
-          >
-
-            <Text
+            <View
+              key={menuSection.id}
               style={{
-                fontSize: 20,
-                fontFamily: "Metropolis-SemiBold",
-                marginLeft: 14
+                flexDirection: "column",
+                gap: 30,
+                marginTop: 20
               }}
             >
-              {menuSection.name}
-            </Text>
 
-            <FlatList
-              horizontal
-              pagingEnabled
-              contentContainerStyle={{
-                paddingHorizontal: 14,
-                gap: 10
-              }}
-              showsHorizontalScrollIndicator={false}
-              data={menuItems.filter(mi => mi.menuSectionId === menuSection.id)}
-              renderItem={({ item }) => (
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Metropolis-SemiBold",
+                  marginLeft: 14,
+                  color: Colors[colorScheme ?? "light"].foreground
+                }}
+              >
+                {menuSection.name}
+              </Text>
 
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus/${menuSection.menuId}/sections/${menuSection.id}/items/${item.id}`)}
-                  activeOpacity={0.8}
-                  style={{
-                    width: 200,
-                    height: "auto",
-                    gap: 10
-                  }}
-                >
+              <FlatList
+                horizontal
+                pagingEnabled
+                contentContainerStyle={{
+                  paddingHorizontal: 14,
+                  gap: 10
+                }}
+                showsHorizontalScrollIndicator={false}
+                data={menuItems.filter(mi => mi.menuSectionId === menuSection.id)}
+                renderItem={({ item }) => (
 
-                  <Image
-                    source={item.imageUrl}
+                  <TouchableOpacity
+                    key={item.id}
+                    onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus/${menuSection.menuId}/sections/${menuSection.id}/items/${item.id}`)}
+                    activeOpacity={0.8}
                     style={{
                       width: 200,
-                      height: 150,
-                      borderRadius: 20
-                    }}
-                    contentFit="cover"
-                  />
-
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      gap: 5
+                      height: "auto",
+                      gap: 10
                     }}
                   >
 
+                    <Image
+                      source={item.imageUrl}
+                      style={{
+                        width: 200,
+                        height: 150,
+                        borderRadius: 20
+                      }}
+                      contentFit="cover"
+                    />
+
                     <View
                       style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 10
+                        flexDirection: "column",
+                        gap: 5
                       }}
                     >
 
-                      <Text
+                      <View
                         style={{
-                          fontSize: 18,
-                          fontFamily: "Metropolis-Medium"
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10
                         }}
                       >
-                        {item.name}
+
+                        <Text
+                          style={{
+                            fontSize: 18,
+                            fontFamily: "Metropolis-Medium",
+                            color: Colors[colorScheme ?? "light"].cardForeground
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+
+                      </View>
+
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10
+                        }}
+                      >
+
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 5
+                          }}
+                        >
+
+                          <StarIcon
+                            color={Colors[colorScheme ?? "light"].cardIcon}
+                            size={10}
+                          />
+
+                          <Text
+                            style={{
+                              fontFamily: "Metropolis-Regular",
+                              fontSize: 8,
+                              color: Colors[colorScheme ?? "light"].cardSecondaryText
+                            }}
+                          >
+                            {4.8}({313})
+                          </Text>
+
+                        </View>
+
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 5
+                          }}
+                        >
+
+                          <WatchIcon
+                            color={Colors[colorScheme ?? "light"].cardIcon}
+                            size={10}
+                          />
+
+                          <Text
+                            style={{
+                              fontFamily: "Metropolis-Regular",
+                              fontSize: 8,
+                              color: Colors[colorScheme ?? "light"].cardSecondaryText
+                            }}
+                          >
+                            {"14 mins"}
+                          </Text>
+
+                        </View>
+
+                      </View>
+
+                      <Text
+                        style={{
+                          fontSize: 28,
+                          fontFamily: "Atelia",
+                          color: Colors[colorScheme ?? "light"].cardPrice
+                        }}
+                      >
+                        {item.price}$
                       </Text>
 
                     </View>
 
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: 10
-                      }}
-                    >
+                  </TouchableOpacity>
 
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 5
-                        }}
-                      >
+                )}
+              />
 
-                        <StarIcon
-                          color={Colors[colorScheme ?? "light"].cardIcon}
-                          size={10}
-                        />
+            </View>
 
-                        <Text
-                          style={{
-                            fontFamily: "Metropolis-Regular",
-                            fontSize: 8,
-                            color: Colors[colorScheme ?? "light"].cardSecondaryText
-                          }}
-                        >
-                          {4.8}({313})
-                        </Text>
+          ))}
 
-                      </View>
+        </View>
 
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 5
-                        }}
-                      >
+      </ScrollView>
 
-                        <WatchIcon
-                          color={Colors[colorScheme ?? "light"].cardIcon}
-                          size={10}
-                        />
-
-                        <Text
-                          style={{
-                            fontFamily: "Metropolis-Regular",
-                            fontSize: 8,
-                            color: Colors[colorScheme ?? "light"].cardSecondaryText
-                          }}
-                        >
-                          {"14 mins"}
-                        </Text>
-
-                      </View>
-
-                    </View>
-
-                    <Text
-                      style={{
-                        fontSize: 28,
-                        fontFamily: "Atelia",
-                        color: Colors[colorScheme ?? "light"].cardPrice
-                      }}
-                    >
-                      {item.price}$
-                    </Text>
-
-                  </View>
-
-                </TouchableOpacity>
-
-              )}
-            />
-
-          </View>
-
-        ))}
-
-      </View>
-
-    </ScrollView>
+    </SafeAreaView>
 
   );
 
