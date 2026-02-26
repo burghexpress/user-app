@@ -78,6 +78,9 @@ export default function RestaurantScreen () {
         contentContainerStyle={{
           paddingBottom: 20
         }}
+        style={{
+          backgroundColor: Colors[colorScheme ?? "light"].background
+        }}
         showsVerticalScrollIndicator={false}
       >
 
@@ -155,7 +158,12 @@ export default function RestaurantScreen () {
       }}
     >
 
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 20
+        }}
+        showsVerticalScrollIndicator={false}
+      >
 
         <Stack.Screen
           options={{ headerShown: false }}
@@ -170,7 +178,7 @@ export default function RestaurantScreen () {
             position: "absolute",
             zIndex: 10,
             padding: 14,
-            marginTop: 40,
+            marginTop: 20,
             width: "100%",
             backgroundColor: "transparent"
           }}
@@ -302,7 +310,8 @@ export default function RestaurantScreen () {
             style={{
               fontFamily: "Atelia",
               fontSize: 22,
-              marginLeft: 14
+              marginLeft: 14,
+              color: Colors[colorScheme ?? "light"].foreground
             }}
           >
             {restaurant.name}
@@ -346,7 +355,8 @@ export default function RestaurantScreen () {
                 style={{
                   fontFamily: "Metropolis-Light",
                   fontSize: 12,
-                  alignSelf: "center"
+                  alignSelf: "center",
+                  color: Colors[colorScheme ?? "light"].foreground
                 }}
               >
                 {"rating"}{" "}
@@ -357,7 +367,8 @@ export default function RestaurantScreen () {
                 style={{
                   fontFamily: "Metropolis-Light",
                   textAlign: "center",
-                  fontSize: 12
+                  fontSize: 12,
+                  color: Colors[colorScheme ?? "light"].foreground
                 }}
               >
                 {"review count"}{" "}
@@ -377,7 +388,8 @@ export default function RestaurantScreen () {
                 style={{
                   fontFamily: "Metropolis-Light",
                   fontSize: 12,
-                  alignSelf: "center"
+                  alignSelf: "center",
+                  color: Colors[colorScheme ?? "light"].foreground
                 }}
               >
                 {"Delivery fee"}$
@@ -386,7 +398,8 @@ export default function RestaurantScreen () {
               <Text
                 style={{
                   fontSize: 12,
-                  alignSelf: "center"
+                  alignSelf: "center",
+                  color: Colors[colorScheme ?? "light"].foreground
                 }}
               >
                 Delivery fee
@@ -419,7 +432,8 @@ export default function RestaurantScreen () {
               <Text
                 style={{
                   textAlign: "center",
-                  fontSize: 12
+                  fontSize: 12,
+                  color: Colors[colorScheme ?? "light"].foreground
                 }}
               >
                 {"estimated time"}
@@ -438,24 +452,22 @@ export default function RestaurantScreen () {
             data={cuisines}
             renderItem={({ item }) => (
               
-              <Pressable
-                style={
-                  ({ pressed }) => [
-                    styles.tabButton
-                  ]
-                }
+              <TouchableOpacity
+                style={{
+                }}
               >
 
                 <Text
                   style={{
                     textAlign: "center",
-                    fontSize: 20
+                    fontSize: 20,
+                    color: Colors[colorScheme ?? "light"].foreground
                   }}
                 >
                   {item.name}
                 </Text>
 
-              </Pressable>
+              </TouchableOpacity>
 
             )}
             ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
@@ -483,7 +495,8 @@ export default function RestaurantScreen () {
               <Text
                 style={{
                   fontFamily: "Atelia",
-                  fontSize: 20
+                  fontSize: 28,
+                    color: Colors[colorScheme ?? "light"].cardForeground
                 }}
               >
                 Branches
@@ -544,7 +557,8 @@ export default function RestaurantScreen () {
                 <Text
                   style={{
                     fontSize: 20,
-                    fontFamily: "Metropolis-SemiBold"
+                    fontFamily: "Metropolis-SemiBold",
+                    color: Colors[colorScheme ?? "light"].cardForeground
                   }}
                 >
                   {branch.name}
@@ -553,7 +567,8 @@ export default function RestaurantScreen () {
                 <Text
                   style={{
                     fontSize: 20,
-                    fontFamily: "Metropolis-Light"
+                    fontFamily: "Metropolis-Light",
+                    color: Colors[colorScheme ?? "light"].cardForeground
                   }}
                 >
                   {branch.addressId}
