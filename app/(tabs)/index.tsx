@@ -7,7 +7,7 @@ import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
 import { SearchBar } from "@/components/search-bar";
 import { Restaurant } from "@db-types";
-import { menuItems, restaurants } from "@/data";
+import { cuisines, menuItems, restaurants } from "@/data";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -264,18 +264,19 @@ export default function HomeScreen () {
         <View
           style={{
             marginTop: 20,
+            paddingHorizontal: 20,
             flexDirection: "row",
             gap: 10,
             justifyContent: "space-between",
-            paddingHorizontal: 20
+            alignItems: "center"
           }}
         >
 
           <Text
             style={{
-              fontSize: 32,
-              lineHeight: 48,
-              fontFamily: "Atelia"
+              fontSize: 28,
+              fontFamily: "Atelia",
+              color: Colors[colorScheme ?? "light"].foreground
             }}
           >
             FEATURED ITEMS
@@ -313,7 +314,7 @@ export default function HomeScreen () {
           horizontal
           data={menuItems.slice(menuItems.length - 5, menuItems.length)}
           style={{
-            marginTop: 10
+            marginTop: 20
           }}
           contentContainerStyle={{
             paddingHorizontal: 14,
@@ -360,7 +361,8 @@ export default function HomeScreen () {
                   <Text
                     style={{
                       fontSize: 18,
-                      fontFamily: "Atelia"
+                      fontFamily: "Atelia",
+                      color: Colors[colorScheme ?? "light"].cardForeground
                     }}
                   >
                     {item.name}
@@ -447,19 +449,20 @@ export default function HomeScreen () {
 
         <View
           style={{
-            marginTop: 30,
+            marginTop: 40,
+            paddingHorizontal: 20,
             flexDirection: "row",
             gap: 10,
             justifyContent: "space-between",
-            paddingHorizontal: 20
+            alignItems: "center"
           }}
         >
 
           <Text
             style={{
-              fontSize: 32,
-              lineHeight: 48,
-              fontFamily: "Atelia"
+              fontSize: 28,
+              fontFamily: "Atelia",
+              color: Colors[colorScheme ?? "light"].foreground
             }}
           >
             QUICK DELIVERY
@@ -469,7 +472,6 @@ export default function HomeScreen () {
             style={{
               paddingHorizontal: 5,
               paddingVertical: 4,
-              gap: 10,
               backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
               minHeight: 30,
               minWidth: 63,
@@ -497,7 +499,7 @@ export default function HomeScreen () {
           horizontal
           data={TOPPICKS}
           style={{
-            marginTop: 10
+            marginTop: 20
           }}
           contentContainerStyle={{
             paddingHorizontal: 14,
@@ -554,7 +556,8 @@ export default function HomeScreen () {
                     <Text
                       style={{
                         fontSize: 18,
-                        fontFamily: "Atelia"
+                        fontFamily: "Atelia",
+                        color: Colors[colorScheme ?? "light"].cardForeground
                       }}
                     >
                       {item.label}
@@ -647,14 +650,16 @@ export default function HomeScreen () {
             flexDirection: "row",
             gap: 10,
             justifyContent: "space-between",
-            paddingHorizontal: 14
+            paddingHorizontal: 14,
+            alignItems: "center"
           }}
         >
 
           <Text
             style={{
               fontFamily: "Atelia",
-              fontSize: 32
+              fontSize: 28,
+              color: Colors[colorScheme ?? "light"].foreground
             }}
           >
             NEAR YOU
@@ -702,7 +707,8 @@ export default function HomeScreen () {
                 style={{
                   fontSize: 14,
                   fontFamily: "Metropolis-SemiBold",
-                  textAlign: "center"
+                  textAlign: "center",
+                  color: Colors[colorScheme ?? "light"].cardForeground
                 }}
               >
                 {item.name}
@@ -720,14 +726,16 @@ export default function HomeScreen () {
             flexDirection: "row",
             gap: 10,
             justifyContent: "space-between",
-            paddingHorizontal: 14
+            paddingHorizontal: 14,
+            alignItems: "center"
           }}
         >
 
           <Text
             style={{
               fontFamily: "Atelia",
-              fontSize: 32
+              fontSize: 28,
+              color: Colors[colorScheme ?? "light"].foreground
             }}
           >
             FROM TOP RESTAURANTS
@@ -779,7 +787,8 @@ export default function HomeScreen () {
                 <Text
                   style={{
                     fontFamily: "Atelia",
-                    fontSize: 18
+                    fontSize: 18,
+                    color: Colors[colorScheme ?? "light"].cardForeground
                   }}
                 >
                   {item.name}
@@ -827,6 +836,203 @@ export default function HomeScreen () {
           ))}
 
         </View>
+
+        <View
+          style={{
+            marginTop: 40,
+            paddingHorizontal: 20,
+            flexDirection: "row",
+            gap: 10,
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+
+          <Text
+            style={{
+              fontSize: 28,
+              fontFamily: "Atelia",
+              color: Colors[colorScheme ?? "light"].foreground
+            }}
+          >
+            TRY NEW TASTES
+          </Text>
+
+          <TouchableOpacity
+            style={{
+              paddingHorizontal: 5,
+              paddingVertical: 4,
+              backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+              minHeight: 30,
+              minWidth: 63,
+              borderRadius: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row"
+            }}
+            activeOpacity={0.8}
+          >
+            <Text
+              style={{
+                fontFamily: "Metropolis-Medium",
+                fontSize: 10,
+                color: Colors[colorScheme ?? "light"].buttonForeground
+              }}
+            >
+              See all
+            </Text>
+          </TouchableOpacity>
+
+        </View>
+
+        <FlatList
+          horizontal
+          data={cuisines.slice(0, 5)}
+          style={{
+            marginTop: 20
+          }}
+          contentContainerStyle={{
+            paddingHorizontal: 14,
+            gap: 10
+          }}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+
+            <View
+              style={{
+                width: 150,
+                height: "auto",
+                gap: 10
+              }}
+            >
+
+              <TouchableOpacity
+                onPress={() => router.push(`/restaurants/${item.id}`)}
+                activeOpacity={0.8}
+              >
+
+                <Image
+                  source={item.imageUrl}
+                  style={{
+                    width: 150,
+                    height: 200,
+                    borderRadius: 20
+                  }}
+                  contentFit="cover"
+                />
+
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  flexDirection: "column",
+                  gap: 5
+                }}
+              >
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
+
+                  <TouchableOpacity
+                    onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
+                    activeOpacity={0.8}
+                  >
+
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontFamily: "Atelia",
+                        color: Colors[colorScheme ?? "light"].cardForeground
+                      }}
+                    >
+                      {item.label}
+                    </Text>
+
+                  </TouchableOpacity>
+
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <StarIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {item.rating}({item.review_count})
+                    </Text>
+
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <WatchIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {item.estimated_time}
+                    </Text>
+
+                  </View>
+
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardPrice
+                  }}
+                >
+                  {item.price}$
+                </Text>
+
+              </View>
+
+            </View>
+
+          )}
+        />
 
       </ScrollView>
 
