@@ -9,6 +9,7 @@ import { DishTile } from "@/components/restaurant/dish-tile";
 import { Category, Cuisine, Restaurant, RestaurantBranch } from "@db-types";
 import { restaurantBranches, restaurants } from "@/data";
 import { MagnifierIcon } from "@/components/icons/magnifier";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -74,12 +75,10 @@ export default function RestaurantScreen () {
     return (
 
       <ScrollView
-        style={{
-          backgroundColor: Colors[colorScheme ?? "light"].background
-        }}
         contentContainerStyle={{
           paddingBottom: 20
         }}
+        showsVerticalScrollIndicator={false}
       >
 
         <Stack.Screen
@@ -150,60 +149,34 @@ export default function RestaurantScreen () {
 
   return (
 
-    <ScrollView>
+    <SafeAreaView
+      style={{
+        backgroundColor: Colors[colorScheme ?? "light"].background
+      }}
+    >
 
-      <Stack.Screen
-        options={{ headerShown: false }}
-      />
+      <ScrollView>
 
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          gap: 10,
-          position: "absolute",
-          zIndex: 10,
-          padding: 14,
-          marginTop: 40,
-          width: "100%",
-          backgroundColor: "transparent"
-        }}
-      >
-
-        <TouchableOpacity
-          style={{
-            borderRadius: 20,
-            width: 40,
-            height: 40,
-            backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-          onPress={() => router.back()}
-          activeOpacity={0.7}
-        >
-
-          <IconSymbol
-            size={30}
-            color={Colors[colorScheme ?? "light"].headerButtonForeground}
-            name="chevron.left"
-            style={{
-              marginRight: 3
-            }}
-          />
-
-        </TouchableOpacity>
+        <Stack.Screen
+          options={{ headerShown: false }}
+        />
 
         <View
           style={{
+            flex: 1,
             flexDirection: "row",
-            backgroundColor: "transparent",
-            gap: 10
+            justifyContent: "space-between",
+            gap: 10,
+            position: "absolute",
+            zIndex: 10,
+            padding: 14,
+            marginTop: 40,
+            width: "100%",
+            backgroundColor: "transparent"
           }}
         >
 
-          <Pressable
+          <TouchableOpacity
             style={{
               borderRadius: 20,
               width: 40,
@@ -212,357 +185,391 @@ export default function RestaurantScreen () {
               justifyContent: "center",
               alignItems: "center"
             }}
-          >
-
-            <MagnifierIcon
-              size={24}
-              color={Colors[colorScheme ?? "light"].headerButtonForeground}
-            />
-
-          </Pressable>
-
-          <Pressable
-            style={{
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-
-            <IconSymbol
-              size={24}
-              color={Colors[colorScheme ?? "light"].headerButtonForeground}
-              name="heart"
-            />
-
-          </Pressable>
-
-          <Pressable
-            style={{
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
+            onPress={() => router.back()}
+            activeOpacity={0.7}
           >
 
             <IconSymbol
               size={30}
               color={Colors[colorScheme ?? "light"].headerButtonForeground}
-              name="line.horizontal.3"
+              name="chevron.left"
+              style={{
+                marginRight: 3
+              }}
             />
 
-          </Pressable>
-
-        </View>
-
-      </View>
-
-      <Image
-        source={restaurant.posterUrl}
-        style={{
-          width: "100%",
-          height: 200
-        }}
-        contentFit="cover"
-      />
-
-      <View
-        style={{
-          flexDirection: "column",
-          gap: 10
-        }}
-      >
-
-        <Image
-          source={restaurant.logoUrl}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 10,
-            padding: 10,
-            backgroundColor: Colors[colorScheme ?? "light"].logoBackground,
-            marginTop: -80,
-            marginLeft: 14
-          }}
-          contentFit="cover"
-        />
-
-        <Text
-          style={{
-            fontFamily: "Atelia",
-            fontSize: 22,
-            marginLeft: 14
-          }}
-        >
-          {restaurant.name}
-        </Text>
-
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 10,
-            justifyContent: "space-evenly",
-            padding: 14
-          }}
-        >
+          </TouchableOpacity>
 
           <View
             style={{
-              alignContent: "center",
-              justifyContent: "center"
+              flexDirection: "row",
+              backgroundColor: "transparent",
+              gap: 10
             }}
           >
 
             <Pressable
               style={{
                 borderRadius: 20,
-                alignSelf: "center"
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+
+              <MagnifierIcon
+                size={24}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+              />
+
+            </Pressable>
+
+            <Pressable
+              style={{
+                borderRadius: 20,
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
 
               <IconSymbol
                 size={24}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="star"
-                style={{
-
-                }}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+                name="heart"
               />
 
             </Pressable>
-
-            <Text
-              style={{
-                fontFamily: "Metropolis-Light",
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              {"rating"}{" "}
-              ( {"like count"} )
-            </Text>
-
-            <Text
-              style={{
-                fontFamily: "Metropolis-Light",
-                textAlign: "center",
-                fontSize: 12
-              }}
-            >
-              {"review count"}{" "}
-              reviews
-            </Text>
-
-          </View>
-
-          <View
-            style={{
-              alignContent: "center",
-              justifyContent: "center"
-            }}
-          >
-
-            <Text
-              style={{
-                fontFamily: "Metropolis-Light",
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              {"Delivery fee"}$
-            </Text>
-
-            <Text
-              style={{
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              Delivery fee
-            </Text>
-
-          </View>
-
-          <View
-            style={{
-              alignContent: "center",
-              justifyContent: "center"
-            }}
-          >
 
             <Pressable
               style={{
                 borderRadius: 20,
-                alignSelf: "center"
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
 
               <IconSymbol
-                size={28}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="clock.fill"
+                size={30}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+                name="line.horizontal.3"
               />
 
             </Pressable>
-
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 12
-              }}
-            >
-              {"estimated time"}
-            </Text>
 
           </View>
 
         </View>
 
-        <FlatList
-          horizontal
-          pagingEnabled
-          contentContainerStyle={{
-            paddingHorizontal: 14
+        <Image
+          source={restaurant.posterUrl}
+          style={{
+            width: "100%",
+            height: 200
           }}
-          data={cuisines}
-          renderItem={({ item }) => (
-            
-            <Pressable
-              style={
-                ({ pressed }) => [
-                  styles.tabButton
-                ]
-              }
-            >
-
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 20
-                }}
-              >
-                {item.name}
-              </Text>
-
-            </Pressable>
-
-          )}
-          ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
-          showsHorizontalScrollIndicator={false}
+          contentFit="cover"
         />
 
         <View
           style={{
             flexDirection: "column",
-            gap: 20,
-            paddingHorizontal: 14
+            gap: 10
           }}
         >
 
+          <Image
+            source={restaurant.logoUrl}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 10,
+              padding: 10,
+              backgroundColor: Colors[colorScheme ?? "light"].logoBackground,
+              marginTop: -80,
+              marginLeft: 14
+            }}
+            contentFit="cover"
+          />
+
+          <Text
+            style={{
+              fontFamily: "Atelia",
+              fontSize: 22,
+              marginLeft: 14
+            }}
+          >
+            {restaurant.name}
+          </Text>
+
           <View
             style={{
-              marginTop: 20,
               flexDirection: "row",
               gap: 10,
-              justifyContent: "space-between",
-              alignItems: "center"
+              justifyContent: "space-evenly",
+              padding: 14
             }}
           >
 
-            <Text
+            <View
               style={{
-                fontFamily: "Atelia",
-                fontSize: 20
+                alignContent: "center",
+                justifyContent: "center"
               }}
             >
-              Branches
-            </Text>
 
-            <TouchableOpacity
-              style={{
-                paddingHorizontal: 5,
-                paddingVertical: 4,
-                gap: 10,
-                backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
-                minHeight: 30,
-                minWidth: 63,
-                borderRadius: 30,
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "row"
-              }}
-              activeOpacity={0.8}
-              onPress={() => router.push(`/restaurants/${restaurantId}/branches`)}
-            >
-              <Text
+              <Pressable
                 style={{
-                  fontFamily: "Metropolis-Medium",
-                  fontSize: 10,
-                  color: Colors[colorScheme ?? "light"].buttonForeground
+                  borderRadius: 20,
+                  alignSelf: "center"
                 }}
               >
-                See all
+
+                <IconSymbol
+                  size={24}
+                  color={Colors[colorScheme ?? "light"].icon}
+                  name="star"
+                  style={{
+
+                  }}
+                />
+
+              </Pressable>
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Light",
+                  fontSize: 12,
+                  alignSelf: "center"
+                }}
+              >
+                {"rating"}{" "}
+                ( {"like count"} )
               </Text>
-            </TouchableOpacity>
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Light",
+                  textAlign: "center",
+                  fontSize: 12
+                }}
+              >
+                {"review count"}{" "}
+                reviews
+              </Text>
+
+            </View>
+
+            <View
+              style={{
+                alignContent: "center",
+                justifyContent: "center"
+              }}
+            >
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Light",
+                  fontSize: 12,
+                  alignSelf: "center"
+                }}
+              >
+                {"Delivery fee"}$
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 12,
+                  alignSelf: "center"
+                }}
+              >
+                Delivery fee
+              </Text>
+
+            </View>
+
+            <View
+              style={{
+                alignContent: "center",
+                justifyContent: "center"
+              }}
+            >
+
+              <Pressable
+                style={{
+                  borderRadius: 20,
+                  alignSelf: "center"
+                }}
+              >
+
+                <IconSymbol
+                  size={28}
+                  color={Colors[colorScheme ?? "light"].icon}
+                  name="clock.fill"
+                />
+
+              </Pressable>
+
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 12
+                }}
+              >
+                {"estimated time"}
+              </Text>
+
+            </View>
 
           </View>
 
-          {branches?.map((branch, branchIndex) => (
+          <FlatList
+            horizontal
+            pagingEnabled
+            contentContainerStyle={{
+              paddingHorizontal: 14
+            }}
+            data={cuisines}
+            renderItem={({ item }) => (
+              
+              <Pressable
+                style={
+                  ({ pressed }) => [
+                    styles.tabButton
+                  ]
+                }
+              >
 
-            <TouchableOpacity
-              key={branchIndex}
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 20
+                  }}
+                >
+                  {item.name}
+                </Text>
+
+              </Pressable>
+
+            )}
+            ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
+            showsHorizontalScrollIndicator={false}
+          />
+
+          <View
+            style={{
+              flexDirection: "column",
+              gap: 20,
+              paddingHorizontal: 14
+            }}
+          >
+
+            <View
               style={{
-                flexDirection: "column",
-                gap: 10
+                marginTop: 20,
+                flexDirection: "row",
+                gap: 10,
+                justifyContent: "space-between",
+                alignItems: "center"
               }}
-              activeOpacity={0.8}
-              onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branch.id}`)}
             >
 
-              <Image
-                source={branch.posterUrl}
-                style={{
-                  width: "100%",
-                  height: 150,
-                  borderRadius: 20,
-                  backgroundColor: Colors[colorScheme ?? "light"].logoBackground
-                }}
-                contentFit="cover"
-              />
-
               <Text
                 style={{
-                  fontSize: 20,
-                  fontFamily: "Metropolis-SemiBold"
+                  fontFamily: "Atelia",
+                  fontSize: 20
                 }}
               >
-                {branch.name}
+                Branches
               </Text>
 
-              <Text
+              <TouchableOpacity
                 style={{
-                  fontSize: 20,
-                  fontFamily: "Metropolis-Light"
+                  paddingHorizontal: 5,
+                  paddingVertical: 4,
+                  gap: 10,
+                  backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+                  minHeight: 30,
+                  minWidth: 63,
+                  borderRadius: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "row"
                 }}
+                activeOpacity={0.8}
+                onPress={() => router.push(`/restaurants/${restaurantId}/branches`)}
               >
-                {branch.addressId}
-              </Text>
+                <Text
+                  style={{
+                    fontFamily: "Metropolis-Medium",
+                    fontSize: 10,
+                    color: Colors[colorScheme ?? "light"].buttonForeground
+                  }}
+                >
+                  See all
+                </Text>
+              </TouchableOpacity>
 
-            </TouchableOpacity>
+            </View>
 
-          ))}
+            {branches?.map((branch, branchIndex) => (
+
+              <TouchableOpacity
+                key={branchIndex}
+                style={{
+                  flexDirection: "column",
+                  gap: 10
+                }}
+                activeOpacity={0.8}
+                onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branch.id}`)}
+              >
+
+                <Image
+                  source={branch.posterUrl}
+                  style={{
+                    width: "100%",
+                    height: 150,
+                    borderRadius: 20,
+                    backgroundColor: Colors[colorScheme ?? "light"].logoBackground
+                  }}
+                  contentFit="cover"
+                />
+
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontFamily: "Metropolis-SemiBold"
+                  }}
+                >
+                  {branch.name}
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontFamily: "Metropolis-Light"
+                  }}
+                >
+                  {branch.addressId}
+                </Text>
+
+              </TouchableOpacity>
+
+            ))}
+
+          </View>
 
         </View>
 
-      </View>
+      </ScrollView>
 
-    </ScrollView>
+    </SafeAreaView>
 
   );
 

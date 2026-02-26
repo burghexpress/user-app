@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
 import { Image } from "expo-image";
-import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
 import { SearchBar } from "@/components/search-bar";
 import { Restaurant } from "@db-types";
+import { menuItems, restaurants } from "@/data";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -226,8 +227,6 @@ const TOPPICKS = [
 
 export default function HomeScreen () {
 
-  const [resturants, setResturants] = useState<Restaurant[]>();
-
   const colorScheme = useColorScheme();
 
   const router = useRouter();
@@ -236,286 +235,105 @@ export default function HomeScreen () {
 
   return (
 
-    <ScrollView
+    <SafeAreaView
       style={{
         backgroundColor: Colors[colorScheme ?? "light"].background
       }}
-      contentContainerStyle={{
-        paddingBottom: 20
-      }}
     >
 
-      <View
-        style={{
-          height: "auto",
-          marginTop: 70,
-          padding: 20
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 20
         }}
+        showsVerticalScrollIndicator={false}
       >
 
-        <SearchBar
-        />
-
-      </View>
-
-      <View
-        style={{
-          marginTop: 20,
-          flexDirection: "row",
-          gap: 10,
-          justifyContent: "space-between",
-          paddingHorizontal: 20
-        }}
-      >
-
-        <Text
+        <View
           style={{
-            fontSize: 32,
-            lineHeight: 48,
-            fontFamily: "Atelia"
+            height: "auto",
+            marginTop: 40,
+            padding: 20
           }}
         >
-          FEATURED ITEMS
-        </Text>
 
-        <Pressable
+          <SearchBar
+          />
+
+        </View>
+
+        <View
           style={{
-            paddingHorizontal: 5,
-            paddingVertical: 4,
+            marginTop: 20,
+            flexDirection: "row",
             gap: 10,
-            backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
-            minHeight: 30,
-            minWidth: 63,
-            borderRadius: 30,
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row"
+            justifyContent: "space-between",
+            paddingHorizontal: 20
           }}
         >
+
           <Text
             style={{
-              fontFamily: "Metropolis-Medium",
-              fontSize: 10,
-              color: Colors[colorScheme ?? "light"].buttonForeground
+              fontSize: 32,
+              lineHeight: 48,
+              fontFamily: "Atelia"
             }}
           >
-            See all
+            FEATURED ITEMS
           </Text>
-        </Pressable>
-
-      </View>
-
-      <FlatList
-        horizontal
-        data={TOPPICKS}
-        style={{
-          marginTop: 10
-        }}
-        contentContainerStyle={{
-          paddingHorizontal: 14,
-          gap: 10
-        }}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
 
           <TouchableOpacity
-            onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
-            activeOpacity={0.8}
             style={{
-              width: 150,
-              height: "auto",
-              gap: 10
+              paddingHorizontal: 5,
+              paddingVertical: 4,
+              gap: 10,
+              backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+              minHeight: 30,
+              minWidth: 63,
+              borderRadius: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row"
             }}
+            activeOpacity={0.8}
           >
-
-            <Image
-              source={item.poster}
+            <Text
               style={{
-                width: 150,
-                height: 200,
-                borderRadius: 20
-              }}
-              contentFit="cover"
-            />
-
-            <View
-              style={{
-                flexDirection: "column",
-                gap: 5
+                fontFamily: "Metropolis-Medium",
+                fontSize: 10,
+                color: Colors[colorScheme ?? "light"].buttonForeground
               }}
             >
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10
-                }}
-              >
-
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: "Atelia"
-                  }}
-                >
-                  {item.label}
-                </Text>
-
-              </View>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10
-                }}
-              >
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 5
-                  }}
-                >
-
-                  <StarIcon
-                    color={Colors[colorScheme ?? "light"].cardIcon}
-                    size={10}
-                  />
-
-                  <Text
-                    style={{
-                      fontFamily: "Metropolis-Regular",
-                      fontSize: 8,
-                      color: Colors[colorScheme ?? "light"].cardSecondaryText
-                    }}
-                  >
-                    {item.rating}({item.review_count})
-                  </Text>
-
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 5
-                  }}
-                >
-
-                  <WatchIcon
-                    color={Colors[colorScheme ?? "light"].cardIcon}
-                    size={10}
-                  />
-
-                  <Text
-                    style={{
-                      fontFamily: "Metropolis-Regular",
-                      fontSize: 8,
-                      color: Colors[colorScheme ?? "light"].cardSecondaryText
-                    }}
-                  >
-                    {item.estimated_time}
-                  </Text>
-
-                </View>
-
-              </View>
-
-              <Text
-                style={{
-                  fontSize: 28,
-                  fontFamily: "Atelia",
-                  color: Colors[colorScheme ?? "light"].cardPrice
-                }}
-              >
-                {item.price}$
-              </Text>
-
-            </View>
-
+              See all
+            </Text>
           </TouchableOpacity>
 
-        )}
-      />
+        </View>
 
-      <View
-        style={{
-          marginTop: 30,
-          flexDirection: "row",
-          gap: 10,
-          justifyContent: "space-between",
-          paddingHorizontal: 20
-        }}
-      >
-
-        <Text
+        <FlatList
+          horizontal
+          data={menuItems.slice(menuItems.length - 5, menuItems.length)}
           style={{
-            fontSize: 32,
-            lineHeight: 48,
-            fontFamily: "Atelia"
+            marginTop: 10
           }}
-        >
-          QUICK DELIVERY
-        </Text>
-
-        <Pressable
-          style={{
-            paddingHorizontal: 5,
-            paddingVertical: 4,
-            gap: 10,
-            backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
-            minHeight: 30,
-            minWidth: 63,
-            borderRadius: 30,
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row"
+          contentContainerStyle={{
+            paddingHorizontal: 14,
+            gap: 10
           }}
-        >
-          <Text
-            style={{
-              fontFamily: "Metropolis-Medium",
-              fontSize: 10,
-              color: Colors[colorScheme ?? "light"].buttonForeground
-            }}
-          >
-            See all
-          </Text>
-        </Pressable>
-
-      </View>
-
-      <FlatList
-        horizontal
-        data={TOPPICKS}
-        style={{
-          marginTop: 10
-        }}
-        contentContainerStyle={{
-          paddingHorizontal: 14,
-          gap: 10
-        }}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
-
-          <View
-            style={{
-              width: 150,
-              height: "auto",
-              gap: 10
-            }}
-          >
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
 
             <TouchableOpacity
               onPress={() => router.push(`/restaurants/${item.id}`)}
               activeOpacity={0.8}
+              style={{
+                width: 150,
+                height: "auto",
+                gap: 10
+              }}
             >
 
               <Image
-                source={item.poster}
+                source={item.imageUrl}
                 style={{
                   width: 150,
                   height: 200,
@@ -524,26 +342,19 @@ export default function HomeScreen () {
                 contentFit="cover"
               />
 
-            </TouchableOpacity>
-
-            <View
-              style={{
-                flexDirection: "column",
-                gap: 5
-              }}
-            >
-
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10
+                  flexDirection: "column",
+                  gap: 5
                 }}
               >
 
-                <TouchableOpacity
-                  onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
-                  activeOpacity={0.8}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
                 >
 
                   <Text
@@ -552,18 +363,178 @@ export default function HomeScreen () {
                       fontFamily: "Atelia"
                     }}
                   >
-                    {item.label}
+                    {item.name}
                   </Text>
 
-                </TouchableOpacity>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <StarIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {4.8}({"1.2k+"})
+                    </Text>
+
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <WatchIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {"12-15 min"}
+                    </Text>
+
+                  </View>
+
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardPrice
+                  }}
+                >
+                  {item.price}$
+                </Text>
 
               </View>
+
+            </TouchableOpacity>
+
+          )}
+        />
+
+        <View
+          style={{
+            marginTop: 30,
+            flexDirection: "row",
+            gap: 10,
+            justifyContent: "space-between",
+            paddingHorizontal: 20
+          }}
+        >
+
+          <Text
+            style={{
+              fontSize: 32,
+              lineHeight: 48,
+              fontFamily: "Atelia"
+            }}
+          >
+            QUICK DELIVERY
+          </Text>
+
+          <TouchableOpacity
+            style={{
+              paddingHorizontal: 5,
+              paddingVertical: 4,
+              gap: 10,
+              backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+              minHeight: 30,
+              minWidth: 63,
+              borderRadius: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row"
+            }}
+            activeOpacity={0.8}
+          >
+            <Text
+              style={{
+                fontFamily: "Metropolis-Medium",
+                fontSize: 10,
+                color: Colors[colorScheme ?? "light"].buttonForeground
+              }}
+            >
+              See all
+            </Text>
+          </TouchableOpacity>
+
+        </View>
+
+        <FlatList
+          horizontal
+          data={TOPPICKS}
+          style={{
+            marginTop: 10
+          }}
+          contentContainerStyle={{
+            paddingHorizontal: 14,
+            gap: 10
+          }}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+
+            <View
+              style={{
+                width: 150,
+                height: "auto",
+                gap: 10
+              }}
+            >
+
+              <TouchableOpacity
+                onPress={() => router.push(`/restaurants/${item.id}`)}
+                activeOpacity={0.8}
+              >
+
+                <Image
+                  source={item.poster}
+                  style={{
+                    width: 150,
+                    height: 200,
+                    borderRadius: 20
+                  }}
+                  contentFit="cover"
+                />
+
+              </TouchableOpacity>
 
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10
+                  flexDirection: "column",
+                  gap: 5
                 }}
               >
 
@@ -571,24 +542,25 @@ export default function HomeScreen () {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: 5
+                    gap: 10
                   }}
                 >
 
-                  <StarIcon
-                    color={Colors[colorScheme ?? "light"].cardIcon}
-                    size={10}
-                  />
-
-                  <Text
-                    style={{
-                      fontFamily: "Metropolis-Regular",
-                      fontSize: 8,
-                      color: Colors[colorScheme ?? "light"].cardSecondaryText
-                    }}
+                  <TouchableOpacity
+                    onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
+                    activeOpacity={0.8}
                   >
-                    {item.rating}({item.review_count})
-                  </Text>
+
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontFamily: "Atelia"
+                      }}
+                    >
+                      {item.label}
+                    </Text>
+
+                  </TouchableOpacity>
 
                 </View>
 
@@ -596,47 +568,269 @@ export default function HomeScreen () {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: 5
+                    gap: 10
                   }}
                 >
 
-                  <WatchIcon
-                    color={Colors[colorScheme ?? "light"].cardIcon}
-                    size={10}
-                  />
-
-                  <Text
+                  <View
                     style={{
-                      fontFamily: "Metropolis-Regular",
-                      fontSize: 8,
-                      color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
                     }}
                   >
-                    {item.estimated_time}
-                  </Text>
+
+                    <StarIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {item.rating}({item.review_count})
+                    </Text>
+
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <WatchIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {item.estimated_time}
+                    </Text>
+
+                  </View>
 
                 </View>
+
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardPrice
+                  }}
+                >
+                  {item.price}$
+                </Text>
 
               </View>
 
-              <Text
-                style={{
-                  fontSize: 28,
-                  fontFamily: "Atelia",
-                  color: Colors[colorScheme ?? "light"].cardPrice
-                }}
-              >
-                {item.price}$
-              </Text>
-
             </View>
 
-          </View>
+          )}
+        />
 
-        )}
-      />
+        <View
+          style={{
+            marginTop: 30,
+            flexDirection: "row",
+            gap: 10,
+            justifyContent: "space-between",
+            paddingHorizontal: 14
+          }}
+        >
 
-    </ScrollView>
+          <Text
+            style={{
+              fontFamily: "Atelia",
+              fontSize: 32
+            }}
+          >
+            NEAR YOU
+          </Text>
+
+        </View>
+
+        <FlatList
+          horizontal
+          data={restaurants}
+          style={{
+            marginTop: 20
+          }}
+          contentContainerStyle={{
+            paddingHorizontal: 14,
+            gap: 10
+          }}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+
+            <TouchableOpacity
+              key={item.id}
+              style={{
+                flexDirection: "column",
+                gap: 10,
+                alignItems: "center",
+                width: 100
+              }}
+              activeOpacity={0.8}
+              onPress={() => router.push(`/restaurants/${item.id}`)}
+            >
+
+              <Image
+                source={item.logoUrl}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 20,
+                  backgroundColor: Colors[colorScheme ?? "light"].logoBackground
+                }}
+                contentFit="cover"
+              />
+
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: "Metropolis-SemiBold",
+                  textAlign: "center"
+                }}
+              >
+                {item.name}
+              </Text>
+
+            </TouchableOpacity>
+
+          )}
+
+        />
+
+        <View
+          style={{
+            marginTop: 30,
+            flexDirection: "row",
+            gap: 10,
+            justifyContent: "space-between",
+            paddingHorizontal: 14
+          }}
+        >
+
+          <Text
+            style={{
+              fontFamily: "Atelia",
+              fontSize: 32
+            }}
+          >
+            FROM TOP RESTAURANTS
+          </Text>
+
+        </View>
+
+        <View
+          style={{
+            marginTop: 10,
+            padding: 14,
+            gap: 10
+          }}
+        >
+
+          {menuItems.slice(0, 5).map((item) => (
+
+            <TouchableOpacity
+              key={item.id}
+              style={{
+                flexDirection: "row",
+                gap: 10,
+                width: "100%"
+              }}
+              activeOpacity={0.8}
+              onPress={() => router.push(`/restaurants/${item.id}`)}
+            >
+
+              <Image
+                source={item.imageUrl}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 20,
+                  backgroundColor: Colors[colorScheme ?? "light"].logoBackground
+                }}
+                contentFit="cover"
+              />
+
+              <View
+                style={{
+                  flexDirection: "column",
+                  paddingVertical: 10,
+                  gap: 5,
+                  flex: 1
+                }}
+              >
+
+                <Text
+                  style={{
+                    fontFamily: "Atelia",
+                    fontSize: 18
+                  }}
+                >
+                  {item.name}
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardPrice
+                  }}
+                >
+                  {item.price}$
+                </Text>
+
+              </View>
+
+              <TouchableOpacity
+                style={{
+                  gap: 10,
+                  backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
+                  minHeight: 40,
+                  minWidth: 40,
+                  borderRadius: 40,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  marginVertical: "auto"
+                }}
+                activeOpacity={0.8}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Atelia",
+                    fontSize: 32,
+                    color: Colors[colorScheme ?? "light"].buttonForeground
+                  }}
+                >
+                  +
+                </Text>
+              </TouchableOpacity>
+
+            </TouchableOpacity>
+
+          ))}
+
+        </View>
+
+      </ScrollView>
+
+    </SafeAreaView>
 
   );
 

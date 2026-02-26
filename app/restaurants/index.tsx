@@ -1,417 +1,194 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Image } from "expo-image";
-import { FlatList, Pressable, ScrollView, StyleSheet, useColorScheme } from "react-native";
-import { ThemedView } from "@/components/themed-view";
-import { ThemedText } from "@/components/themed-text";
+import { Pressable, ScrollView, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { Colors } from "@/constants/theme";
-import { DishTileHorizontal } from "@/components/resturant/dish-tile-horizontal";
-import { DishTile } from "@/components/resturant/dish-tile";
+import { restaurants } from "@/data";
+import { SearchBar } from "@/components/search-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
 
-export default function ResturantScreen () {
+export default function RestaurantListScreen () {
 
   const colorScheme = useColorScheme();
 
   const router = useRouter();
 
+
   return (
 
-    <ScrollView>
+    <SafeAreaView
+      style={{
+        backgroundColor: Colors[colorScheme ?? "light"].background
+      }}
+    >
 
-      <Stack.Screen
-        options={{ headerShown: false }}
-      />
-
-      <ThemedView
-        style={styles.navigationContainer}
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 20
+        }}
+        showsVerticalScrollIndicator={false}
       >
 
-        <Pressable
-          style={styles.headerIconButton}
-          onPress={() => router.back()}
-        >
-
-          <IconSymbol
-            size={30}
-            color={Colors[colorScheme ?? "light"].icon}
-            name="chevron.left"
-            style={{
-              marginRight: 3
-            }}
-          />
-
-        </Pressable>
-
-        <ThemedView
-          style={{
-            flexDirection: "row",
-            backgroundColor: "transparent",
-            gap: 10
-          }}
-        >
-
-          <Pressable
-            style={styles.headerIconButton}
-          >
-
-            <IconSymbol
-              size={30}
-              color={Colors[colorScheme ?? "light"].icon}
-              name="magnifyingglass.circle"
-              style={{
-              }}
-            />
-
-          </Pressable>
-
-          <Pressable
-            style={styles.headerIconButton}
-          >
-
-            <IconSymbol
-              size={30}
-              color={Colors[colorScheme ?? "light"].icon}
-              name="heart"
-            />
-
-          </Pressable>
-
-          <Pressable
-            style={styles.headerIconButton}
-          >
-
-            <IconSymbol
-              size={30}
-              color={Colors[colorScheme ?? "light"].icon}
-              name="line.horizontal.3"
-            />
-
-          </Pressable>
-
-        </ThemedView>
-
-      </ThemedView>
-
-      <Image
-        source={resturant.poster}
-        style={styles.headerImage}
-        contentFit="cover"
-      />
-
-      <ThemedView
-        style={styles.content}
-      >
-
-        <Image
-          source={resturant.logo}
-          style={styles.resturantLogo}
-          contentFit="cover"
+        <Stack.Screen
+          options={{ headerShown: false }}
         />
 
-        <ThemedText
-          style={styles.title}
-          type="title"
-        >
-          {resturant.name}
-        </ThemedText>
-
-        <ThemedView
+        <View
           style={{
+            flex: 1,
             flexDirection: "row",
+            justifyContent: "space-between",
             gap: 10,
-            justifyContent: "space-evenly",
-            padding: 14
+            zIndex: 10,
+            padding: 14,
+            marginTop: 40,
+            width: "100%",
+            backgroundColor: "transparent"
           }}
         >
 
-          <ThemedView
+          <TouchableOpacity
             style={{
-              alignContent: "center",
-              justifyContent: "center"
+              borderRadius: 20,
+              width: 40,
+              height: 40,
+              backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+              justifyContent: "center",
+              alignItems: "center"
             }}
+            onPress={() => router.back()}
+            activeOpacity={0.7}
           >
 
-            <Pressable
+            <IconSymbol
+              size={30}
+              color={Colors[colorScheme ?? "light"].headerButtonForeground}
+              name="chevron.left"
               style={{
-                borderRadius: 20,
-                alignSelf: "center"
+                marginRight: 3
               }}
-            >
-
-              <IconSymbol
-                size={24}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="star"
-                style={{
-
-                }}
-              />
-
-            </Pressable>
-
-            <ThemedText
-              type="defaultSemiBold"
-              style={{
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              {resturant.rating}{" "}
-              ( {resturant.like_count} )
-            </ThemedText>
-
-            <ThemedText
-              type="defaultSemiBold"
-              style={{
-                textAlign: "center",
-                fontSize: 12
-              }}
-            >
-              {resturant.review_count}{" "}
-              reviews
-            </ThemedText>
-
-          </ThemedView>
-
-          <ThemedView
-            style={{
-              alignContent: "center",
-              justifyContent: "center"
-            }}
-          >
-
-            <ThemedText
-              type="defaultSemiBold"
-              style={{
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              ${resturant.delivery_fee}
-              {" "}
-              CAD
-            </ThemedText>
-
-            <ThemedText
-              type="defaultSemiBold"
-              style={{
-                fontSize: 12,
-                alignSelf: "center"
-              }}
-            >
-              Delivery fee
-            </ThemedText>
-
-          </ThemedView>
-
-          <ThemedView
-            style={{
-              alignContent: "center",
-              justifyContent: "center"
-            }}
-          >
-
-            <Pressable
-              style={{
-                borderRadius: 20,
-                alignSelf: "center"
-              }}
-            >
-
-              <IconSymbol
-                size={28}
-                color={Colors[colorScheme ?? "light"].icon}
-                name="clock.fill"
-              />
-
-            </Pressable>
-
-            <ThemedText
-              type="defaultSemiBold"
-              style={{
-                textAlign: "center",
-                fontSize: 12
-              }}
-            >
-              {resturant.estimated_time}
-            </ThemedText>
-
-          </ThemedView>
-
-        </ThemedView>
-
-        <ThemedView
-          style={[
-            styles.section,
-          ]}
-        >
-
-          <FlatList
-            horizontal
-            pagingEnabled
-            contentContainerStyle={{
-              paddingHorizontal: 14
-            }}
-            data={menu_sections}
-            renderItem={({ item }) => (
-              
-              <Pressable
-                style={
-                  ({ pressed }) => [
-                    styles.tabButton
-                  ]
-                }
-              >
-
-                <ThemedText
-                  type="defaultSemiBold"
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20
-                  }}
-                >
-                  {item}
-                </ThemedText>
-
-              </Pressable>
-
-            )}
-            ItemSeparatorComponent={() => <ThemedView style={{ width: 20 }} />}
-            showsHorizontalScrollIndicator={false}
-          />
-
-        </ThemedView>
-
-        <ThemedView
-          style={styles.section}
-        >
-
-          <ThemedText
-            type="title"
-            style={{
-              fontSize: 22,
-              paddingLeft: 14
-            }}
-          >
-            Offers
-          </ThemedText>
-
-          <FlatList
-            horizontal
-            pagingEnabled
-            contentContainerStyle={{
-              paddingHorizontal: 14
-            }}
-            data={dishes.filter(item => item.discount)}
-            renderItem={({ item }) => (
-
-              <DishTile
-                dish={item}
-              />
-
-            )}
-            ItemSeparatorComponent={() => <ThemedView style={{ width: 12 }} />}
-            showsHorizontalScrollIndicator={false}
-          />
-
-        </ThemedView>
-
-        <ThemedView
-          style={[
-            styles.section,
-            {
-              paddingHorizontal: 14
-            }
-          ]}
-        >
-
-          <ThemedText
-            type="title"
-            style={{
-              fontSize: 22
-            }}
-          >
-            Picked for you
-          </ThemedText>
-
-          {dishes.filter(item => item.discount).map((item, index) => (
-
-            <DishTileHorizontal
-              key={index}
-              dish={item}
             />
+
+          </TouchableOpacity>
+
+          <View
+            style={{
+              flexDirection: "row",
+              backgroundColor: "transparent",
+              gap: 10
+            }}
+          >
+
+            <Pressable
+              style={{
+                borderRadius: 20,
+                width: 40,
+                height: 40,
+                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+
+              <IconSymbol
+                size={30}
+                color={Colors[colorScheme ?? "light"].headerButtonForeground}
+                name="line.horizontal.3"
+              />
+
+            </Pressable>
+
+          </View>
+
+        </View>
+
+        <View
+          style={{
+            height: "auto",
+            marginTop: 14,
+            paddingHorizontal: 14
+          }}
+        >
+
+          <SearchBar
+          />
+
+        </View>
+
+        <View
+          style={{
+            flexDirection: "column",
+            gap: 20,
+            paddingHorizontal: 14
+          }}
+        >
+
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              gap: 10,
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+
+            <Text
+              style={{
+                fontFamily: "Atelia",
+                fontSize: 20
+              }}
+            >
+              Resturants
+            </Text>
+
+          </View>
+
+          {restaurants?.map((restaurant, restaurantIndex) => (
+
+            <TouchableOpacity
+              key={restaurantIndex}
+              style={{
+                flexDirection: "column",
+                gap: 10
+              }}
+              activeOpacity={0.8}
+              onPress={() => router.push(`/restaurants/${restaurant.id}`)}
+            >
+
+              <Image
+                source={restaurant.posterUrl}
+                style={{
+                  width: "100%",
+                  height: 150,
+                  borderRadius: 20,
+                  backgroundColor: Colors[colorScheme ?? "light"].logoBackground
+                }}
+                contentFit="cover"
+              />
+
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Metropolis-SemiBold"
+                }}
+              >
+                {restaurant.name}
+              </Text>
+
+            </TouchableOpacity>
 
           ))}
 
-        </ThemedView>
+        </View>
 
-      </ThemedView>
+      </ScrollView>
 
-    </ScrollView>
+    </SafeAreaView>
 
   );
 
 }
-
-
-
-const styles = StyleSheet.create({
-  navigationContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 10,
-    position: "absolute",
-    zIndex: 10,
-    padding: 14,
-    paddingTop: 34,
-    width: "100%",
-    backgroundColor: "transparent"
-  },
-  headerIconButton: {
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  title: {
-    marginLeft: 14,
-    fontSize: 24
-  },
-  headerImage: {
-    width: "100%",
-    height: 200
-  },
-  resturantLogo: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    backgroundColor: "white",
-    marginTop: -80,
-    marginLeft: 14
-  },
-  content: {
-    width: "100%",
-    height: "100%",
-    gap: 20
-  },
-  section: {
-    gap: 20
-  },
-  tabButton: {
-  },
-  offersContainer: {
-    paddingLeft: 14,
-    gap: 20
-  },
-  offersTileLabelContainer: {
-    flex: 1,
-    flexDirection: "row",
-    gap: 20,
-  }
-});
