@@ -133,8 +133,8 @@ export default function MenuSectionDetailScreen () {
 
     <SafeAreaView
       style={{
-        backgroundColor: Colors[colorScheme ?? "light"].background,
-        flex: 1
+        flex: 1,
+        backgroundColor: Colors[colorScheme ?? "light"].background
       }}
     >
 

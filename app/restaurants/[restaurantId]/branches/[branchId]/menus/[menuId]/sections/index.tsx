@@ -8,6 +8,7 @@ import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SearchBar } from "@/components/search-bar";
+import { menuSections } from "@/data";
 
 
 
@@ -115,6 +116,7 @@ export default function MenuSectionListScreen () {
 
     <SafeAreaView
       style={{
+        flex: 1,
         backgroundColor: Colors[colorScheme ?? "light"].background
       }}
     >

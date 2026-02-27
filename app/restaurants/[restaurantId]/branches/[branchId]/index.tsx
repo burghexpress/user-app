@@ -4,12 +4,13 @@ import { Image } from "expo-image";
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Colors } from "@/constants/theme";
-import { Menu, RestaurantBranch } from "@db-types";
+import { Menu, MenuItem, RestaurantBranch } from "@db-types";
 import { menuItems, menus, menuSections, restaurantBranches, restaurants } from "@/data";
 import { MagnifierIcon } from "@/components/icons/magnifier";
 import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 
 
@@ -22,6 +23,12 @@ export default function RestaurantBranchScreen () {
 
   const [resturantBranch, setResturantBranch] = useState<RestaurantBranch>();
   const [isFetchingRestaurantBranch, setIsFetchingRestaurantBranch] = useState(false);
+
+  const [newItems, setNewItems] = useState<MenuItem[]>();
+  const [isFetchingNewItems, setIsFetchingNewItems] = useState(false);
+
+  const [featuredItems, setFeaturedItems] = useState<MenuItem[]>();
+  const [isFetchingFeaturedItems, setIsFetchingFeaturedItems] = useState(false);
 
   const [restaurantMenus, setResaurantMenus] = useState<Menu[]>();
   const [isFetchingRestaurantMenus, setIsFetchingRestaurantMenus] = useState(false);
@@ -37,6 +44,8 @@ export default function RestaurantBranchScreen () {
   useEffect(() => {
     fetchRestaurantBranch();
     fetchRestaurantMenus();
+    fetchFeaturedItems();
+    fetchNewItems();
   }, []);
 
 
@@ -64,6 +73,40 @@ export default function RestaurantBranchScreen () {
     }
 
     setIsFetchingRestaurantMenus(false);
+  };
+
+
+
+  const fetchFeaturedItems = () => {
+    setIsFetchingFeaturedItems(true);
+
+    const foundFeaturedItems = menus.flatMap(menu => 
+      menuSections
+        .filter(ms => ms.menuId === menu.id)
+        .flatMap(ms => 
+          menuItems.filter(mi => mi.menuSectionId === ms.id)
+        )
+    );
+    setFeaturedItems(foundFeaturedItems);
+
+    setIsFetchingFeaturedItems(false);
+  };
+
+
+
+  const fetchNewItems = () => {
+    setIsFetchingNewItems(true);
+
+    const foundNewItems = menus.flatMap(menu => 
+      menuSections
+        .filter(ms => ms.menuId === menu.id)
+        .flatMap(ms => 
+          menuItems.filter(mi => mi.menuSectionId === ms.id && mi.isNew)
+        )
+    );
+    setNewItems(foundNewItems);
+
+    setIsFetchingNewItems(false);
   };
 
 
@@ -151,15 +194,17 @@ export default function RestaurantBranchScreen () {
 
   return (
 
-    <SafeAreaView
-      style={{
-        backgroundColor: Colors[colorScheme ?? "light"].background
-      }}
-    >
-
       <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 20
+        }}
+        style={{
+          backgroundColor: Colors[colorScheme ?? "light"].background
+        }}
         showsVerticalScrollIndicator={false}
       >
+
+        <StatusBar style="auto" />
 
         <Stack.Screen
           options={{ headerShown: false }}
@@ -171,10 +216,10 @@ export default function RestaurantBranchScreen () {
             flexDirection: "row",
             justifyContent: "space-between",
             gap: 10,
-            position: "absolute",
             zIndex: 10,
             padding: 14,
-            marginTop: 20,
+            marginTop: 30,
+            position: "absolute",
             width: "100%",
             backgroundColor: "transparent"
           }}
@@ -212,7 +257,7 @@ export default function RestaurantBranchScreen () {
             }}
           >
 
-            <Pressable
+            <TouchableOpacity
               style={{
                 borderRadius: 20,
                 width: 40,
@@ -221,6 +266,7 @@ export default function RestaurantBranchScreen () {
                 justifyContent: "center",
                 alignItems: "center"
               }}
+              activeOpacity={0.8}
             >
 
               <MagnifierIcon
@@ -228,9 +274,9 @@ export default function RestaurantBranchScreen () {
                 color={Colors[colorScheme ?? "light"].headerButtonForeground}
               />
 
-            </Pressable>
+            </TouchableOpacity>
 
-            <Pressable
+            <TouchableOpacity
               style={{
                 borderRadius: 20,
                 width: 40,
@@ -239,6 +285,7 @@ export default function RestaurantBranchScreen () {
                 justifyContent: "center",
                 alignItems: "center"
               }}
+              activeOpacity={0.8}
             >
 
               <IconSymbol
@@ -247,9 +294,9 @@ export default function RestaurantBranchScreen () {
                 name="heart"
               />
 
-            </Pressable>
+            </TouchableOpacity>
 
-            <Pressable
+            <TouchableOpacity
               style={{
                 borderRadius: 20,
                 width: 40,
@@ -258,6 +305,7 @@ export default function RestaurantBranchScreen () {
                 justifyContent: "center",
                 alignItems: "center"
               }}
+              activeOpacity={0.8}
             >
 
               <IconSymbol
@@ -266,7 +314,7 @@ export default function RestaurantBranchScreen () {
                 name="line.horizontal.3"
               />
 
-            </Pressable>
+            </TouchableOpacity>
 
           </View>
 
@@ -281,315 +329,488 @@ export default function RestaurantBranchScreen () {
           contentFit="cover"
         />
 
-        <View
+        <Text
           style={{
-            flexDirection: "column",
-            gap: 10
+            fontFamily: "Atelia",
+            fontSize: 22,
+            marginLeft: 14,
+            marginTop: 30,
+            textAlign: "center",
+            color: Colors[colorScheme ?? "light"].foreground
           }}
         >
+          {resturantBranch.name}
+        </Text>
 
-          <Image
-            source={resturantBranch.posterUrl}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 10,
-              padding: 10,
-              backgroundColor: Colors[colorScheme ?? "light"].logoBackground,
-              marginTop: -80,
-              marginLeft: 14
-            }}
-            contentFit="cover"
-          />
-
-          <Text
-            style={{
-              fontFamily: "Atelia",
-              fontSize: 22,
-              marginLeft: 14,
-              color: Colors[colorScheme ?? "light"].foreground
-            }}
-          >
-            {resturantBranch.name}
-          </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            gap: 10,
+            padding: 14
+          }}
+        >
 
           <View
             style={{
               flexDirection: "row",
-              gap: 10,
-              justifyContent: "space-evenly",
-              padding: 14
+              alignItems: "center",
+              gap: 4
             }}
           >
 
-            <View
+            <StarIcon
+              size={14}
+              color={Colors[colorScheme ?? "light"].icon}
+            />
+
+            <Text
               style={{
-                alignContent: "center",
-                justifyContent: "center"
+                fontFamily: "Metropolis-Light",
+                fontSize: 12,
+                color: Colors[colorScheme ?? "light"].foreground
               }}
             >
-
-              <Pressable
-                style={{
-                  borderRadius: 20,
-                  alignSelf: "center"
-                }}
-              >
-
-                <IconSymbol
-                  size={24}
-                  color={Colors[colorScheme ?? "light"].icon}
-                  name="star"
-                  style={{
-
-                  }}
-                />
-
-              </Pressable>
-
-              <Text
-                style={{
-                  fontFamily: "Metropolis-Light",
-                  fontSize: 12,
-                  alignSelf: "center",
-                  color: Colors[colorScheme ?? "light"].foreground
-                }}
-              >
-                {"rating"}{" "}
-                ( {"like count"} )
-              </Text>
-
-              <Text
-                style={{
-                  fontFamily: "Metropolis-Light",
-                  textAlign: "center",
-                  fontSize: 12,
-                  color: Colors[colorScheme ?? "light"].foreground
-                }}
-              >
-                {"review count"}{" "}
-                reviews
-              </Text>
-
-            </View>
-
-            <View
-              style={{
-                alignContent: "center",
-                justifyContent: "center"
-              }}
-            >
-
-              <Text
-                style={{
-                  fontFamily: "Metropolis-Light",
-                  fontSize: 12,
-                  alignSelf: "center",
-                  color: Colors[colorScheme ?? "light"].foreground
-                }}
-              >
-                {"Delivery fee"}$
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: 12,
-                  alignSelf: "center",
-                  color: Colors[colorScheme ?? "light"].foreground
-                }}
-              >
-                Delivery fee
-              </Text>
-
-            </View>
-
-            <View
-              style={{
-                alignContent: "center",
-                justifyContent: "center"
-              }}
-            >
-
-              <Pressable
-                style={{
-                  borderRadius: 20,
-                  alignSelf: "center"
-                }}
-              >
-
-                <IconSymbol
-                  size={28}
-                  color={Colors[colorScheme ?? "light"].icon}
-                  name="clock.fill"
-                />
-
-              </Pressable>
-
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 12,
-                  color: Colors[colorScheme ?? "light"].foreground
-                }}
-              >
-                {"estimated time"}
-              </Text>
-
-            </View>
+              {4.9}({1.3}k+)
+            </Text>
 
           </View>
 
           <View
             style={{
-              marginTop: 20,
-              paddingHorizontal: 14,
               flexDirection: "row",
-              gap: 10,
-              justifyContent: "space-between",
-              alignItems: "center"
+              alignContent: "center",
+              gap: 10
             }}
           >
 
             <Text
               style={{
-                fontFamily: "Atelia",
-                fontSize: 28,
-                  color: Colors[colorScheme ?? "light"].cardForeground
+                fontFamily: "Metropolis-Light",
+                fontSize: 12,
+                alignSelf: "center",
+                color: Colors[colorScheme ?? "light"].foreground
               }}
             >
-              Menus
+              ${2.1}{" "}
+              {"Delivery fee"}
             </Text>
-
-            <TouchableOpacity
-              style={{
-                paddingHorizontal: 5,
-                paddingVertical: 4,
-                gap: 10,
-                backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
-                minHeight: 30,
-                minWidth: 63,
-                borderRadius: 30,
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "row"
-              }}
-              activeOpacity={0.8}
-              onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus`)}
-            >
-              <Text
-                style={{
-                  fontFamily: "Metropolis-Medium",
-                  fontSize: 10,
-                  color: Colors[colorScheme ?? "light"].buttonForeground
-                }}
-              >
-                See all
-              </Text>
-            </TouchableOpacity>
 
           </View>
 
-          <FlatList
-            horizontal
-            pagingEnabled
-            contentContainerStyle={{
-              paddingHorizontal: 14,
-              gap: 10,
-              marginTop: 10
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 4
             }}
-            showsHorizontalScrollIndicator={false}
-            data={restaurantMenus}
-            renderItem={({ item }) => (
+          >
 
-              <TouchableOpacity
-                key={item.id}
-                activeOpacity={0.8}
-                onPress={() => setSelectedMenu(item.id)}
-                style={{
-                  paddingHorizontal: 10,
-                  paddingVertical: 4,
-                  backgroundColor: selectedMenu === item.id ? Colors[colorScheme ?? "light"].buttonBackground : undefined,
-                  minHeight: 30,
-                  minWidth: 63,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "row"
-                }}
-              >
-            
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: "Metropolis-SemiBold",
-                    color: selectedMenu === item.id ? Colors[colorScheme ?? "light"].buttonForeground : Colors[colorScheme ?? "light"].foreground
-                  }}
-                >
-                  {item.name}
-                </Text>
+            <WatchIcon
+              size={14}
+              color={Colors[colorScheme ?? "light"].icon}
+            />
 
-              </TouchableOpacity>
-
-            )}
-          />
-
-          {menuSections.filter(ms => ms.menuId === selectedMenu).map((menuSection) => (
-
-            <View
-              key={menuSection.id}
+            <Text
               style={{
-                flexDirection: "column",
-                gap: 30,
-                marginTop: 20
+                fontFamily: "Metropolis-Light",
+                textAlign: "center",
+                fontSize: 12,
+                color: Colors[colorScheme ?? "light"].foreground
+              }}
+            >
+              {"18 min"}
+            </Text>
+
+          </View>
+
+        </View>
+
+        <Text
+          style={{
+            fontSize: 24,
+            fontFamily: "Atelia",
+            marginLeft: 14,
+            marginTop: 30,
+            color: Colors[colorScheme ?? "light"].foreground
+          }}
+        >
+          Featured items
+        </Text>
+
+        <FlatList
+          horizontal
+          pagingEnabled
+          contentContainerStyle={{
+            paddingHorizontal: 14,
+            gap: 10,
+            marginTop: 20
+          }}
+          showsHorizontalScrollIndicator={false}
+          data={featuredItems}
+          renderItem={({ item }) => (
+
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus/sections/${item.menuSectionId}/items/${item.id}`)}
+              activeOpacity={0.8}
+              style={{
+                width: 200,
+                height: "auto",
+                gap: 10
               }}
             >
 
-              <Text
+              <Image
+                source={item.imageUrl}
                 style={{
-                  fontSize: 20,
-                  fontFamily: "Metropolis-SemiBold",
-                  marginLeft: 14,
-                  color: Colors[colorScheme ?? "light"].foreground
+                  width: 200,
+                  height: 150,
+                  borderRadius: 20
+                }}
+                contentFit="cover"
+              />
+
+              <View
+                style={{
+                  flexDirection: "column",
+                  gap: 5
                 }}
               >
-                {menuSection.name}
-              </Text>
 
-              <FlatList
-                horizontal
-                pagingEnabled
-                contentContainerStyle={{
-                  paddingHorizontal: 14,
-                  gap: 10
-                }}
-                showsHorizontalScrollIndicator={false}
-                data={menuItems.filter(mi => mi.menuSectionId === menuSection.id)}
-                renderItem={({ item }) => (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
 
-                  <TouchableOpacity
-                    key={item.id}
-                    onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus/${menuSection.menuId}/sections/${menuSection.id}/items/${item.id}`)}
-                    activeOpacity={0.8}
+                  <Text
                     style={{
-                      width: 200,
-                      height: "auto",
-                      gap: 10
+                      fontSize: 18,
+                      fontFamily: "Metropolis-Medium",
+                      color: Colors[colorScheme ?? "light"].cardForeground
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
                     }}
                   >
 
-                    <Image
-                      source={item.imageUrl}
-                      style={{
-                        width: 200,
-                        height: 150,
-                        borderRadius: 20
-                      }}
-                      contentFit="cover"
+                    <StarIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
                     />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {4.8}({313})
+                    </Text>
+
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <WatchIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {"14 mins"}
+                    </Text>
+
+                  </View>
+
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardPrice
+                  }}
+                >
+                  ${item.price}
+                </Text>
+
+              </View>
+
+            </TouchableOpacity>
+
+          )}
+        />
+
+        <Text
+          style={{
+            fontSize: 24,
+            fontFamily: "Atelia",
+            marginLeft: 14,
+            marginTop: 30,
+            color: Colors[colorScheme ?? "light"].foreground
+          }}
+        >
+          New
+        </Text>
+
+        <FlatList
+          horizontal
+          pagingEnabled
+          contentContainerStyle={{
+            paddingHorizontal: 14,
+            gap: 10
+          }}
+          showsHorizontalScrollIndicator={false}
+          data={newItems}
+          renderItem={({ item }) => (
+
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus/sections/${item.menuSectionId}/items/${item.id}`)}
+              activeOpacity={0.8}
+              style={{
+                width: 200,
+                height: "auto",
+                gap: 10
+              }}
+            >
+
+              <Image
+                source={item.imageUrl}
+                style={{
+                  width: 200,
+                  height: 150,
+                  borderRadius: 20
+                }}
+                contentFit="cover"
+              />
+
+              <View
+                style={{
+                  flexDirection: "column",
+                  gap: 5
+                }}
+              >
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
+
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontFamily: "Metropolis-Medium",
+                      color: Colors[colorScheme ?? "light"].cardForeground
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10
+                  }}
+                >
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <StarIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {4.8}({313})
+                    </Text>
+
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 5
+                    }}
+                  >
+
+                    <WatchIcon
+                      color={Colors[colorScheme ?? "light"].cardIcon}
+                      size={10}
+                    />
+
+                    <Text
+                      style={{
+                        fontFamily: "Metropolis-Regular",
+                        fontSize: 8,
+                        color: Colors[colorScheme ?? "light"].cardSecondaryText
+                      }}
+                    >
+                      {"14 mins"}
+                    </Text>
+
+                  </View>
+
+                </View>
+
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardPrice
+                  }}
+                >
+                  ${item.price}
+                </Text>
+
+              </View>
+
+            </TouchableOpacity>
+
+          )}
+        />
+
+        {menuSections.filter(ms => ms.menuId === selectedMenu).map((menuSection) => (
+
+          <View
+            key={menuSection.id}
+            style={{
+              flexDirection: "column",
+              gap: 30,
+              marginTop: 30
+            }}
+          >
+
+            <Text
+              style={{
+                fontSize: 26,
+                fontFamily: "Atelia",
+                marginLeft: 14,
+                color: Colors[colorScheme ?? "light"].foreground
+              }}
+            >
+              {menuSection.name}
+            </Text>
+
+            <FlatList
+              horizontal
+              pagingEnabled
+              contentContainerStyle={{
+                paddingHorizontal: 14,
+                gap: 10
+              }}
+              showsHorizontalScrollIndicator={false}
+              data={menuItems.filter(mi => mi.menuSectionId === menuSection.id)}
+              renderItem={({ item }) => (
+
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => router.push(`/restaurants/${restaurantId}/branches/${branchId}/menus/${menuSection.menuId}/sections/${menuSection.id}/items/${item.id}`)}
+                  activeOpacity={0.8}
+                  style={{
+                    width: 200,
+                    height: "auto",
+                    gap: 10
+                  }}
+                >
+
+                  <Image
+                    source={item.imageUrl}
+                    style={{
+                      width: 200,
+                      height: 150,
+                      borderRadius: 20
+                    }}
+                    contentFit="cover"
+                  />
+
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      gap: 5
+                    }}
+                  >
 
                     <View
                       style={{
-                        flexDirection: "column",
-                        gap: 5
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 10
+                      }}
+                    >
+
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontFamily: "Metropolis-Medium",
+                          color: Colors[colorScheme ?? "light"].cardForeground
+                        }}
+                      >
+                        {item.name}
+                      </Text>
+
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 10
                       }}
                     >
 
@@ -597,18 +818,23 @@ export default function RestaurantBranchScreen () {
                         style={{
                           flexDirection: "row",
                           alignItems: "center",
-                          gap: 10
+                          gap: 5
                         }}
                       >
 
+                        <StarIcon
+                          color={Colors[colorScheme ?? "light"].cardIcon}
+                          size={10}
+                        />
+
                         <Text
                           style={{
-                            fontSize: 18,
-                            fontFamily: "Metropolis-Medium",
-                            color: Colors[colorScheme ?? "light"].cardForeground
+                            fontFamily: "Metropolis-Regular",
+                            fontSize: 8,
+                            color: Colors[colorScheme ?? "light"].cardSecondaryText
                           }}
                         >
-                          {item.name}
+                          {4.8}({313})
                         </Text>
 
                       </View>
@@ -617,88 +843,52 @@ export default function RestaurantBranchScreen () {
                         style={{
                           flexDirection: "row",
                           alignItems: "center",
-                          gap: 10
+                          gap: 5
                         }}
                       >
 
-                        <View
+                        <WatchIcon
+                          color={Colors[colorScheme ?? "light"].cardIcon}
+                          size={10}
+                        />
+
+                        <Text
                           style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 5
+                            fontFamily: "Metropolis-Regular",
+                            fontSize: 8,
+                            color: Colors[colorScheme ?? "light"].cardSecondaryText
                           }}
                         >
-
-                          <StarIcon
-                            color={Colors[colorScheme ?? "light"].cardIcon}
-                            size={10}
-                          />
-
-                          <Text
-                            style={{
-                              fontFamily: "Metropolis-Regular",
-                              fontSize: 8,
-                              color: Colors[colorScheme ?? "light"].cardSecondaryText
-                            }}
-                          >
-                            {4.8}({313})
-                          </Text>
-
-                        </View>
-
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 5
-                          }}
-                        >
-
-                          <WatchIcon
-                            color={Colors[colorScheme ?? "light"].cardIcon}
-                            size={10}
-                          />
-
-                          <Text
-                            style={{
-                              fontFamily: "Metropolis-Regular",
-                              fontSize: 8,
-                              color: Colors[colorScheme ?? "light"].cardSecondaryText
-                            }}
-                          >
-                            {"14 mins"}
-                          </Text>
-
-                        </View>
+                          {"14 mins"}
+                        </Text>
 
                       </View>
 
-                      <Text
-                        style={{
-                          fontSize: 28,
-                          fontFamily: "Atelia",
-                          color: Colors[colorScheme ?? "light"].cardPrice
-                        }}
-                      >
-                        {item.price}$
-                      </Text>
-
                     </View>
 
-                  </TouchableOpacity>
+                    <Text
+                      style={{
+                        fontSize: 28,
+                        fontFamily: "Atelia",
+                        color: Colors[colorScheme ?? "light"].cardPrice
+                      }}
+                    >
+                      ${item.price}
+                    </Text>
 
-                )}
-              />
+                  </View>
 
-            </View>
+                </TouchableOpacity>
 
-          ))}
+              )}
+            />
 
-        </View>
+          </View>
+
+        ))}
 
       </ScrollView>
 
-    </SafeAreaView>
 
   );
 

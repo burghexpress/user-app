@@ -154,6 +154,7 @@ export default function RestaurantScreen () {
 
     <SafeAreaView
       style={{
+        flex: 1,
         backgroundColor: Colors[colorScheme ?? "light"].background
       }}
     >

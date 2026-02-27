@@ -7,8 +7,9 @@ import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
 import { SearchBar } from "@/components/search-bar";
 import { Restaurant } from "@db-types";
-import { cuisines, menuItems, restaurants } from "@/data";
+import { cuisines, menuItems, restaurantBranches, restaurants } from "@/data";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 
 
 
@@ -481,6 +482,7 @@ export default function HomeScreen () {
               flexDirection: "row"
             }}
             activeOpacity={0.8}
+            onPress={() => router.push(`/restaurants`)}
           >
             <Text
               style={{
@@ -497,7 +499,7 @@ export default function HomeScreen () {
 
         <FlatList
           horizontal
-          data={TOPPICKS}
+          data={restaurantBranches}
           style={{
             marginTop: 20
           }}
@@ -508,35 +510,78 @@ export default function HomeScreen () {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
 
-            <View
+            <TouchableOpacity
               style={{
-                width: 150,
+                flexDirection: "column",
                 height: "auto",
+                width: 200,
                 gap: 10
               }}
+              onPress={() => router.push(`/restaurants/${item.restaurantId}/branches/${item.id}`)}
+              activeOpacity={0.8}
             >
 
-              <TouchableOpacity
-                onPress={() => router.push(`/restaurants/${item.id}`)}
-                activeOpacity={0.8}
-              >
-
-                <Image
-                  source={item.poster}
-                  style={{
-                    width: 150,
-                    height: 200,
-                    borderRadius: 20
-                  }}
-                  contentFit="cover"
-                />
-
-              </TouchableOpacity>
+              <Image
+                source={item.posterUrl}
+                style={{
+                  width: 200,
+                  height: 150,
+                  borderRadius: 20
+                }}
+                contentFit="cover"
+              />
 
               <View
                 style={{
-                  flexDirection: "column",
-                  gap: 5
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 10
+                }}
+              >
+
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: "Atelia",
+                    color: Colors[colorScheme ?? "light"].cardForeground,
+                    flexShrink: 1
+                  }}
+                  numberOfLines={2}
+                  ellipsizeMode="tail"
+                >
+                  {item.name}
+                </Text>
+
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                >
+
+                  <IconSymbol
+                    size={24}
+                    color={Colors[colorScheme ?? "light"].headerButtonForeground}
+                    name="heart"
+                  />
+
+                </TouchableOpacity>
+
+              </View>
+
+              <Text
+                style={{
+                  fontFamily: "Metropolis-Regular",
+                  fontSize: 10,
+                  color: Colors[colorScheme ?? "light"].cardSecondaryText
+                }}
+              >
+                ${2} Delivery fee
+              </Text>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 10
                 }}
               >
 
@@ -544,26 +589,24 @@ export default function HomeScreen () {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: 10
+                    gap: 5
                   }}
                 >
 
-                  <TouchableOpacity
-                    onPress={() => router.push(`/restaurants/${item.restaurantId}`)}
-                    activeOpacity={0.8}
+                  <StarIcon
+                    color={Colors[colorScheme ?? "light"].cardIcon}
+                    size={10}
+                  />
+
+                  <Text
+                    style={{
+                      fontFamily: "Metropolis-Regular",
+                      fontSize: 8,
+                      color: Colors[colorScheme ?? "light"].cardSecondaryText
+                    }}
                   >
-
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontFamily: "Atelia",
-                        color: Colors[colorScheme ?? "light"].cardForeground
-                      }}
-                    >
-                      {item.label}
-                    </Text>
-
-                  </TouchableOpacity>
+                    {4.5}({2000}+)
+                  </Text>
 
                 </View>
 
@@ -571,75 +614,30 @@ export default function HomeScreen () {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: 10
+                    gap: 5
                   }}
                 >
 
-                  <View
+                  <WatchIcon
+                    color={Colors[colorScheme ?? "light"].cardIcon}
+                    size={10}
+                  />
+
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 5
+                      fontFamily: "Metropolis-Regular",
+                      fontSize: 8,
+                      color: Colors[colorScheme ?? "light"].cardSecondaryText
                     }}
                   >
-
-                    <StarIcon
-                      color={Colors[colorScheme ?? "light"].cardIcon}
-                      size={10}
-                    />
-
-                    <Text
-                      style={{
-                        fontFamily: "Metropolis-Regular",
-                        fontSize: 8,
-                        color: Colors[colorScheme ?? "light"].cardSecondaryText
-                      }}
-                    >
-                      {item.rating}({item.review_count})
-                    </Text>
-
-                  </View>
-
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 5
-                    }}
-                  >
-
-                    <WatchIcon
-                      color={Colors[colorScheme ?? "light"].cardIcon}
-                      size={10}
-                    />
-
-                    <Text
-                      style={{
-                        fontFamily: "Metropolis-Regular",
-                        fontSize: 8,
-                        color: Colors[colorScheme ?? "light"].cardSecondaryText
-                      }}
-                    >
-                      {item.estimated_time}
-                    </Text>
-
-                  </View>
+                    {"13-19 mins"}
+                  </Text>
 
                 </View>
 
-                <Text
-                  style={{
-                    fontSize: 28,
-                    fontFamily: "Atelia",
-                    color: Colors[colorScheme ?? "light"].cardPrice
-                  }}
-                >
-                  {item.price}$
-                </Text>
-
               </View>
 
-            </View>
+            </TouchableOpacity>
 
           )}
         />

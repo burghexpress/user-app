@@ -4,8 +4,8 @@ import { Image } from "expo-image";
 import { FlatList, ScrollView, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Colors } from "@/constants/theme";
-import { Menu, MenuSection } from "@db-types";
-import { menuItems, menus, menuSections, restaurantBranches } from "@/data";
+import { Menu } from "@db-types";
+import { menuItems, menus, menuSections } from "@/data";
 import { StarIcon } from "@/components/icons/star";
 import { WatchIcon } from "@/components/icons/watch";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -132,6 +132,7 @@ export default function MenuDetailScreen () {
 
     <SafeAreaView
       style={{
+        flex: 1,
         backgroundColor: Colors[colorScheme ?? "light"].background
       }}
     >
