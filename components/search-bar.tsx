@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/theme";
-import { Pressable, TextInput, TextInputChangeEvent, useColorScheme } from "react-native";
+import { TextInput, TouchableOpacity, useColorScheme } from "react-native";
 import { MagnifierIcon } from "./icons/magnifier";
 
 
@@ -24,7 +24,7 @@ export const SearchBar = (
 
   return (
 
-    <Pressable
+    <TouchableOpacity
       style={{
         flexDirection: "row",
         paddingHorizontal: 20,
@@ -36,15 +36,17 @@ export const SearchBar = (
         gap: 10
       }}
       onPress={onPress}
+      activeOpacity={0.9}
     >
 
-      <Pressable
+      <TouchableOpacity
         onPress={(e) => {
           if (onSearch) {
             e.preventDefault();
             onSearch();
           }
         }}
+        activeOpacity={0.8}
       >
 
         <MagnifierIcon
@@ -52,7 +54,7 @@ export const SearchBar = (
           color={Colors[colorScheme === "light" ? "dark" : "light"].searchBarIcon}
         />
 
-      </Pressable>
+      </TouchableOpacity>
 
       <TextInput
         placeholder={placeholder ?? "Search"}
@@ -65,9 +67,11 @@ export const SearchBar = (
         }}
         value={value}
         onChangeText={onChangeText}
+        returnKeyType="search"
+        onSubmitEditing={() => onSearch?.()}
       />
 
-    </Pressable>
+    </TouchableOpacity>
 
   );
 

@@ -31,9 +31,9 @@ export default function TabLayout () {
       />
 
       <Tabs.Screen
-        name="discover"
+        name="search"
         options={{
-          title: "Discover",
+          title: "Search",
           tabBarIcon: ({ color }) => <MagnifierIcon size={28} color={color} />
         }}
       />

@@ -216,7 +216,8 @@ export default function RestaurantScreen () {
             }}
           >
 
-            <Pressable
+            <TouchableOpacity
+              onPress={() => router.push(`/restaurants/${restaurantId}/search`)}
               style={{
                 borderRadius: 20,
                 width: 40,
@@ -225,6 +226,7 @@ export default function RestaurantScreen () {
                 justifyContent: "center",
                 alignItems: "center"
               }}
+              activeOpacity={0.8}
             >
 
               <MagnifierIcon
@@ -232,26 +234,7 @@ export default function RestaurantScreen () {
                 color={Colors[colorScheme ?? "light"].headerButtonForeground}
               />
 
-            </Pressable>
-
-            <Pressable
-              style={{
-                borderRadius: 20,
-                width: 40,
-                height: 40,
-                backgroundColor: Colors[colorScheme ?? "light"].headerButtonBackground,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-
-              <IconSymbol
-                size={30}
-                color={Colors[colorScheme ?? "light"].headerButtonForeground}
-                name="line.horizontal.3"
-              />
-
-            </Pressable>
+            </TouchableOpacity>
 
           </View>
 

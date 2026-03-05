@@ -30,6 +30,11 @@ export const Colors = {
     cardIcon: "#000000",
     cardPrice: "#EA0000",
 
+    filterBackground: "#8A9197",
+    filterForeground: "#FFF9E5",
+    activeFilterBackground: "#1E1E1E",
+    activeFilterForeground: "#FFF9E5",
+
     surfaceMuted: "#F6F7F9",
 
     surface: "#F2F3F5",
@@ -69,6 +74,11 @@ export const Colors = {
     cardSecondaryText: "#FFF9E5",
     cardIcon: "#FFF9E5",
     cardPrice: "#EA0000",
+
+    filterBackground: "#1C1F22",
+    filterForeground: "#FFF9E5",
+    activeFilterBackground: "#EA0000",
+    activeFilterForeground: "#FFF9E5",
 
     surfaceMuted: "#1C1F22",
 

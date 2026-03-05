@@ -43,7 +43,6 @@ export default function RestaurantBranchScreen () {
 
   useEffect(() => {
     fetchRestaurantBranch();
-    fetchRestaurantMenus();
     fetchFeaturedItems();
     fetchNewItems();
   }, []);
@@ -69,7 +68,7 @@ export default function RestaurantBranchScreen () {
     const foundResturantMenus = menus.filter(r => r.restaurantBranchId === parseInt(branchId));
     setResaurantMenus(foundResturantMenus);
     if (!selectedMenu) {
-      setSelectedMenu(foundResturantMenus[0].id);
+      setSelectedMenu(foundResturantMenus[0]?.id);
     }
 
     setIsFetchingRestaurantMenus(false);
