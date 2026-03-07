@@ -441,7 +441,6 @@ export default function RestaurantBranchScreen () {
 
         <FlatList
           horizontal
-          pagingEnabled
           contentContainerStyle={{
             paddingHorizontal: 14,
             gap: 10,
