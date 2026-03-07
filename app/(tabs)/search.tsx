@@ -1,4 +1,4 @@
-import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
+import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
 import { Colors } from "@/constants/theme";
 import { useEffect, useRef, useState } from "react";
 import { SearchBar } from "@/components/search-bar";
@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import { categories, menuItems, menus, menuSections, restaurantBranches, restaurants } from "@/data";
 import { Restaurant, RestaurantBranch } from "@db-types";
 import { RestaurantBranchTile } from "@/components/restaurant/branch-tile";
+import { Image } from "expo-image";
 
 
 

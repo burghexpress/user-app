@@ -1,4 +1,4 @@
-import { Address, Category, Cuisine, Menu, MenuItem, MenuSection, ModifierGroup, ModifierOption, Restaurant, RestaurantBranch, User } from "@db-types";
+import { Address, Cart, CartItem, Category, Cuisine, Menu, MenuItem, MenuSection, ModifierGroup, ModifierOption, Restaurant, RestaurantBranch, User } from "@db-types";
 
 
 
@@ -29,7 +29,7 @@ export const users: User[] = [
     createdAt: new Date("2023-05-15T10:30:00Z"),
     updatedAt: new Date("2025-02-20T14:45:00Z")
   }
-]
+];
 
 
 
@@ -94,7 +94,7 @@ export const restaurants: Restaurant[] = [
     createdAt: new Date("2023-05-15T10:30:00Z"),
     updatedAt: new Date("2025-02-20T14:45:00Z")
   }
-]
+];
 
 
 
@@ -1639,4 +1639,38 @@ const TOPPICKS = [
     categoryIds: [1, 5],
     isSpicy: true
   }
-]
+];
+
+
+
+export const carts: Cart[] = [
+  {
+    "id": 1,
+    "tax": 0.2,
+    "userId": 1,
+    "restaurantBranchId": 1,
+    "subtotal": 29,
+    "discountAmount": 1,
+    "deliveryFee": 2,
+    "totalAmount": 30.2,
+    "promoCodeId": null,
+    "serviceFee": 0,
+    "expiresAt": new Date("2026-03-07T20:00:00"),
+    "createdAt": new Date("2026-03-07T20:00:00"),
+    "updatedAt": new Date("2026-03-07T20:00:00")
+  }
+];
+
+
+
+export const cartItems: CartItem[] = [
+  {
+    "id": 1,
+    "cartId": 1,
+    "menuItemId": 1,
+    "quantity": 1,
+    "itemTotal": 3.17,
+    "specialInstructions": "",
+    "addedAt": new Date("2026-03-07T20:00:00")
+  }
+];

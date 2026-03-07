@@ -22,7 +22,7 @@ export const Colors = {
     buttonBackground: "#EA0000",
     buttonForeground: "#FFF9E5",
     inactiveButtonBackground: "#1E1E1E",
-    inactiveBUttonForeground: "#FFF9E5",
+    inactiveButtonForeground: "#FFF9E5",
 
     cardBackground: "#FFF9E5",
     cardForeground: "#1E1E1E",
@@ -67,7 +67,7 @@ export const Colors = {
     buttonBackground: "#EA0000",
     buttonForeground: "#FFF9E5",
     inactiveButtonBackground: "#FFFFFF",
-    inactiveBUttonForeground: "#1E1E1E",
+    inactiveButtonForeground: "#1E1E1E",
 
     cardBackground: "#1E1E1E",
     cardForeground: "#FFF9E5",
