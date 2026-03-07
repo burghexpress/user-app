@@ -156,8 +156,9 @@ export default function SearchScreen () {
           foundRestaurantBranches.map((item) =>
 
             <RestaurantBranchTile
+              key={item.id}
               restaurant={item}
-              height={"auto"}
+              height={"150"}
               width={"100%"}
               onPress={() => router.push(`/restaurants/${item.restaurantId}/branches/${item.id}`)}
             />

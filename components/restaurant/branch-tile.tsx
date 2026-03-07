@@ -27,7 +27,6 @@ export const RestaurantBranchTile = ({
     <TouchableOpacity
       style={{
         flexDirection: "column",
-        width: width,
         gap: 4
       }}
       onPress={onPress}

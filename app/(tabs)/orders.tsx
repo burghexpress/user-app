@@ -4,6 +4,7 @@ import { cartItems, carts, restaurantBranches } from "@/data";
 import { Cart } from "@db-types";
 import { Image } from "expo-image";
 import { ScrollView, Text, TouchableOpacity, useColorScheme, View } from "react-native";
+import { router } from "expo-router";
 
 
 
@@ -66,6 +67,7 @@ export default function OrdersScreen () {
               marginTop: 10
             }}
             activeOpacity={0.8}
+            onPress={() => router.push(`/carts/${userCart.id}`)}
           >
 
             <Image
