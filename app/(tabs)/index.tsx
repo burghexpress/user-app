@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
+import { ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
 import { Image } from "expo-image";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
@@ -20,7 +20,8 @@ export default function HomeScreen () {
 
     <SafeAreaView
       style={{
-        backgroundColor: Colors[colorScheme ?? "light"].background
+        backgroundColor: Colors[colorScheme ?? "light"].background,
+        flex: 1
       }}
     >
 
@@ -79,6 +80,7 @@ export default function HomeScreen () {
               flexDirection: "row"
             }}
             activeOpacity={0.8}
+            onPress={() => router.push(`/categories`)}
           >
             <Text
               style={{
