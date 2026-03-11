@@ -1,18 +1,39 @@
 import { Platform } from 'react-native';
 
 
-const tintColorLight = "#f08080";
-const tintColorDark = "#f08080";
-
 
 export const Colors = {
   light: {
     text: "#11181C",
-    background: "#fff",
-    tint: tintColorLight,
+    foreground: "#11181C",
+    background: "#FFF9E5",
+    tint: "#f08080",
 
-    buttonBackground: "#11181C",
-    buttonText: "#fff",
+    logoBackground: "#1E1E1E",
+
+    headerButtonBackground: "#1E1E1E",
+    headerButtonForeground: "#687076",
+
+    searchBarBackground: "#1E1E1E",
+    searchBarIcon: "#687076",
+    searchBarText: "#FFF9E5",
+    searchBarPlaceholder: "#687076",
+
+    buttonBackground: "#EA0000",
+    buttonForeground: "#FFF9E5",
+    inactiveButtonBackground: "#1E1E1E",
+    inactiveButtonForeground: "#FFF9E5",
+
+    cardBackground: "#FFF9E5",
+    cardForeground: "#1E1E1E",
+    cardSecondaryText: "#1E1E1E",
+    cardIcon: "#000000",
+    cardPrice: "#EA0000",
+
+    filterBackground: "#8A9197",
+    filterForeground: "#FFF9E5",
+    activeFilterBackground: "#1E1E1E",
+    activeFilterForeground: "#FFF9E5",
 
     surfaceMuted: "#F6F7F9",
 
@@ -25,15 +46,39 @@ export const Colors = {
     iconMuted: "#A1A6AB",
 
     tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
+    tabIconSelected: "#f08080",
   },
   dark: {
-    text: "#ECEDEE",
+    text: "#FFF9E5",
+    foreground: "#FFF9E5",
     background: "#151718",
-    tint: tintColorDark,
+    tint: "#f08080",
 
-    buttonBackground: "#ECEDEE",
-    buttonText: "#151718",
+    logoBackground: "#1E1E1E",
+
+    headerButtonBackground: "#1E1E1E",
+    headerButtonForeground: "#687076",
+
+    searchBarBackground: "#1E1E1E",
+    searchBarIcon: "#687076",
+    searchBarText: "#FFF9E5",
+    searchBarPlaceholder: "#687076",
+
+    buttonBackground: "#EA0000",
+    buttonForeground: "#FFF9E5",
+    inactiveButtonBackground: "#FFFFFF",
+    inactiveButtonForeground: "#1E1E1E",
+
+    cardBackground: "#1E1E1E",
+    cardForeground: "#FFF9E5",
+    cardSecondaryText: "#FFF9E5",
+    cardIcon: "#FFF9E5",
+    cardPrice: "#EA0000",
+
+    filterBackground: "#1C1F22",
+    filterForeground: "#FFF9E5",
+    activeFilterBackground: "#EA0000",
+    activeFilterForeground: "#FFF9E5",
 
     surfaceMuted: "#1C1F22",
 
@@ -42,11 +87,11 @@ export const Colors = {
 
     placeholder: "#9BA1A6",
 
-    icon: '#9BA1A6',
+    icon: "#fff9e5",
     iconMuted: "#8E959B",
 
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    tabIconDefault: "#9BA1A6",
+    tabIconSelected: "#f08080",
   },
 };
 

@@ -4,21 +4,13 @@ import { Image } from "expo-image";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useRouter } from "expo-router";
-import { Category, SAMPLE_CATEGORIES } from "./interface";
+import { Category } from "@db-types";
 
 
 
 export default function CategoryList () {
 
-  const [categories, useCategories] = useState<{
-    count: number;
-    results: Category[];
-    next?: string;
-    previous?: string;
-  }>({
-    count: SAMPLE_CATEGORIES.length,
-    results: SAMPLE_CATEGORIES
-  });
+  const [categories, setCategories] = useState<Category[]>();
 
   const colorScheme = useColorScheme();
 
@@ -44,7 +36,7 @@ export default function CategoryList () {
         }}
       >
 
-        {categories.results.map((category, categoryIndex) => (
+        {categories?.map((category, categoryIndex) => (
 
           <ThemedView
             key={categoryIndex}

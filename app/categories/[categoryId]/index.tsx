@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Pressable, ScrollView, useColorScheme } from "react-native";
+import { StyleSheet, Pressable, ScrollView, useColorScheme, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Category, SAMPLE_CATEGORIES } from "../interface";
 import { Stack } from "expo-router";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors } from "@/constants/theme";
@@ -69,7 +68,7 @@ export default function CategoryDetail () {
         }}
       >
 
-        <Pressable
+        <TouchableOpacity
           style={{
             borderRadius: 20,
             width: 40,
@@ -79,6 +78,7 @@ export default function CategoryDetail () {
             alignItems: "center"
           }}
           onPress={() => router.back()}
+          activeOpacity={0.7}
         >
 
           <IconSymbol
@@ -90,7 +90,7 @@ export default function CategoryDetail () {
             }}
           />
 
-        </Pressable>
+        </TouchableOpacity>
 
         <ThemedText
           type="title"
