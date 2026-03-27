@@ -2,8 +2,6 @@ import { Image } from "expo-image";
 import { DimensionValue, Text, TouchableOpacity, useColorScheme, View } from "react-native";
 import { Colors } from "@/constants/theme";
 import { Restaurant } from "@db-types";
-import { IconSymbol } from "../ui/icon-symbol";
-
 
 
 export const RestaurantTile = ({
@@ -26,7 +24,15 @@ export const RestaurantTile = ({
       style={{
         flexDirection: "row",
         gap: 10,
-        alignItems: "center"
+        alignItems: "center",
+        shadowColor: "#AEAEC0",
+        shadowOffset: {
+          width: 10,
+          height: 10
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 30,
+        elevation: 5
       }}
       onPress={onPress}
       activeOpacity={0.8}

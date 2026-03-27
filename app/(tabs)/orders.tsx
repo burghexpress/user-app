@@ -43,7 +43,7 @@ export default function OrdersScreen () {
         style={{
           marginTop: 70,
           paddingHorizontal: 14,
-          fontFamily: "Atelia",
+          fontFamily: "MetropolisBold",
           fontSize: 28,
           color: Colors[colorScheme ?? "light"].foreground
         }}

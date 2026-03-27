@@ -5,18 +5,24 @@ import { Platform } from 'react-native';
 export const Colors = {
   light: {
     text: "#11181C",
-    foreground: "#11181C",
-    background: "#FFF9E5",
+    foreground: "#1E1E1E",
+    background: "#F0F0F3",
     tint: "#f08080",
+
+    tabButtonForeground: "#A3ADB2",
+    tabButtonBackground: "#F0F0F3",
+    tabButtonForegroundActive: "#EA0000",
+
+    shadowColor: "#AEAEC08",
 
     logoBackground: "#1E1E1E",
 
     headerButtonBackground: "#1E1E1E",
     headerButtonForeground: "#687076",
 
-    searchBarBackground: "#1E1E1E",
-    searchBarIcon: "#687076",
-    searchBarText: "#FFF9E5",
+    searchBarBackground: "#F0F0F3",
+    searchBarIcon: "#1E1E1E",
+    searchBarText: "#1E1E1E",
     searchBarPlaceholder: "#687076",
 
     buttonBackground: "#EA0000",
@@ -54,14 +60,20 @@ export const Colors = {
     background: "#151718",
     tint: "#f08080",
 
+    tabButtonForeground: "#A3ADB2",
+    tabButtonBackground: "#F0F0F3",
+    tabButtonForegroundActive: "#EA0000",
+
+    shadowColor: "#AEAEC08",
+
     logoBackground: "#1E1E1E",
 
     headerButtonBackground: "#1E1E1E",
     headerButtonForeground: "#687076",
 
-    searchBarBackground: "#1E1E1E",
-    searchBarIcon: "#687076",
-    searchBarText: "#FFF9E5",
+    searchBarBackground: "#F0F0F3",
+    searchBarIcon: "#1E1E1E",
+    searchBarText: "#1E1E1E",
     searchBarPlaceholder: "#687076",
 
     buttonBackground: "#EA0000",

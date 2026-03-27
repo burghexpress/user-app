@@ -73,8 +73,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "3934c7dd-a9b5-41dd-b862-d8cf10a35c0f"
+        "projectId": "484888c9-b394-4829-a17e-2f9089e6f957"
       }
-    }
+    },
+    "owner": "burghexpress"
   }
 }

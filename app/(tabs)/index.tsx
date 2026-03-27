@@ -1,11 +1,20 @@
-import { ScrollView, FlatList, useColorScheme, TouchableOpacity, Text, View } from "react-native";
+import {
+  ScrollView,
+  FlatList,
+  useColorScheme,
+  TouchableOpacity,
+  Text,
+  View
+} from "react-native";
 import { Image } from "expo-image";
 import { Colors } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { SearchBar } from "@/components/search-bar";
 import { restaurantBranches, restaurants } from "@/data";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RestaurantBranchTile } from "@/components/restaurant/branch-tile";
+import {
+  RestaurantBranchTile
+} from "@/components/restaurant/branch-tile";
 
 
 
@@ -65,33 +74,6 @@ export default function HomeScreen () {
           >
             FEATURED
           </Text>
-
-          <TouchableOpacity
-            style={{
-              paddingHorizontal: 5,
-              paddingVertical: 4,
-              gap: 10,
-              backgroundColor: Colors[colorScheme ?? "light"].buttonBackground,
-              minHeight: 30,
-              minWidth: 63,
-              borderRadius: 30,
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row"
-            }}
-            activeOpacity={0.8}
-            onPress={() => router.push(`/categories`)}
-          >
-            <Text
-              style={{
-                fontFamily: "Metropolis-Medium",
-                fontSize: 10,
-                color: Colors[colorScheme ?? "light"].buttonForeground
-              }}
-            >
-              See all
-            </Text>
-          </TouchableOpacity>
 
         </View>
 

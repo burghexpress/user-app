@@ -3,7 +3,6 @@ import { ColorValue } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 
-
 export const MagnifierIcon = ({
   color,
   size
